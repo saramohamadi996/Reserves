@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fa',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'fa_IR',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +181,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Hekmatinasser\Verta\Laravel\VertaServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -195,6 +197,16 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Gym\Category\Providers\CategoryServiceProvider::class,
+        Gym\Dashboard\Providers\DashboardServiceProvider::class,
+        Gym\Service\Providers\ServiceServiceProvider::class,
+        Gym\User\Providers\UserServiceProvider::class,
+        Gym\Reserve\Providers\ReserveServiceProvider::class,
+        Gym\Card\Providers\CardServiceProvider::class,
+        Gym\Wallet\Providers\WalletServiceProvider::class,
+        Gym\PriceGroup\Providers\PriceGroupServiceProvider::class,
+        Gym\Sens\Providers\SensServiceProvider::class,
+        Gym\Common\Providers\CommonServiceProvider::class
     ],
 
     /*
@@ -211,5 +223,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+    'Verta' => Hekmatinasser\Verta\Verta::class,
 
 ];
