@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::group(["namespace" => "Gym\Reserve\Http\Controllers",
-    'middleware' => ['web']
+'middleware' => ['web']
 ], function ($router) {
     $router->post('orders/{order}/cancel', 'OrderController@cancel')->name('orders.cancel');
     $router->get('orders', 'OrderController@index')->name('orders.index');

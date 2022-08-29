@@ -31,7 +31,7 @@
                                                 <label class="form-check-label" for="">
                                                     <div class="form-group d-flex mb-2">
                                                         <button class="input-group-text fw-bold w-70px fs-13px me-1"  style="color: #3cd2a5">
-                                                            {{$user->pivot->id}}
+                                                            {{$user->pivot->status}}
                                                         </button>
                                                         <div class="input-group ms-auto">
                                                             <div class="input-group-text fw-bold w-250px fs-13px">

@@ -17,6 +17,6 @@
     </div>
 
 @include('Dashboard::Layout.foot')
-@include('sweetalert::alert')
+{{--@include('sweetalert::alert')--}}
 </body>
 </html>

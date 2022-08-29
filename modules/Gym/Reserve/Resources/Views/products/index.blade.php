@@ -38,7 +38,8 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>                        <div class="time col-1" id="time">00:00</div>
+                        </div>
+                        <div class="time col-1" id="time">00:00</div>
                         <div class="nav col-6">
                             <div class="nav-item me-1 col-3 p-0">
                                 <select class="livesearch form-control" id="user" name="livesearch"></select>
@@ -55,7 +56,7 @@
                             </div>
                             <div class="nav-item col-3 p-0">
                                 <div class="input-group mb-0">
-                                    <input type="text" value="{{verta()->formatDate()}}"
+                                    <input type="text" value="{{verta()->formatJalaliDate()}}"
                                            class="form-control"
                                            name="date" id="date-filter" autocomplete="off" placeholder="تاریخ شروع"/>
                                     <span class="input-group-text">
@@ -69,7 +70,8 @@
                         <div class="pos">
                             <div class="pos-container">
                                 <div class="pos-content h-100">
-                                    <div class="pos-content-container pe-1 ps-1" data-scrollbar="true" data-height="100%">
+                                    <div class="pos-content-container pe-1 ps-1" data-scrollbar="true"
+                                         data-height="100%">
                                         <div class="row gx-3" id="filters"></div>
                                     </div>
                                 </div>
@@ -154,11 +156,11 @@
         });
         $(function () {
             const urlParams = new URLSearchParams(window.location.search);
-            let date = urlParams.get('date') ?? @json(session('date')),
+            let date = urlParams.get('date') ?? @json(session('date')) ?? @json(today()->toDateString()),
                 user = urlParams.get('user') ?? @json(session('user')),
                 category = urlParams.get('category') ?? @json(session('category'));
             $("#user").val(user).trigger('change');
-            $("#date-filter").val("{{jdate(session('date'))->format('Y/m/d')}}").trigger('change');
+            $("#date-filter").val("{{verta(session('date'))->formatJalaliDate()}}").trigger('change').trigger("select");
             $("#category").val(category).trigger('change');
             getFilters(date, user);
             getCart(user);

@@ -17,9 +17,8 @@ Route::group(["namespace" => "Gym\Service\Http\Controllers",
 
 
     Route::get('services/{service}/edit', [ServiceController::class,'edit'])->name('services.edit');
-    Route::get('services/{service}/edit', [ServiceController::class,'update'])->name('services.update');
+    Route::post('services/{service}/edit', [ServiceController::class,'update'])->name('services.update');
 
-    Route::get('services/{service}/details', [ServiceController::class,'details'])->name('services.details');
     Route::get('services/{service}/details', [ServiceController::class,'details'])->name('services.details');
     Route::delete('services/{service}/destroy', [ServiceController::class,'destroy'])->name('services.destroy');
     Route::get('services/toggle/{service}/toggle', [ServiceController::class,'toggle'])->name('services.toggle');

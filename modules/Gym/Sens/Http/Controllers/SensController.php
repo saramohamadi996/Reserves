@@ -63,11 +63,14 @@ class SensController extends Controller
         $start_at = Carbon::parse($sens->start_at);
         $expire_at = Carbon::parse($sens->expire_at);
         $start = Carbon::parse($sens->start);
+        $end = Carbon::parse($sens->end);
         for ($date = $start_at; $date->lte($expire_at); $date->addDay()) {
             if (in_array($date->dayOfWeek, $sens->toArray()['day'])) {
                 $start_datetime = $date->copy()->addHours($start->hour)->addMinutes($start->minute);
+                $end_datetime = $date->copy()->addHours($end->hour)->addMinutes($end->minute);
                 $sens->reserves()->create([
-                    'start_time' => $start_datetime
+                    'start_time' => $start_datetime,
+                    'end_time' => $end_datetime,
                 ]);
             }
         }

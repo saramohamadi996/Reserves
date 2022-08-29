@@ -28,7 +28,7 @@ class OrderController extends Controller
                 'status' => 'pending'
             ]);
         }
-        return redirect()->action('Gym\Order\Http\Controllers\OrderController@show', ['user' => $user]);
+        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
     }
 
     public function show($user_id)
@@ -62,7 +62,7 @@ class OrderController extends Controller
             });
             $user->carts()->delete();
         }
-        return redirect()->action('Gym\Order\Http\Controllers\OrderController@detail', ['user' => $user]);
+        return redirect()->action([OrderController::class,'detail'], ['user' => $user]);
     }
 
     public function detail(User $user)

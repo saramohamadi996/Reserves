@@ -16,12 +16,12 @@ class Reserve extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'orders')->wherePivotIn('status',['pending','paid']);
+        return $this->belongsToMany(User::class, 'orders')->withPivot('status');
     }
 
-    public function getUsers()
+    public function paid_users()
     {
-        return $this->users();
+        return $this->users()->wherePivotIn('status',['pending','paid']);
     }
 
     public function orders()

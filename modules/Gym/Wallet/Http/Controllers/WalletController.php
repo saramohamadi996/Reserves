@@ -83,7 +83,7 @@ class WalletController extends Controller
     {
         $cards = Card::all();
         $userId =[];
-        $user = $this->user_repository->getById ($userId);
+        $user = $this->user_repository->getById($userId);
         $wallet = $this->wallet_repository->getById($wallet_id);
         return view('Wallet::edit', compact('wallet','cards', 'user'));
     }

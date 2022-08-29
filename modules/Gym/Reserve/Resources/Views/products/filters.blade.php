@@ -32,7 +32,7 @@
                                             الی
                                             {{jdate($sens->end)->format("H:i")}}
                                         </div>
-                                        <div class="time"> رزرو : ({{$reserve->getUsers->count()}} نفر)</div>
+                                        <div class="time"> رزرو : ({{$reserve->paid_users->count()}} نفر)</div>
                                         <div class="info"> ظرفیت : {{$sens->volume}} نفر</div>
 
 
@@ -41,7 +41,7 @@
                                         </div>
 
                                         <div class="booking">
-                                            @if( $reserve->getUsers->count() <= 0)
+                                            @if( $reserve->paid_users->count() <= 0)
                                                 <button
                                                     class="btn btn-outline-link detail" disabled
                                                     style="color: #3cd2a5">
@@ -60,9 +60,7 @@
                                         <input type="hidden" name="service_id" value="{{$service->id}}">
                                         @if($sens->volume <= $reserve->users->count())
                                             <button class="btn btn-outline-default pt-1 p-1" disabled>تکمیل</button>
-                                        @elseif($reserve->start_time <= \Carbon\Carbon::createFromDate())
-                                            <button class="btn btn-outline-default" disabled>رزرو</button>
-                                        @elseif($reserve->users->contains($user))
+                                        @elseif($reserve->users->contains($user) || $reserve->end_time <= now())
                                             <button class="btn btn-outline-default" disabled>رزرو</button>
                                         @else
                                             <button class="btn btn-outline-success"> رزرو</button>

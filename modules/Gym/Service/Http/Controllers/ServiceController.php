@@ -111,11 +111,10 @@ class ServiceController extends Controller
      */
     public function edit(int $service_id): View|Factory|Application
     {
-        dd($service_id);
         $id=[];
         $categories = $this->category_repository->getAll($id);
         $service = $this->service_repository->getById($service_id);
-        return view('Service::edit', compact('service', 'categories'));
+        return view('Service::Service.edit', compact('service', 'categories'));
     }
 
     /**

@@ -53,7 +53,8 @@ class ProductController extends Controller
         $html = view('Reserve::products.filters', compact('services', 'user', 'users', 'date'))->render();
         session(['date' => $date]);
         session(['user'=>$user]);
-        session(['category' => $request->category_id]);
+        if ($request->filled('category_id'))
+            session(['category' => $request->category_id]);
         return response()->json($html);
     }
 
