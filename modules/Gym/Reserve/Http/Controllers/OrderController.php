@@ -29,6 +29,9 @@ class OrderController extends Controller
             ]);
         }
         return redirect()->action([OrderController::class,'show'], ['user' => $user]);
+        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
+        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
+        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
     }
 
     public function show($user_id)
