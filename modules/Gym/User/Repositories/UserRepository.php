@@ -23,25 +23,16 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * paginate categories.
+     * returns all products.
+     * @param string|null $status
      * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function paginate(int $per_page = 20): LengthAwarePaginator
-    {
-        return $this->fetchQueryBuilder()->paginate();
-    }
-
-    /**
-     * returns all products.
-     * @param string|null $status
-     * @return LengthAwarePaginator
-     */
-    public function getAll(string $status = null): LengthAwarePaginator
+    public function getAll(string $status = null, int $per_page = 10): LengthAwarePaginator
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
-        return $query->latest()->paginate(20);
+        return $query->latest()->paginate(10);
     }
 
     /**
@@ -52,15 +43,6 @@ class UserRepository implements UserRepositoryInterface
     public function getById(int $id): Model|Collection|Builder|array|null
     {
         return $this->fetchQueryBuilder()->findOrFail($id);
-    }
-
-    /**
-     * @param $email
-     * @return Builder|Model|null
-     */
-    public function findByEmail($email): Model|Builder|null
-    {
-        return $this->fetchQueryBuilder()->where('email', $email)->first();
     }
 
     /**

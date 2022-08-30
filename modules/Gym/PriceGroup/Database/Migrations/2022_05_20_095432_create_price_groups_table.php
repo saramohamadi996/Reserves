@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->unsigned()->nullable();
             $table->string('title')->index();
             $table->integer('price')->index();
-            $table->boolean('is_enabled')->default('0');
+            $table->boolean('is_enabled')->default('1');
             $table->timestamps();
         });
     }

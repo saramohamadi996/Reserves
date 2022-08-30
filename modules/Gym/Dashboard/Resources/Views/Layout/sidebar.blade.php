@@ -1,4 +1,4 @@
-<div id="sidebar" class="app-sidebar">
+<div id="sidebar" class="app-sidebar mt-3">
     <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
         <div class="menu">
             <div class="menu-header">

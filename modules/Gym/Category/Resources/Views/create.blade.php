@@ -13,7 +13,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <div class="row row-space-10">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <label class="form-label"> نام دسته بندی </label>
                                 <input type="text" autocomplete="off" name="title"  value="{{ old('title') }}"
                                        class="form-control @error('title') is-invalid @enderror"/>
@@ -24,18 +24,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-6">
-                                <label class="form-label"> نامک دسته بندی </label>
-                                <input type="text" autocomplete="off" name="slug" value="{{ old('slug') }}"
-                                       class="form-control @error('slug') is-invalid @enderror"/>
-                                @error("slug")
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="mt-5 col-6">
+                            <div class="mt-3 col-6">
                                 <select name="parent_id" id="parent_id"
                                         class="form-select @error('parent_id') is-invalid @enderror">
                                     <option value="">دسته بندی اصلی</option>

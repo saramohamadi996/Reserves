@@ -20,10 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger('card_id');
             $table->string('amount', 10)->default(0);
             $table->string('description')->nullable();
-            $table->date('date_payment');
             $table->enum('type', ['credit', 'debit']);
-            $table->tinyInteger('status')->default(0)
+            $table->tinyInteger('status')->default('1')
                 ->comment('0=PENDING | 1=APPROVED | 2=REJECTED ');
+            $table->date('date_payment');
             $table->timestamps();
         });
     }

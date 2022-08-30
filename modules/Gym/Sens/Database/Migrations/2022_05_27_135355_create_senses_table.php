@@ -19,12 +19,12 @@ return new class extends Migration
             $table->unsignedBigInteger('price_group_id')->unsigned();
             $table->unsignedBigInteger('service_id')->unsigned();
             $table->string('volume')->default(1);
+            $table->boolean('is_enabled')->default('1');
             $table->json('day');
             $table->time('start');
             $table->time('end');
             $table->date('start_at');
             $table->date('expire_at');
-            $table->boolean('is_enabled')->default('0');
             $table->timestamps();
         });
     }

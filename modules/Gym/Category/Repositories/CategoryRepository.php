@@ -72,7 +72,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = new Category();
         $category->title = $value['title'];
-        $category->slug = Str::slug($value['slug']);
+//        $category->slug = Str::slug($value['slug']);
         $category->parent_id = $value['parent_id'];
         try {
             $category->save();

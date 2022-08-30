@@ -10,18 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 interface UserRepositoryInterface
 {
     /**
-     * paginate categories.
+     * returns all products.
+     * @param string|null $status
      * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function paginate(int $per_page = 20): LengthAwarePaginator;
-
-    /**
-     * returns all products.
-     * @param string|null $status
-     * @return LengthAwarePaginator
-     */
-    public function getAll(string $status = null):LengthAwarePaginator;
+    public function getAll(string $status = null, int $per_page = 10): LengthAwarePaginator;
 
     /**
      * find by id the record with the given id.
@@ -29,12 +23,6 @@ interface UserRepositoryInterface
      * @return Builder|Builder[]|Collection|Model|null
      */
     public function getById(int $id): Model|Collection|Builder|array|null;
-
-    /**
-     * @param $email
-     * @return Builder|Model|null
-     */
-    public function findByEmail($email): Model|Builder|null;
 
     /**
      * Update the specified resource in storage.

@@ -76,7 +76,6 @@ class WalletRepository implements WalletRepositoryInterface
         $wallet->amount = $value['amount'];
         $wallet->description = $value['description'];
         $wallet->date_payment = $value['date_payment'];
-        $wallet->status = 1;
         $wallet->save();
         try {
             $wallet->save();

@@ -4,6 +4,7 @@ namespace Gym\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Gym\User\Http\Requests\UpdateUserRequest;
+use Gym\User\Models\User;
 use Gym\User\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -26,6 +27,19 @@ class UserController extends Controller
     public function __construct(UserRepositoryInterface $user_repository)
     {
         $this->user_repository = $user_repository;
+    }
+
+    public function selectSearch(Request $request)
+    {
+        $users = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $users = User::select("id", "name", "mobile")
+                ->where('name', 'LIKE', "%$search%")
+                ->orWhere('mobile','LIKE','%'.(int)$search.'%')
+                ->get();
+        }
+        return response()->json($users);
     }
 
     /**

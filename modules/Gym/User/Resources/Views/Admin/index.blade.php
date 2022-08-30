@@ -1,16 +1,28 @@
 @extends('Dashboard::master')
 @section('content')
-
-    <div id="content" class="app-content">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-12">
+    <div class=" col-lg-10 ms-auto pe-lg-5 me-2 p-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card my-1 col-lg-12 p-3">
 
                             <div id="general" class="mb-5">
-                                <h4><i class="far fa-user fa-fw text-theme"></i>لیست کاربران</h4>
-                                <p>اطلاعات عمومی کاربران خود را مشاهده و به روز کنید.</p>
+                          <div class="d-lg-flex mb-3">
+
+                              <div class="col-lg-3 ms-lg-auto me-lg-auto">
+                                  <h4><i class="far fa-user fa-fw text-theme"></i>لیست کاربران</h4>
+                              </div>
+                              <div class="col-lg-3 ms-lg-auto me-lg-auto">
+                                  <div class="nav-item">
+                                      <select class="livesearch form-control" id="user" name="livesearch"></select>
+                                  </div>
+                              </div>
+                              <div class="col-lg-3 ms-lg-auto me-lg-auto">
+                                  <a href="{{url('/user_register')}}" class="btn btn-outline-theme">
+                                      <i class="fa fa-plus-circle me-1"></i>ثبت نام کاربر جدید</a>
+                              </div>
+                          </div>
                                 @foreach($users as $user)
                                     <div class="card my-1 col-lg-12">
                                         <div class="list-group list-group-flush">
@@ -76,19 +88,22 @@
                                                         ریال
                                                     </div>
                                                 </div>
+                                                <div class="d-flex text-break col-lg-2 text-lg-center py-2">
 
-                                                <div class=" ms-auto w-100px">
-                                                    <a href="{{route('wallets.create', $user->id)}}"
-                                                       class="btn btn-outline-theme">کیف پول</a>
-                                                </div>
+                                                    <div class="ms-auto w-auto">
+                                                        <a href="{{route('wallets.create', $user->id)}}"
+                                                           class="btn btn-outline-theme">ولت</a>
+                                                    </div>
 
-                                                <div class=" ms-auto w-100px">
-                                                    <a href="{{route('users.update', $user->id)}}"
-                                                       class="btn btn-outline-default">ویرایش</a>
+                                                    <div class="w-auto pe-1">
+                                                        <a href="{{route('users.update', $user->id)}}"
+                                                           class="btn btn-outline-default">ویرایش</a>
+                                                    </div>
                                                 </div>
 
                                             </div>
                                         </div>
+
                                         <div class="card-arrow">
                                             <div class="card-arrow-top-left"></div>
                                             <div class="card-arrow-top-right"></div>
@@ -99,14 +114,45 @@
                                 @endforeach
                             </div>
                             @include("User::Admin.pagiresult")
+
+
+                            <div class="card-arrow">
+                                <div class="card-arrow-top-left"></div>
+                                <div class="card-arrow-top-right"></div>
+                                <div class="card-arrow-bottom-left"></div>
+                                <div class="card-arrow-bottom-right"></div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
+@section('js')
+    <script type="text/javascript">
+        $('.livesearch').select2({
+            placeholder: 'انتخاب کاربر',
+            ajax: {
+                url: 'users/ajax-autocomplete-search',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
+@endsection
 
 
 

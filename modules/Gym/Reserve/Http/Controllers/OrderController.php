@@ -29,9 +29,6 @@ class OrderController extends Controller
             ]);
         }
         return redirect()->action([OrderController::class,'show'], ['user' => $user]);
-        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
-        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
-        return redirect()->action([OrderController::class,'show'], ['user' => $user]);
     }
 
     public function show($user_id)
@@ -54,7 +51,6 @@ class OrderController extends Controller
                 'admin_id' => auth()->id(),
                 'type' => 'debit',
                 'amount' => $orders->sum('reserve.sens.priceGroup.price'),
-                'status' => 1,
                 'date_payment' => now()->toDateString()
             ]);
             $orders->each(function (Order $order) {
@@ -83,7 +79,6 @@ class OrderController extends Controller
             'admin_id' => auth()->id(),
             'type' => 'credit',
             'amount' => $price,
-            'status' => 1,
             'date_payment' => now()->toDateString()
         ]);
         $order->update(['status' => 'canceled']);

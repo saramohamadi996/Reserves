@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('code_service')->nullable();
             $table->integer('priority')->nullable();
-            $table->boolean('is_enabled')->default('0');
+            $table->boolean('is_enabled')->default('1');
             $table->timestamps();
         });
     }

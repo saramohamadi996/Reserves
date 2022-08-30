@@ -25,7 +25,7 @@ class CategoryRequestStore extends FormRequest
     {
         return [
             'title' => 'required|string|min:3|max:190|unique:categories,title',
-            'slug' => 'required|string|min:3|max:190',
+//            'slug' => 'required|string|min:3|max:190',
             'parent_id' => 'nullable|exists:categories,id',
         ];
     }
@@ -37,7 +37,7 @@ class CategoryRequestStore extends FormRequest
     {
         return [
             'title' => 'عنوان',
-            'slug' => 'نامک',
+//            'slug' => 'نامک',
             'parent_id' => 'دسته بندی اصلی',
         ];
     }

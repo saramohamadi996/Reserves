@@ -23,6 +23,7 @@
         data-cf-settings="c5c0adc4f4089ee7793a577e-|49" defer=""></script>
 <script src="{{asset('assets/js/beacon.min.js')}}"></script>
 <script src="{{asset('assets/material-rtl-time-picker/mdtimepicker.js')}}"></script>
+<script src="{{asset('/assets/js/select2.min.js')}}"></script>
 
 
 <script>

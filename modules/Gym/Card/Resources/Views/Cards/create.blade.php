@@ -13,17 +13,6 @@
                         <div class="row row-space-10">
 
                             <div class="col-6">
-                                <label class="form-label">نام صاحب حساب </label>
-                                <input type="text" autocomplete="off" name="name_account_holder" value="{{ old('name_account_holder') }}"
-                                       class="form-control @error('name_account_holder') is-invalid @enderror"/>
-                                @error("name_account_holder")
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-6">
                                 <label class="form-label">نام بانک </label>
                                 <input type="text" autocomplete="off" name="bank_name" value="{{ old('bank_name') }}"
                                        class="form-control @error('bank_name') is-invalid @enderror"/>
@@ -35,6 +24,17 @@
                             </div>
 
                             <div class="col-6">
+                                <label class="form-label">نام صاحب حساب </label>
+                                <input type="text" autocomplete="off" name="name_account_holder" value="{{ old('name_account_holder') }}"
+                                       class="form-control @error('name_account_holder') is-invalid @enderror"/>
+                                @error("name_account_holder")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-6 mt-2">
                                 <label class="form-label"> شماره کارت بانکی </label>
                                 <img width="32px" id="img0" src="">
 

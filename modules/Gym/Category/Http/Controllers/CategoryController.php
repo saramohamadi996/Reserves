@@ -69,7 +69,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequestStore $request): RedirectResponse
     {
-        $input = $request->only('title', 'slug', 'parent_id');
+        $input = $request->only('title', 'parent_id');
         $categories = $this->category_repository->store($input);
         if (!$categories) {
             return redirect()->back()->with('error', 'عملیات ذخیره سازی با شکست مواجه شد.');

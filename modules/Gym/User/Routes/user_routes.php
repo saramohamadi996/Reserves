@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group([
     'namespace' => 'Gym\User\Http\Controllers',
     'middleware' => ['web', 'auth']
@@ -8,8 +10,9 @@ Route::group([
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
     Route::post('users/{user}/edit', 'UserController@update')->name('users.update');
     Route::delete('users/{user}/destroy', 'UserController@destroy')->name('users.destroy');
-    Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('users/ajax-autocomplete-search', 'UserController@selectSearch')->name('users.selectSearch');
 
+    Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/user_register', 'Auth\UserRegisterController@showRegistrationForm')->name('user_register');
     Route::post('/user_register', 'Auth\UserRegisterController@create')->name('user_register');
 });
