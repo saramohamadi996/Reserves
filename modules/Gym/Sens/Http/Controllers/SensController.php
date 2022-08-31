@@ -44,6 +44,15 @@ class SensController extends Controller
         return view('Sens::create', compact('service', 'price_groups'));
     }
 
+    public function edit($service_id, int $sens_id)
+    {
+        $price_groups = $this->price_group_repository->getAll();
+        $service = $this->service_repository->getById($service_id);
+        $sens = $this->sens_repository->getById($sens_id);
+        return view('Sens::edit', compact('service', 'price_groups','sens'));
+    }
+
+
     public function store($service_id, Request $value)
     {
         Service::where('id', $service_id)->first();
@@ -77,13 +86,5 @@ class SensController extends Controller
         return true;
     }
 
-//    public function store($service_id, Request $request)
-//    {
-//        $input = $request->all();
-//        $senses = $this->sens_repository->store($input,$service_id);
-//        if (!$senses) {
-//            return redirect()->back()->with('error', 'عملیات ذخیره سازی با شکست مواجه شد.');
-//        }
-//        return redirect()->route('services.details', $service_id);
-//    }
+
 }

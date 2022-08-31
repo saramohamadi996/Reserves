@@ -28,7 +28,7 @@
                                                 <th data-sortable="true">افزودن</th>
                                                 <th data-sortable="true">وضعیت</th>
                                                 <th data-sortable="true">ویرایش</th>
-                                                <th data-sortable="true">حذف</th>
+{{--                                                <th data-sortable="true">حذف</th>--}}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -59,16 +59,16 @@
                                                         <a href="{{route('services.update', $service->id)}}"
                                                            class="btn btn-outline-theme">ویرایش</a>
                                                     </td>
-                                                    <td>
-                                                        <form method="post"
-                                                              action="{{ route('services.destroy', $service->id) }}">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit"
-                                                                    class="btn btn-outline-danger m-b-xs">حذف
-                                                            </button>
-                                                        </form>
-                                                    </td>
+{{--                                                    <td>--}}
+{{--                                                        <form method="post"--}}
+{{--                                                              action="{{ route('services.destroy', $service->id) }}">--}}
+{{--                                                            @method('delete')--}}
+{{--                                                            @csrf--}}
+{{--                                                            <button type="submit"--}}
+{{--                                                                    class="btn btn-outline-danger m-b-xs">حذف--}}
+{{--                                                            </button>--}}
+{{--                                                        </form>--}}
+{{--                                                    </td>--}}
                                                 </tr>
                                             @endforeach
                                             </tbody>

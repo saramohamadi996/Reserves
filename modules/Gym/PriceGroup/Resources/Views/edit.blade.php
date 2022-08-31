@@ -27,7 +27,7 @@
                             <div class="col-6">
                                 <label class="form-label"> قیمت (ریال) </label>
                                 <input type="text" name="price" value="{{ $price_group->price }}"
-                                    class="form-control @error('price') is-invalid @enderror" />
+                                    class="form-control number @error('price') is-invalid @enderror" />
 
                                 @error('price')
                                     <span class="invalid-feedback" role="alert">
@@ -57,4 +57,15 @@
             </form>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>
+        $(document).on('keyup', '.number', function(e) {
+            $(this).val(function(index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            });
+        });
+    </script>
 @endsection

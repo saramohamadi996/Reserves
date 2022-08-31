@@ -13,7 +13,7 @@ class UserRegisterController extends Controller
 {
     /**
      * Create a new user instance after a valid registration.
-     * @param RegisterRequest $data
+     * @param UserRegisterRequest $data
      * @return RedirectResponse
      */
     public function create(UserRegisterRequest $data)
@@ -26,8 +26,6 @@ class UserRegisterController extends Controller
             'password' => 123456,
         ]);
         return redirect()->route('users.index', compact('users'));
-
-
     }
 
     public function showRegistrationForm()

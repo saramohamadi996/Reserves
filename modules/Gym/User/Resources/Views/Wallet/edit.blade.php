@@ -32,7 +32,8 @@
 
                             <div class="col-12 mt-2">
                                 <label class="form-label"> انتخاب تاریخ واریز </label>
-                                <input type="text" name="date_payment" id="date_payment" autocomplete="off" value="{{verta()->formatDate()}}"
+                                <input type="text" name="date_payment" id="date_payment" autocomplete="off"
+                                       value="{{verta()->formatDate()}}"
                                        class="form-control @error('date_payment') is-invalid @enderror"/>
                                 <input type="hidden" id="date_payment2" name="date_payment" value="{{today()}}">
                                 @error("start_at")
@@ -45,7 +46,7 @@
                             <div class="col-12 mt-2">
                                 <label class="form-label"> مبلغ شارژ </label>
                                 <input type="text" autocomplete="off" name="amount" value="{{$wallet->amount}}"
-                                       class="form-control" oninput="this.value=this.value.replace(/[^0-9\s]/g,'');"/>
+                                       class="form-control number"/>
                                 @error("amount")
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -97,11 +98,12 @@
             }
         });
 
-        $("#formattedNumberField").on('keyup', function(){
-            var n = parseInt($(this).val().replace(/\D/g,''),10);
-            $(this).val(n.toLocaleString());
-            //do something else as per updated question
-            myFunc(); //call another function too
+        $(document).on('keyup', '.number', function(e) {
+            $(this).val(function(index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            });
         });
     </script>
 @endsection

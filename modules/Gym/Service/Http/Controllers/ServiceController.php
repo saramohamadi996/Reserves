@@ -134,7 +134,6 @@ class ServiceController extends Controller
         return redirect()->route('services.index')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
     }
 
-
     public function details($id)
     {
         $service = Service::find($id);
@@ -142,20 +141,20 @@ class ServiceController extends Controller
         return view('Service::Service.details', compact('service', 'senses'));
     }
 
-//    /**
-//     * enable banner
-//     * @param int $id
-//     * @return RedirectResponse
-//     */
-//    public function toggle(int $id): RedirectResponse
-//    {
-//        $service = $this->service_repository->getById($id);
-//        $input = ['is_enabled' => !$service->is_enabled];
-//        $result = $this->service_repository->update($input, $service);
-//        if (!$result) {
-//            return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
-//        }
-//        return redirect()->back()->with('success', 'فعال شد');
-//    }
+    /**
+     * enable banner
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function toggle(int $id): RedirectResponse
+    {
+        $service = $this->service_repository->getById($id);
+        $input = ['is_enabled' => !$service->is_enabled];
+        $result = $this->service_repository->update($input, $service);
+        if (!$result) {
+            return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
+        }
+        return redirect()->back()->with('success', 'فعال شد');
+    }
 
 }

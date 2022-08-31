@@ -27,7 +27,7 @@
                                                 <th data-sortable="true">دسته بندی</th>
                                                 <th data-sortable="true">وضعیت</th>
                                                 <th data-sortable="true">ویرایش</th>
-                                                <th data-sortable="true">حذف</th>
+{{--                                                <th data-sortable="true">حذف</th>--}}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -35,7 +35,7 @@
                                                 <tr>
                                                     <td>{{$price_group->user->name}}</td>
                                                     <td>{{$price_group->title}}</td>
-                                                    <td>{{number_format($price_group->price)}}</td>
+                                                    <td>{{$price_group->price}}</td>
                                                     <td>{{$price_group->Category->title}}</td>
 
                                                     <td class="nav-item">
@@ -54,16 +54,16 @@
                                                         <a href="{{route('price_groups.update', $price_group->id)}}"
                                                            class="btn btn-outline-theme">ویرایش</a>
                                                     </td>
-                                                    <td>
-                                                        <form method="post"
-                                                              action="{{ route('price_groups.destroy', $price_group->id) }}">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit"
-                                                                    class="btn btn-outline-danger m-b-xs">حذف
-                                                            </button>
-                                                        </form>
-                                                    </td>
+{{--                                                    <td>--}}
+{{--                                                        <form method="post"--}}
+{{--                                                              action="{{ route('price_groups.destroy', $price_group->id) }}">--}}
+{{--                                                            @method('delete')--}}
+{{--                                                            @csrf--}}
+{{--                                                            <button type="submit"--}}
+{{--                                                                    class="btn btn-outline-danger m-b-xs">حذف--}}
+{{--                                                            </button>--}}
+{{--                                                        </form>--}}
+{{--                                                    </td>--}}
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -83,5 +83,4 @@
                 </div>
             </div>
         </div>
-
 @endsection
