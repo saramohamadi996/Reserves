@@ -15,9 +15,9 @@ use Gym\Sens\Repositories\SensRepository;
 use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
 use Gym\Service\Repositories\ServiceRepository;
 use Gym\User\Repositories\Interfaces\UserRepositoryInterface;
+use Gym\User\Repositories\Interfaces\WalletRepositoryInterface;
 use Gym\User\Repositories\UserRepository;
-use Gym\Wallet\Repositories\Interfaces\WalletRepositoryInterface;
-use Gym\Wallet\Repositories\WalletRepository;
+use Gym\User\Repositories\WalletRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 

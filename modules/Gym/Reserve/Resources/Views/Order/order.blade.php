@@ -20,7 +20,7 @@
 
                         <div class="flex-1">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-4 p-1">
                                     <div class="h6 mb-1">{{$order->service->title}}</div>
                                     <div class="small">
                                         شروع :
@@ -31,16 +31,14 @@
                                         {{jdate($order->reserve->sens->end)->format("H:i")}}
                                     </div>
                                     <div class="small">
+                                        تاریخ
                                         {{jdate($order->reserve->start_time)->format("Y/m/d")}}
                                     </div>
                                 </div>
-                                <div class="col-3 text-white fw-bold text-end">
+                                <div class="col-4 text-white fw-bold text-end">
                                     {{number_format($order->reserve->sens->priceGroup->price)}}
                                 </div>
-                                <div class="col-5">
-                                    ثبت :
-                                    {{jdate($order->created_at)->format("Y/m/d")}}
-                                </div>
+                                <div class="col-4">{{jdate($order->created_at)->format("Y/m/d")}}</div>
 
                             </div>
                         </div>

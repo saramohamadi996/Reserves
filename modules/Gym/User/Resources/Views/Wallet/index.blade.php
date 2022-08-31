@@ -32,36 +32,41 @@
                                             </thead>
                                             <tbody>
                                             @foreach($wallets as $wallet)
-                                                <tr>
-                                                    <td>{{$wallet->admin_id}}</td>
-                                                    <td>{{$wallet->user->name}}</td>
-                                                    <td>@lang($wallet->type)</td>
-                                                    <td>{{number_format($wallet->amount)}}
-                                                        ریال
-                                                    </td>
-                                                    <td>
-                                                        {{jdate($wallet->date_payment)->format("Y/m/d")}}
-                                                    </td>
-                                                    <td>{{$wallet->description}}
-                                                    </td>
-                                                    <td class="nav-item">
-                                                        <a class="nav-link active text-green"
-                                                           @if($wallet->status == 1)href="{{route('wallets.toggle',[$wallet->id])}}"
-                                                           disabled @endif
-                                                           href="{{route('wallets.toggle',[$wallet->id])}}">
-                                                            @if($wallet->status == 1)
-                                                                فعال
-                                                            @else
-                                                                <span class="text-warning">غیرفعال</span>
-                                                            @endif
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{route('wallets.update', $wallet->id)}}"
-                                                           class="btn btn-outline-theme">ویرایش</a>
-                                                    </td>
-                                                </tr>
+                                                @if($wallet->type == 'credit')
+                                                    <tr>
+                                                        <td>{{$wallet->admin_id}}</td>
+                                                        <td>{{$wallet->user->name}}</td>
+                                                        <td>
+                                                            @lang($wallet->type)
+                                                        </td>
+                                                        <td>{{number_format($wallet->amount)}}
+                                                            ریال
+                                                        </td>
+                                                        <td>
+                                                            {{jdate($wallet->date_payment)->format("Y/m/d")}}
+                                                        </td>
+                                                        <td>{{$wallet->description}}
+                                                        </td>
+                                                        <td class="nav-item">
+                                                            <a class="nav-link active text-green"
+                                                               @if($wallet->status == 1)href="{{route('wallets.toggle',[$wallet->id])}}"
+                                                               disabled @endif
+                                                               href="{{route('wallets.toggle',[$wallet->id])}}">
+                                                                @if($wallet->status == 1)
+                                                                    فعال
+                                                                @else
+                                                                    <span class="text-warning">غیرفعال</span>
+                                                                @endif
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{route('wallets.update', $wallet->id)}}"
+                                                               class="btn btn-outline-theme">ویرایش</a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>

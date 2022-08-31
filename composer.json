@@ -35,7 +35,6 @@
             "Gym\\User\\": "modules/Gym/User",
             "Gym\\Reserve\\": "modules/Gym/Reserve",
             "Gym\\Card\\": "modules/Gym/Card",
-            "Gym\\Wallet\\": "modules/Gym/Wallet",
             "Gym\\PriceGroup\\": "modules/Gym/PriceGroup",
             "Gym\\Sens\\": "modules/Gym/Sens",
             "Gym\\Common\\": "modules/Gym/Common"

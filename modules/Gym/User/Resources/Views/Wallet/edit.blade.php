@@ -1,10 +1,9 @@
-
 @extends('Dashboard::master')
 @section('content')
     <div class="ms-auto mx-lg-auto col-12 col-md-8 col-xl-5 p-3 p-md-5">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">  ویرایش کیف پول {{$wallet->user->name}} </h5>
+{{--                <h5 class="modal-title">  شارژ کیف پول {{$wallet->user->name}} </h5>--}}
                 <button href="{{route('wallets.index')}}" class="btn-close"></button>
             </div>
             <form action="{{ route('wallets.update', $wallet->id) }}" class="padding-30" method="post">
@@ -19,10 +18,11 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <div class="row row-space-10">
-                            <div class="col-6">
+                            <div class="col-12 mt-2">
                                 <label class="form-label"> نام کاربر </label>
-                                <input type="text" name="user_id" value="{{$wallet->user->name}}"
+                                <input type="text" autocomplete="off" value="{{$wallet->user->name}}"
                                        class="form-control"/>
+                                <input type="hidden" name="user_id" value="{{$wallet->user->id}}">
                                 @error("user_id")
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -30,9 +30,21 @@
                                 @enderror
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-12 mt-2">
+                                <label class="form-label"> انتخاب تاریخ واریز </label>
+                                <input type="text" name="date_payment" id="date_payment" autocomplete="off" value="{{verta()->formatDate()}}"
+                                       class="form-control @error('date_payment') is-invalid @enderror"/>
+                                <input type="hidden" id="date_payment2" name="date_payment" value="{{today()}}">
+                                @error("start_at")
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-12 mt-2">
                                 <label class="form-label"> مبلغ شارژ </label>
-                                <input type="text" name="amount" value="{{number_format($wallet->amount)}}"
+                                <input type="text" autocomplete="off" name="amount" value="{{$wallet->amount}}"
                                        class="form-control" oninput="this.value=this.value.replace(/[^0-9\s]/g,'');"/>
                                 @error("amount")
                                 <span class="invalid-feedback" role="alert">
@@ -41,22 +53,20 @@
                                 @enderror
                             </div>
 
-                            <div class="col-6 mt-2">
-                                <label class="form-label"> تاریخ </label>
-                                <input type="text" name="date_payment" id="expire_at" autocomplete="off"
-                                       value="{{jdate($wallet->date_payment)->format("Y/m/d")}}"
-                                       class="form-control @error('expire_at') is-invalid @enderror"/>
-                                <input type="hidden" id="expired_at2" name="expire_at" />
-                                @error("expire_at")
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            <div class="col-12 mt-2">
+                                <label class="form-label"> انتخاب کارت بانکی </label>
+                                <select name="card_id" class="form-select">
+                                    @foreach($cards as $card)
+                                        <option class="bg-gray-600" value="{{ $card->id }}"
+                                                @if($card->id == $card->card_id) selected @endif>
+                                            {{ $card->bank_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                            <div class="col-6 mt-2">
+                            <div class="col-12 mt-2">
                                 <label class="form-label"> توضیحات </label>
-                                <input type="text" name="description" value="{{$wallet->description}}"
+                                <input type="text" autocomplete="off" name="description" value="{{$wallet->description}}"
                                        class="form-control"/>
 
                                 @error("description")
@@ -64,17 +74,6 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>
-
-                            <div class="col-6 mt-3">
-                                <select name="card_id" id="cardId"
-                                        class="form-control @error('card_id') is-invalid @enderror">
-                                    @foreach ($cards as $card)
-                                        <option value="{{ $card->id }}"
-                                                @if ($card->id == $card->card_id) selected @endif>{{ $card->bank_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
                             </div>
 
                         </div>
@@ -89,16 +88,20 @@
     </div>
 @endsection
 @section('js')
-    <script>
-        $("#expire_at").persianDatepicker({
+    <script type="text/javascript">
+        $("#date_payment").persianDatepicker({
             formatDate: "YYYY/0M/0D",
             onSelect: () => {
-                let date = $("#expire_at").attr("data-gdate");
-                console.log(date);
-
-                $("#expired_at2").val(date);
+                let date = $("#date_payment").attr("data-gdate");
+                $("#date_payment2").val(date);
             }
+        });
+
+        $("#formattedNumberField").on('keyup', function(){
+            var n = parseInt($(this).val().replace(/\D/g,''),10);
+            $(this).val(n.toLocaleString());
+            //do something else as per updated question
+            myFunc(); //call another function too
         });
     </script>
 @endsection
-

@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Gym\Card\Models\Card;
 use Gym\Service\Models\Service;
 use Gym\User\Models\User;
-use Gym\Wallet\Models\Wallet;
+use Gym\User\Models\Wallet;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller

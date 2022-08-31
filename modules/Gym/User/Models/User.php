@@ -8,7 +8,6 @@ use Gym\Reserve\Models\Order;
 use Gym\Reserve\Models\Reserve;
 use Gym\Sens\Models\Sens;
 use Gym\Service\Models\Service;
-use Gym\Wallet\Models\Wallet;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Gym\Wallet\Repositories\Interfaces;
+namespace Gym\User\Repositories\Interfaces;
 
 use Gym\User\Models\User;
-use Gym\Wallet\Models\Wallet;
+use Gym\User\Models\Wallet;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -34,7 +34,7 @@ interface WalletRepositoryInterface
     /**
      * Store a newly created resource in storage.
      * @param $value
-     * @param User $user_id
+     * @param User $user
      * @return bool
      */
     public function store($value, User $user): bool;
@@ -42,9 +42,9 @@ interface WalletRepositoryInterface
     /**
      * Update the specified resource in storage.
      * @param array $value
-     * @param Wallet $percent
+     * @param Wallet $wallet
      * @return bool
      */
-    public function update(array $value, Wallet $percent): bool;
+    public function update(array $value, Wallet $wallet): bool;
 
 }

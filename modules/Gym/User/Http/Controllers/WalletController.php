@@ -1,15 +1,13 @@
 <?php
 
-namespace Gym\Wallet\Http\Controllers;
+namespace Gym\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Gym\Card\Models\Card;
-use Gym\Wallet\Http\Requests\WalletStoreRequest;
-use Gym\Wallet\Http\Requests\WalletUpdateRequest;
+use Gym\User\Http\Requests\WalletUpdateRequest;
 use Gym\User\Models\User;
-use Gym\Wallet\Models\Wallet;
 use Gym\User\Repositories\Interfaces\UserRepositoryInterface;
-use Gym\Wallet\Repositories\Interfaces\WalletRepositoryInterface;
+use Gym\User\Repositories\Interfaces\WalletRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -45,14 +43,14 @@ class WalletController extends Controller
     public function index(): View|Factory|Application
     {
         $wallets = $this->wallet_repository->getAll();
-        return view('Wallet::index', compact('wallets'));
+        return view('User::Wallet.index', compact('wallets'));
     }
 
     public function create(int $id)
     {
         $user = $this->user_repository->getById($id);
         $cards = Card::all();
-        return view('Wallet::create', compact( 'user', 'cards'));
+        return view('User::Wallet.create', compact( 'user', 'cards'));
     }
 
     /**
@@ -77,15 +75,15 @@ class WalletController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @param int $wallet_id
+     * @param User $id
      * @return Application|Factory|View
      */
-    public function edit(int $wallet_id): View|Factory|Application
+    public function edit(int $wallet_id, User $id): View|Factory|Application
     {
         $cards = Card::all();
-        $userId =[];
-        $user = $this->user_repository->getById($userId);
+        $user = User::findOrFail($id);
         $wallet = $this->wallet_repository->getById($wallet_id);
-        return view('Wallet::edit', compact('wallet','cards', 'user'));
+        return view('User::Wallet.edit', compact('wallet','cards', 'user'));
     }
 
     /**
@@ -102,7 +100,7 @@ class WalletController extends Controller
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
         }
-        return redirect()->route('Wallet.index')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
+        return redirect()->route('wallets.index')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
     }
 
 

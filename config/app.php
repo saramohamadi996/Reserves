@@ -203,7 +203,6 @@ return [
         Gym\User\Providers\UserServiceProvider::class,
         Gym\Reserve\Providers\ReserveServiceProvider::class,
         Gym\Card\Providers\CardServiceProvider::class,
-        Gym\Wallet\Providers\WalletServiceProvider::class,
         Gym\PriceGroup\Providers\PriceGroupServiceProvider::class,
         Gym\Sens\Providers\SensServiceProvider::class,
         Gym\Common\Providers\CommonServiceProvider::class

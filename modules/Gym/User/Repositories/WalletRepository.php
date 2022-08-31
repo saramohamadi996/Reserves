@@ -1,10 +1,10 @@
 <?php
 
-namespace Gym\Wallet\Repositories;
+namespace Gym\User\Repositories;
 
 use Gym\User\Models\User;
-use Gym\Wallet\Models\Wallet;
-use Gym\Wallet\Repositories\Interfaces\WalletRepositoryInterface;
+use Gym\User\Models\Wallet;
+use Gym\User\Repositories\Interfaces\WalletRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -63,7 +63,7 @@ class WalletRepository implements WalletRepositoryInterface
     /**
      * Store a newly created resource in storage.
      * @param $value
-     * @param User $user_id
+     * @param User $user
      * @return bool
      */
     public function store($value, User $user): bool
@@ -94,18 +94,14 @@ class WalletRepository implements WalletRepositoryInterface
      */
     public function update(array $value, Wallet $wallet): bool
     {
-
         if (isset($value['admin_id'])) {
             $wallet->admin_id = auth()->id();
-        }
-        if (isset($value['user_id'])) {
-            $wallet->user_id = $value['user_id'];
         }
         if (isset($value['status'])) {
             $wallet->status = $value['status'];
         }
         if (isset($value['type'])) {
-            $wallet->type = $value['type'];
+            $wallet->type = $value['credit'];
         }
         if (isset($value['amount'])) {
             $wallet->amount = $value['amount'];
@@ -113,8 +109,8 @@ class WalletRepository implements WalletRepositoryInterface
         if (isset($value['description'])) {
             $wallet->description = $value['description'];
         }
-        if (isset($value['status'])) {
-            $wallet->status = $value['status'];
+        if (isset($value['date_payment'])) {
+            $wallet->date_payment = $value['date_payment'];
         }
         try {
             $wallet->save();

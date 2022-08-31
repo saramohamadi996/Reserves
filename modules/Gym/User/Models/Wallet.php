@@ -1,9 +1,8 @@
 <?php
 
-namespace Gym\Wallet\Models;
+namespace Gym\User\Models;
 
 use Gym\Card\Models\Card;
-use Gym\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

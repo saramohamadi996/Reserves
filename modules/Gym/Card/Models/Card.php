@@ -2,7 +2,7 @@
 
 namespace Gym\Card\Models;
 
-use Gym\Wallet\Models\Wallet;
+use Gym\User\Models\Wallet;
 use Illuminate\Database\Eloquent\Model;
 
 /**

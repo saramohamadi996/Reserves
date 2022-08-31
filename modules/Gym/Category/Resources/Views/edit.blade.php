@@ -17,7 +17,6 @@
                     <div class="mb-3">
                         <div class="row row-space-10">
 
-
                             <div class="col-6">
                                 <label class="form-label"> نام دسته بندی </label>
                                 <input type="text" name="title" value="{{ $category->title }}"

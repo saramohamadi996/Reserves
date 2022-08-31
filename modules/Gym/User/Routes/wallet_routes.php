@@ -1,7 +1,7 @@
 <?php
 
-Route::group(["namespace" => "Gym\Wallet\Http\Controllers",
-    'middleware' => ['web', 'auth']
+Route::group(["namespace" => "Gym\User\Http\Controllers",
+    'middleware' => ['web']
 ], function ($router) {
     $router->get('wallets/toggle/{wallet}/toggle', 'WalletController@toggle')->name('wallets.toggle');
     $router->get('wallets', 'WalletController@index')->name('wallets.index');

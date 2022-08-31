@@ -1,10 +1,10 @@
 <?php
 
-namespace Gym\Wallet\Http\Requests;
+namespace Gym\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WalletUpdateRequest extends FormRequest
+class WalletStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,13 +14,11 @@ class WalletUpdateRequest extends FormRequest
     public function rules()
     {
         $rules = [
-
-            "admin_id" => ['nullable', 'exists:users,id'],
-            "user_id" => ['nullable', 'exists:users,id'],
-            "card_id" => 'nullable|exists:cards,id',
-            "amount" => 'nullable|numeric|min:0|max:1000000000',
+            "user_id" => ['required', 'exists:users,id'],
+            "card_id" => 'required|exists:cards,id',
+            "amount" => 'required|numeric|min:0|max:1000000000',
             "description" => 'nullable|min:3|max:190',
-            'date_payment'=> 'nullable|date|date_format:Y/m/d',
+            'date_payment'=> 'nullable',
         ];
         return $rules;
     }

@@ -23,11 +23,11 @@
                                 </span>
                                 @enderror
                             </div>
-
+{{--                            oninput="this.value=this.value.replace(/[^0-9\s]/g,'');"--}}
                             <div class="col-6">
                                 <label class="form-label"> قیمت (ریال) </label>
                                 <input type="text" autocomplete="off" name="price" value="{{ old('price') }}"
-                                       class="form-control" oninput="this.value=this.value.replace(/[^0-9\s]/g,'');"/>
+                                       class="form-control number" />
                             </div>
 
                             <div class="col-6 mt-3">
@@ -51,4 +51,15 @@
             </form>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>
+        $(document).on('keyup', '.number', function(e) {
+            $(this).val(function(index, value) {
+                return value
+                    .replace(/\D/g, "")
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            });
+        });
+    </script>
 @endsection
