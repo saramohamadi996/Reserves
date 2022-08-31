@@ -84,9 +84,9 @@
                         <label class="form-label"> قیمت </label>
                         <select name="price_group_id" id="price_group_id"
                                 class="form-select @error('price_group_id') is-invalid @enderror">
-                                @foreach($price_groups as $price_group)
+                            @foreach($price_groups as $price_group)
                                 <option class="bg-gray-600" value="{{ $price_group->id }}"
-                                    @if($price_group->id == $price_group->title) selected @endif>
+                                        @if($price_group->id == $price_group->title) selected @endif>
                                     {{ $price_group->title }}
                                 </option>
                             @endforeach
@@ -99,29 +99,24 @@
 
                         <input name="day[]" class="form-check-input me-2 mb-3 select_all" type="checkbox">انتخاب همه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst"
-                               type="checkbox" name="day[]" value="0"/>شنبه
+                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]"
+                               value="0"/>شنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst"
-                               type="checkbox" name="day[]" value="1"/>یکشنبه
+                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="1"/>یکشنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst"
-                               type="checkbox" name="day[]" value="2"/>دوشنبه
+                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="2"/>دوشنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst"
-                               type="checkbox" name="day[]" value="3"/>سه شنبه
+                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="3"/>سه
+                        شنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst"
-                               type="checkbox" name="day[]" value="4"/>چهارشنبه
+                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="4"/>چهارشنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst"
-                               type="checkbox" name="day[]" value="5"/>پنج شنبه
+                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="5"/>پنج
+                        شنبه
                         <br>
-                        <input class="form-check-input me-2 mb-3 checkbox gst border-red"
-                               type="checkbox" name="day[]" value="6"/>
-                        <span class="text-red">
-                            جمعه
-                        </span>
+                        <input class="form-check-input me-2 mb-3 checkbox gst border-red" type="checkbox" name="day[]"
+                               value="6"/>
+                        <span class="text-red">جمعه</span>
                     </div>
                 </div>
 
