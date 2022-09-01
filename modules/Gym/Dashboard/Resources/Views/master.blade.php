@@ -4,6 +4,7 @@
 <body>
 <div id="app" class="app app-full-height app-without-header mt-5">
     @include('Dashboard::Layout.header')
+
     @include('Dashboard::Layout.sidebar')
     <button class="app-sidebar-mobile-backdrop" data-toggle-target=".app"
             data-toggle-class="app-sidebar-mobile-toggled"></button>

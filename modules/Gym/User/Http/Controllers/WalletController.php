@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Gym\Card\Models\Card;
 use Gym\User\Http\Requests\WalletUpdateRequest;
 use Gym\User\Models\User;
+use Gym\User\Models\Wallet;
 use Gym\User\Repositories\Interfaces\UserRepositoryInterface;
 use Gym\User\Repositories\Interfaces\WalletRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
@@ -42,7 +43,7 @@ class WalletController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $wallets = $this->wallet_repository->getAll();
+        $wallets = Wallet::with('admin')->get();
         return view('User::Wallet.index', compact('wallets'));
     }
 

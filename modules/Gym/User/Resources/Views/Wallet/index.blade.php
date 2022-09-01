@@ -34,7 +34,7 @@
                                             @foreach($wallets as $wallet)
                                                 @if($wallet->type == 'credit')
                                                     <tr>
-                                                        <td>{{$wallet->admin_id}}</td>
+                                                        <td>{{$wallet->admin->name}}</td>
                                                         <td>{{$wallet->user->name}}</td>
                                                         <td>
                                                             @lang($wallet->type)

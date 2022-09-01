@@ -24,5 +24,10 @@ class Wallet extends Model
         return $this->belongsTo(Card::class);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(User::class,'admin_id');
+    }
+
 
 }

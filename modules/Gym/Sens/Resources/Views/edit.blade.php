@@ -99,7 +99,7 @@
 
                         <input name="day[]" class="form-check-input me-2 mb-3 select_all" type="checkbox">انتخاب همه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]"
+                        <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(0)) checked @endif type="checkbox" name="day[]"
                                value="0"/>شنبه
                         <br>
                         <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="1"/>یکشنبه
