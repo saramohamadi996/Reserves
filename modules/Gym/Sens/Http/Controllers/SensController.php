@@ -72,13 +72,9 @@ class SensController extends Controller
      */
     public function store($service_id, Request $value): RedirectResponse
     {
-        Service::where('id', $service_id)->first();
         $sens = Sens::query()->create([
-                'start_at' => $value['start_at'],
-                'expire_at' => $value['expire_at'],
                 'service_id' => $service_id,
                 'user_id' => auth()->id(),
-                'price_group_id' => $value['price_group_id'],
             ] + $value->all());
         $this->createReserves($sens);
         return redirect()->route('services.details', $service_id);

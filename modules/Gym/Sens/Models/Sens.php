@@ -7,6 +7,7 @@ use Gym\Reserve\Models\Reserve;
 use Gym\Service\Models\Service;
 use Gym\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,7 +36,7 @@ class Sens extends Model
 
     protected $guarded = [];
 
-    protected $casts = ['day' => AsArrayObject::class];
+    protected $casts = ['day' => AsCollection::class];
 
     /**
      * @return BelongsTo
