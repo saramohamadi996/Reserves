@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -23,7 +22,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::query();
     }
 
-    private function getCategoryQuery($id)
+    private function getCategoryQuery($id): Builder
     {
         return $this->fetchQueryBuilder()->where('category_id', $id)
             ->where('is_enabled', '=', 1);
@@ -72,7 +71,6 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         $category = new Category();
         $category->title = $value['title'];
-//        $category->slug = Str::slug($value['slug']);
         $category->parent_id = $value['parent_id'];
         try {
             $category->save();

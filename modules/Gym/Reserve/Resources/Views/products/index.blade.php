@@ -1,17 +1,15 @@
 @extends('Dashboard::front')
 @section('content')
     <div class="pos pos-vertical card" id="pos" xmlns="http://www.w3.org/1999/html">
-
         <div class="pos-container card-body">
             <div class="pos pos-vertical card" id="pos">
                 <div class="pos-container card-body">
-
                     <div class="pos-header col-12">
                         <div class="nav col-5">
                             <div class="logo col-3 p-0">
                                 <a href="{{url('/dashboard')}}">
                                     <div class="logo-img">
-                                        <i class="bi bi-pie-chart nav-icon" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-pie-chart nav-icon" style="font-size: 1rem;"></i>
                                     </div>
                                     <div class="logo-text">
                                         گزارشات
@@ -21,7 +19,7 @@
                             <div class="logo col-3 p-0 pe-2">
                                 <a href="{{url('/')}}">
                                     <div class="logo-img">
-                                        <i class="bi bi-bag-check" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-bag-check" style="font-size: 1rem;"></i>
                                     </div>
                                     <div class="logo-text">
                                         پیشخوان
@@ -31,7 +29,7 @@
                             <div class="logo col-3 p-0 pe-2">
                                 <a href="{{url('/users')}}">
                                     <div class="logo-img">
-                                        <i class="bi bi-list nav-icon" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-list nav-icon" style="font-size: 1rem;"></i>
                                     </div>
                                     <div class="logo-text">
                                         منوها
@@ -44,7 +42,6 @@
                             <div class="nav-item me-1 col-3 p-0">
                                 <select class="livesearch form-control" id="user" name="livesearch"></select>
                             </div>
-
                             <div class="nav-item me-1 col-3 p-0">
                                 <select class="form-control" id="category">
                                     <option value="">انتخاب گروه</option>
@@ -95,18 +92,13 @@
             <div class="card-arrow-bottom-right"></div>
         </div>
     </div>
-
     <div class="modal fade" id="modalPosBooking">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content border-0">
-
-            </div>
+            <div class="modal-content border-0"></div>
         </div>
     </div>
-
 @endsection
 @section('js')
-
     <script type="text/javascript">
         $('.livesearch').select2({
             placeholder: 'انتخاب کاربر',
@@ -136,7 +128,6 @@
             $(document).on("click", ".detail", function () {
                 let date = $(this).data('date'),
                     id = $(this).data('id');
-
                 $.ajax({
                     url: "{{ route('products.getModal') }}",
                     data: {date, id},

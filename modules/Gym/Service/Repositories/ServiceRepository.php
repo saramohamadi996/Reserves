@@ -80,9 +80,6 @@ class ServiceRepository implements ServiceRepositoryInterface
      */
     public function update(array $value, Service $service): bool
     {
-//        if (isset($value['user_id'])) {
-//            $service->user_id = auth()->id();
-//        }
         if (isset($value['is_enabled'])) {
             $service->is_enabled = $value['is_enabled'];
         }

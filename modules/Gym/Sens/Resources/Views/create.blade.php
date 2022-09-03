@@ -81,7 +81,8 @@
                                                             <label class="form-label"> انتخاب ساعت شروع </label>
                                                             <div class="input-group bootstrap-timepicker timepicker">
                                                                 <input name="start" autocomplete="off"
-                                                                       class="form-control timepicker-ui-input @error('end') is-invalid @enderror"/>
+                                                                       class="form-control timepicker-ui-input
+                                                                        @error('end') is-invalid @enderror"/>
                                                                 @error("end")
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
@@ -93,8 +94,8 @@
                                                         <div class="col-4 me-auto ms-auto">
                                                             <label class="form-label"> انتخاب تاریخ شروع </label>
                                                             <input type="text" name="start_at" id="start_at"
-                                                                   autocomplete="off"
-                                                                   class="form-control @error('start_at') is-invalid @enderror"/>
+                                                                   autocomplete="off" class="form-control
+                                                                   @error('start_at') is-invalid @enderror"/>
                                                             <input type="hidden" id="started_at2" name="start_at">
                                                             @error("start_at")
                                                             <span class="invalid-feedback" role="alert">
@@ -110,7 +111,8 @@
                                                             <label class="form-label"> انتخاب ساعت پایان </label>
                                                             <div class="input-group bootstrap-timepicker timepicker">
                                                                 <input name="end" autocomplete="off"
-                                                                       class="form-control timepicker-ui-input @error('end') is-invalid @enderror"/>
+                                                                       class="form-control timepicker-ui-input
+                                                                       @error('end') is-invalid @enderror"/>
                                                                 @error("end")
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
@@ -122,8 +124,8 @@
                                                         <div class="col-4 me-auto ms-auto">
                                                             <label class="form-label"> انتخاب تاریخ پایان </label>
                                                             <input type="text" name="expire_at" id="expire_at"
-                                                                   autocomplete="off"
-                                                                   class="form-control @error('expire_at') is-invalid @enderror"/>
+                                                                   autocomplete="off" class="form-control
+                                                                   @error('expire_at') is-invalid @enderror"/>
                                                             <input type="hidden" id="expired_at2" name="expire_at"/>
                                                             @error("expire_at")
                                                             <span class="invalid-feedback" role="alert">
@@ -138,7 +140,8 @@
                                                             <label class="form-label"> ظرفیت رزرو </label>
                                                             <input type="number" name="volume" value="1"
                                                                    placeholder="پیش فرض ظرفیت یک نفر است."
-                                                                   class="form-control @error('volume') is-invalid @enderror"/>
+                                                                   class="form-control @error('volume')
+                                                                   is-invalid @enderror"/>
                                                             @error("volume")
                                                             <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -149,11 +152,14 @@
                                                         <div class="col-4 me-auto ms-auto">
                                                             <label class="form-label"> قیمت </label>
                                                             <select name="price_group_id" id="price_group_id"
-                                                                    class="form-select @error('price_group_id') is-invalid @enderror">
+                                                                    class="form-select @error('price_group_id')
+                                                                     is-invalid @enderror">
                                                                 <option value="">انتخاب قیمت</option>
                                                                 @foreach($price_groups as $price_group)
                                                                     <option class="bg-gray-600"
-                                                                            value="{{ $price_group->id }}">{{ $price_group->title }}</option>
+                                                                            value="{{ $price_group->id }}">
+                                                                        {{ $price_group->title }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -162,8 +168,9 @@
                                                     <div class="mt-3">
                                                         <div class="col-6" style="margin-right: 9%">
 
-                                                            <input name="day[]" class="form-check-input me-2 mb-3 select_all"
-                                                                   type="checkbox">انتخاب همه
+                                                            <input name="day[]" type="checkbox"
+                                                                   class="form-check-input me-2 mb-3 select_all">
+                                                            انتخاب همه
                                                             <br>
                                                             <input class="form-check-input me-2 checkbox gst"
                                                                    type="checkbox" name="day[]" value="0"/>شنبه
@@ -183,8 +190,8 @@
                                                             <input class="form-check-input me-2 checkbox gst"
                                                                    type="checkbox" name="day[]" value="5"/>پنج شنبه
                                                             <br>
-                                                            <input class="form-check-input me-2 mb-3 checkbox gst border-red"
-                                                                   type="checkbox" name="day[]" value="6"/>
+                                                            <input type="checkbox" name="day[]" value="6"
+                                                                   class="form-check-input me-2 mb-3 checkbox gst border-red"/>
                                                             <span class="text-red">
                                                                 جمعه
                                                             </span>
@@ -225,19 +232,14 @@
         @endsection
 
         @section('js')
-
-<script>
-    $('.timepicker-ui-input').mdtimepicker({
-        is24Hour: true,
-        timeFormat: 'hh:mm', // format of the time value (data-time attribute)
-        format: 'hh:mm',    // format of the input value
-        readOnly: false,       // determines if input is readonly
-        // theme: 'teal',
-    });
-</script>
-
-
             <script type="text/javascript">
+                $('.timepicker-ui-input').mdtimepicker({
+                    is24Hour: true,
+                    timeFormat: 'hh:mm',
+                    format: 'hh:mm',
+                    readOnly: false,
+                });
+
                 $('.select_all').on('change', function () {
                     $('.checkbox').prop('checked', $(this).prop("checked"));
                 });

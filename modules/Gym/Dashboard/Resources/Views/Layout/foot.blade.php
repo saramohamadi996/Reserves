@@ -1,13 +1,19 @@
-<script data-cfasync="false" src="{{asset('assets/plugins/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script>
+<script data-cfasync="false"
+        src="{{asset('assets/plugins/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script>
 <script src="{{asset('assets/js/vendor.min.js')}}" type="20af472fe74ea09bb7a3acf9-text/javascript"></script>
 <script src="{{asset('assets/js/app.min.js')}}" type="20af472fe74ea09bb7a3acf9-text/javascript"></script>
-<script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}" data-cf-settings="e7ef52109ce79714353581f4-|49" defer=""></script>
-<script src="{{asset('assets/plugins/highlight.js/highlight.min.js')}}" type="5cd566d4c9167be52e0a161f-text/javascript"></script>
-<script src="{{asset('assets/plugins/bootstrap-table/dist/bootstrap-table.min.js')}}" type="5cd566d4c9167be52e0a161f-text/javascript"></script>
-<script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}" data-cf-settings="5cd566d4c9167be52e0a161f-|49" defer=""></script>
+<script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}"
+        data-cf-settings="e7ef52109ce79714353581f4-|49" defer=""></script>
+<script src="{{asset('assets/plugins/highlight.js/highlight.min.js')}}"
+        type="5cd566d4c9167be52e0a161f-text/javascript"></script>
+<script src="{{asset('assets/plugins/bootstrap-table/dist/bootstrap-table.min.js')}}"
+        type="5cd566d4c9167be52e0a161f-text/javascript"></script>
+<script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}"
+        data-cf-settings="5cd566d4c9167be52e0a161f-|49" defer=""></script>
 <script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}"
         data-cf-settings="e400dfa484518cb300ca4496-|49" defer=""></script>
-<script src="{{asset('assets/plugins/highlight.js/highlight.min.js')}}" type="baefc97b203bd00fdfb95390-text/javascript"></script>
+<script src="{{asset('assets/plugins/highlight.js/highlight.min.js')}}"
+        type="baefc97b203bd00fdfb95390-text/javascript"></script>
 <script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}"
         data-cf-settings="baefc97b203bd00fdfb95390-|49" defer=""></script>
 <script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}"
@@ -77,51 +83,4 @@
         if(number === '504172'){imgToSwap.src = "{{asset('./assets/img/bank-iran/resalat.png')}}";}
     }
 </script>
-
-
-
-
-
-{{--<script>--}}
-{{--    $(function () {--}}
-{{--        const urlParams = new URLSearchParams(window.location.search);--}}
-{{--        let date = urlParams.get('date') ?? @json(session('date'));--}}
-{{--        console.log(date);--}}
-{{--        getServices(date);--}}
-{{--        $("#date").persianDatepicker({--}}
-{{--            formatDate: "YYYY-MM-DD",--}}
-{{--            onSelect: () => {--}}
-{{--                date = $("#date").attr("data-gdate");--}}
-{{--                getServices(date);--}}
-{{--                urlParams.set('date', date);--}}
-{{--                window.history.pushState({}, '', `${location.pathname}?${urlParams.toString()}`);--}}
-{{--            }--}}
-{{--        });--}}
-
-{{--        $(document).on("click",".service" ,function () {--}}
-{{--            let date = $(this).data('date'),--}}
-{{--                id = $(this).data('id');--}}
-{{--            console.log(date,id);--}}
-
-{{--            $.ajax({--}}
-{{--                url: "{{ route("senses.getModal") }}",--}}
-{{--                data: {date, id},--}}
-{{--                success(data) {--}}
-{{--                    $("#modalPosBooking .modal-content").html(data);--}}
-{{--                }--}}
-{{--            })--}}
-{{--        })--}}
-{{--    });--}}
-
-{{--    function getServices(date) {--}}
-{{--        $.ajax({--}}
-{{--            url: "{{ route("senses.showServices") }}",--}}
-{{--            data: {date},--}}
-{{--            success(data) {--}}
-{{--                $("#services").html(data);--}}
-{{--            }--}}
-{{--        })--}}
-{{--    }--}}
-{{--</script>--}}
-
 @yield('js')

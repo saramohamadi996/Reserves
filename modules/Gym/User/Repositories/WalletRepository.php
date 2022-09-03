@@ -23,7 +23,11 @@ class WalletRepository implements WalletRepositoryInterface
         return Wallet::query();
     }
 
-    private function getPriceGroupQuery($id)
+    /**
+     * @param $id
+     * @return Builder
+     */
+    private function getPriceGroupQuery($id): Builder
     {
         return $this->fetchQueryBuilder()->where('wallet_id', $id)
             ->where('status', '=', 1);

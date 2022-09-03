@@ -27,11 +27,13 @@
                                             <div class="form-check w-100">
                                                 <label class="form-check-label" for="">
                                                     <div class="form-group d-flex mb-2">
-                                                        <button class="input-group-text fw-bold w-100px me-1 fs-13px" style="color: #3cd2a5">
+                                                        <button class="input-group-text fw-bold w-100px me-1 fs-13px"
+                                                                style="color: #3cd2a5">
                                                             شروع :
                                                             {{jdate($order->reserve->start_time)->format("H:i")}}
                                                         </button>
-                                                        <button class="input-group-text fw-bold w-70px fs-13px me-3" style="color: #3cd2a5">
+                                                        <button class="input-group-text fw-bold w-70px fs-13px me-3"
+                                                                style="color: #3cd2a5">
                                                             {{ verta($order->reserve->start_time)->formatJalaliDate() }}
                                                         </button>
                                                         <div class="input-group ms-auto">
@@ -53,7 +55,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="card-arrow">
         <div class="card-arrow-top-left"></div>

@@ -25,7 +25,8 @@
 
                             <div class="col-6">
                                 <label class="form-label">نام صاحب حساب </label>
-                                <input type="text" autocomplete="off" name="name_account_holder" value="{{ old('name_account_holder') }}"
+                                <input type="text" autocomplete="off" name="name_account_holder"
+                                       value="{{ old('name_account_holder') }}"
                                        class="form-control @error('name_account_holder') is-invalid @enderror"/>
                                 @error("name_account_holder")
                                 <span class="invalid-feedback" role="alert">
@@ -44,7 +45,6 @@
                                 <p id="card_er" class="invalid-feedback" role="alert">
                                     شماره کارت اشتباه یا تکراری می باشد</p>
                             </div>
-
                         </div>
                     </div>
                 </div>

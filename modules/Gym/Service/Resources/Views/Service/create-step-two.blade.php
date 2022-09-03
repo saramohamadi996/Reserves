@@ -1,21 +1,13 @@
 @extends('Dashboard::master')
 @section('content')
     <div id="content" class="app-content">
-
         <div class="container">
-
             <div class="row justify-content-center">
-
                 <div class="col-xl-12">
-
                     <div class="row">
-
                         <div class="col-xl-12">
-                            <ul class="breadcrumb">
-
-                            </ul>
+                            <ul class="breadcrumb"></ul>
                             <hr class="mb-4"/>
-
                             <div id="wizardLayout1" class="mb-5">
                                 <h4> مرحله دوم</h4>
                                 <p>چینش لایه دوم خدمت شامل نام دسته بندی , ترتیب نمایش , کد خدمت می باشد.
@@ -89,7 +81,8 @@
                                                                         <option value="">انتخاب دسته بندی</option>
                                                                         @foreach($categories as $category)
                                                                             <option class="bg-gray-600" required
-                                                                                    value="{{ $category->id ?? '' }}">{{ $category->title }}</option>
+                                                                                    value="{{ $category->id ?? '' }}">
+                                                                                {{ $category->title }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>

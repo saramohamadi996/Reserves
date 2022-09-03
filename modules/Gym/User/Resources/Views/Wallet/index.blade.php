@@ -34,7 +34,7 @@
                                             @foreach($wallets as $wallet)
                                                 @if($wallet->type == 'credit')
                                                     <tr>
-                                                        <td>{{$wallet->admin_id}}</td>
+                                                        <td>{{$wallet->admin->name}}</td>
                                                         <td>{{$wallet->user->name}}</td>
                                                         <td>
                                                             @lang($wallet->type)
@@ -49,7 +49,8 @@
                                                         </td>
                                                         <td class="nav-item">
                                                             <a class="nav-link active text-green"
-                                                               @if($wallet->status == 1)href="{{route('wallets.toggle',[$wallet->id])}}"
+                                                               @if($wallet->status == 1)
+                                                                   href="{{route('wallets.toggle',[$wallet->id])}}"
                                                                disabled @endif
                                                                href="{{route('wallets.toggle',[$wallet->id])}}">
                                                                 @if($wallet->status == 1)

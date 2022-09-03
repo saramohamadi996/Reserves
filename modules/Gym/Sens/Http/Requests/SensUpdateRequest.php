@@ -2,7 +2,6 @@
 
 namespace Gym\Sens\Http\Requests;
 
-use App\Rules\ValidJalaliDate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SensUpdateRequest extends FormRequest

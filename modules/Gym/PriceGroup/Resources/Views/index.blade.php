@@ -40,7 +40,8 @@
 
                                                     <td class="nav-item">
                                                         <a class="nav-link active text-green "
-                                                           @if($price_group->is_enabled == 1)href="{{route('price_groups.toggle',[$price_group->id])}}"
+                                                           @if($price_group->is_enabled == 1)
+                                                               href="{{route('price_groups.toggle',[$price_group->id])}}"
                                                            disabled @endif
                                                            href="{{route('price_groups.toggle',[$price_group->id])}}">
                                                             @if($price_group->is_enabled == 1)

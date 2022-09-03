@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $bank
  * @property string $card_number
  * @property string $user_id
+ * @property mixed $name_account_holder
+ * @property mixed $bank_name
+ * @property mixed $is_enabled
  * @package Gym\Cards\Models
  */
 class Card extends Model

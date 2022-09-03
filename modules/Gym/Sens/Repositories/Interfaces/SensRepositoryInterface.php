@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 interface SensRepositoryInterface
 {
-
     /**
      * Get the value from the database.
      * @return void
      */
-    public function getAll();
+    public function getAll(): void;
 
     /**
      * find by id the record with the given id.
@@ -28,7 +27,6 @@ interface SensRepositoryInterface
      * @param $value
      * @return bool
      */
-    public function store($product_id, $value);
+    public function store($product_id, $value): bool;
 
-//    public function getSansDates($time_id);
 }

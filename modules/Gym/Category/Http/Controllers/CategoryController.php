@@ -95,22 +95,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * enable banner
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function toggle(int $id): RedirectResponse
-    {
-        $category = $this->category_repository->getById($id);
-        $input = ['is_enabled' => !$category->is_enabled];
-        $result = $this->category_repository->update($input, $category);
-        if (!$result) {
-            return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
-        }
-        return redirect()->back()->with('success', 'فعال شد');
-    }
-
-    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return RedirectResponse
@@ -125,5 +109,20 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
     }
 
+    /**
+     * enable banner
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function toggle(int $id): RedirectResponse
+    {
+        $category = $this->category_repository->getById($id);
+        $input = ['is_enabled' => !$category->is_enabled];
+        $result = $this->category_repository->update($input, $category);
+        if (!$result) {
+            return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
+        }
+        return redirect()->back()->with('success', 'فعال شد');
+    }
 
 }

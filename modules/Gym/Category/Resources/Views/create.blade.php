@@ -29,7 +29,9 @@
                                         class="form-select @error('parent_id') is-invalid @enderror">
                                     <option value="">دسته بندی اصلی</option>
                                     @foreach($categories as $category)
-                                        <option class="bg-gray-600" value="{{ $category->id }}">{{ $category->title }}</option>
+                                        <option class="bg-gray-600" value="{{ $category->id }}">
+                                            {{ $category->title }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

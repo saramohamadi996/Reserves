@@ -1,6 +1,5 @@
 <div class="card">
     <div class="card-body p-0">
-
         <div class="modal-header align-items-center">
             <h5 class="modal-title d-flex align-items-end">
                <span class="me-2 mb-1 opacity-5">
@@ -30,7 +29,8 @@
                                             <div class="form-check w-100">
                                                 <label class="form-check-label" for="">
                                                     <div class="form-group d-flex mb-2">
-                                                        <button class="input-group-text fw-bold w-70px fs-13px me-1"  style="color: #3cd2a5">
+                                                        <button class="input-group-text fw-bold w-70px fs-13px me-1"
+                                                                style="color: #3cd2a5">
                                                             {{$user->pivot->status}}
                                                         </button>
                                                         <div class="input-group ms-auto">
@@ -41,7 +41,6 @@
                                                                    value="{{$user->mobile}}"/>
                                                         </div>
                                                     </div>
-
                                                 </label>
                                             </div>
                                         </div>
@@ -53,7 +52,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="card-arrow">
         <div class="card-arrow-top-left"></div>

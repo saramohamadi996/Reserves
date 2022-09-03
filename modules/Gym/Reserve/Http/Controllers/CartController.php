@@ -20,7 +20,6 @@ class CartController extends Controller
         ]);
         $carts = Cart::where('user_id' , $user->id)->get();
         return view('Reserve::Cart.cart' , compact('carts' , 'user' ));
-
     }
 
     public function show($user_id)

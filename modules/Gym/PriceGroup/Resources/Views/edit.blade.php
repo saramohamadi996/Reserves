@@ -41,7 +41,8 @@
                                     class="js-states form-control @error('category_id') is-invalid @enderror">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
-                                            @if ($category->id == $category->category_id) selected @endif>{{ $category->title }}
+                                            @if ($category->id == $category->category_id) selected @endif>
+                                            {{ $category->title }}
                                         </option>
                                     @endforeach
                                 </select>

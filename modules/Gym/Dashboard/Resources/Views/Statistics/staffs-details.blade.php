@@ -24,7 +24,8 @@
                                             <div class="form-check w-100">
                                                 <label class="form-check-label" for="">
                                                     <div class="form-group d-flex mb-2">
-                                                        <button class="input-group-text fw-bold w-70px fs-13px me-1"  style="color: #3cd2a5">
+                                                        <button class="input-group-text fw-bold w-70px fs-13px me-1"
+                                                                style="color: #3cd2a5">
                                                             {{verta($user->created_at)->formatJalaliDate()}}
                                                         </button>
                                                         <div class="input-group ms-auto">

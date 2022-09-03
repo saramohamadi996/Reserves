@@ -37,7 +37,8 @@
                                                     <td>{{$card->card_number}}</td>
                                                     <td class="nav-item">
                                                         <a class="nav-link active text-green"
-                                                           @if($card->is_enabled == 1)href="{{route('cards.toggle',[$card->id])}}"
+                                                           @if($card->is_enabled == 1)
+                                                               href="{{route('cards.toggle',[$card->id])}}"
                                                            disabled @endif
                                                            href="{{route('cards.toggle',[$card->id])}}">
                                                             @if($card->is_enabled == 1)
@@ -65,7 +66,6 @@
                                             @endforeach
                                             </tbody>
                                         </table>
-
                                     </div>
                                     <div class="card-arrow">
                                         <div class="card-arrow-top-left"></div>

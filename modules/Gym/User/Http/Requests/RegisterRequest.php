@@ -2,9 +2,7 @@
 
 namespace Gym\User\Http\Requests;
 
-use Gym\User\Models\User;
 use Gym\User\Rules\ValidMobile;
-use Gym\User\Rules\ValidPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest

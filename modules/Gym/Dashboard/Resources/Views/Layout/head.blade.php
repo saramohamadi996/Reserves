@@ -20,7 +20,5 @@
           rel="stylesheet"/>
     <link href="{{asset('/assets/css/select2.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('assets/material-rtl-time-picker/mdtimepicker.css')}}">
-
     @yield('css')
-
 </head>

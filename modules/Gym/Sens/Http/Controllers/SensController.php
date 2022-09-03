@@ -9,6 +9,10 @@ use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
 use Gym\PriceGroup\Repositories\Interfaces\PriceGroupRepositoryInterface;
 use Gym\Sens\Models\Sens;
 use Gym\Service\Models\Service;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SensController extends Controller
@@ -37,14 +41,23 @@ class SensController extends Controller
         $this->sens_repository = $sens_repository;
     }
 
-    public function create($service_id)
+    /**
+     * @param $service_id
+     * @return Application|Factory|View
+     */
+    public function create($service_id): View|Factory|Application
     {
         $price_groups = $this->price_group_repository->getAll();
         $service = $this->service_repository->getById($service_id);
         return view('Sens::create', compact('service', 'price_groups'));
     }
 
-    public function edit($service_id, int $sens_id)
+    /**
+     * @param $service_id
+     * @param int $sens_id
+     * @return Application|Factory|View
+     */
+    public function edit($service_id, int $sens_id): View|Factory|Application
     {
         $price_groups = $this->price_group_repository->getAll();
         $service = $this->service_repository->getById($service_id);
@@ -52,8 +65,12 @@ class SensController extends Controller
         return view('Sens::edit', compact('service', 'price_groups','sens'));
     }
 
-
-    public function store($service_id, Request $value)
+    /**
+     * @param $service_id
+     * @param Request $value
+     * @return RedirectResponse
+     */
+    public function store($service_id, Request $value): RedirectResponse
     {
         Service::where('id', $service_id)->first();
         $sens = Sens::query()->create([
@@ -67,7 +84,11 @@ class SensController extends Controller
         return redirect()->route('services.details', $service_id);
     }
 
-    private function createReserves(Sens $sens)
+    /**
+     * @param Sens $sens
+     * @return bool
+     */
+    private function createReserves(Sens $sens): bool
     {
         $start_at = Carbon::parse($sens->start_at);
         $expire_at = Carbon::parse($sens->expire_at);
@@ -85,6 +106,4 @@ class SensController extends Controller
         }
         return true;
     }
-
-
 }

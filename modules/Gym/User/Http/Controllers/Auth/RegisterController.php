@@ -5,20 +5,22 @@ namespace Gym\User\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Gym\User\Models\User;
 use Gym\User\Rules\ValidMobile;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Validation\Validator;
 
 class RegisterController extends Controller
 {
-
     use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
      * @var string
      */
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -32,9 +34,9 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): Validator
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -49,7 +51,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         return User::create([
             'name' => $data['name'],
@@ -59,7 +61,10 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function showRegistrationForm()
+    /**
+     * @return Application|Factory|View
+     */
+    public function showRegistrationForm(): View|Factory|Application
     {
         return view('User::Front.register');
     }

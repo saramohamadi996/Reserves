@@ -22,7 +22,7 @@ class CardRepository implements CardRepositoryInterface
         return Card::query();
     }
 
-    private function getCardQuery($id)
+    private function getCardQuery($id): Builder
     {
         return $this->fetchQueryBuilder()->where('card_id', $id)
             ->where('is_enabled', '=', 1);

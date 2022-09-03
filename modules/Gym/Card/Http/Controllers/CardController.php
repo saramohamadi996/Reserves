@@ -39,18 +39,6 @@ class CardController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $card_id
-     * @return Application|Factory|View
-     */
-    public function edit(int $card_id): View|Factory|Application
-    {
-        $card = $this->card_repository->getById($card_id);
-        $cards = $this->card_repository->getAll();
-        return view('Cards::Cards.edit', compact('card', 'cards'));
-    }
-
-    /**
      * create the form for creating a new resource.
      * @return Application|Factory|View
      */
@@ -76,6 +64,18 @@ class CardController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     * @param int $card_id
+     * @return Application|Factory|View
+     */
+    public function edit(int $card_id): View|Factory|Application
+    {
+        $card = $this->card_repository->getById($card_id);
+        $cards = $this->card_repository->getAll();
+        return view('Cards::Cards.edit', compact('card', 'cards'));
+    }
+
+    /**
      * Update the specified resource in storage.
      * @param int $id
      * @param CardRequestUpdate $request
@@ -93,6 +93,21 @@ class CardController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
+    {
+        $card = $this->card_repository->getById($id);
+        $card = $this->card_repository->delete($card);
+        if (!$card) {
+            return redirect()->back()->with('error', 'عملیات حذف با شکست مواجه شد.');
+        }
+        return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
+    }
+
+    /**
      * enable banner
      * @param int $id
      * @return RedirectResponse
@@ -106,21 +121,6 @@ class CardController extends Controller
             return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
         }
         return redirect()->back()->with('success', 'فعال شد');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function destroy(int $id): RedirectResponse
-    {
-        $card = $this->card_repository->getById($id);
-        $card = $this->card_repository->delete($card);
-        if (!$card) {
-            return redirect()->back()->with('error', 'عملیات حذف با شکست مواجه شد.');
-        }
-        return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
     }
 
 }

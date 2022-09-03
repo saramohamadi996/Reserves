@@ -23,7 +23,6 @@
                                 </span>
                                 @enderror
                             </div>
-{{--                            oninput="this.value=this.value.replace(/[^0-9\s]/g,'');"--}}
                             <div class="col-6">
                                 <label class="form-label"> قیمت (ریال) </label>
                                 <input type="text" autocomplete="off" name="price" value="{{ old('price') }}"
@@ -40,7 +39,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -105,6 +105,21 @@ class PriceGroupController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
+    {
+        $price_group = $this->price_group_repository->getById($id);
+        $price_group = $this->price_group_repository->delete($price_group);
+        if (!$price_group) {
+            return redirect()->back()->with('error', 'عملیات حذف با شکست مواجه شد.');
+        }
+        return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
+    }
+
+    /**
      * enable banner
      * @param int $id
      * @return RedirectResponse
@@ -118,20 +133,5 @@ class PriceGroupController extends Controller
             return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
         }
         return redirect()->back()->with('success', 'فعال شد');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function destroy(int $id): RedirectResponse
-    {
-        $price_group = $this->price_group_repository->getById($id);
-        $price_group = $this->price_group_repository->delete($price_group);
-        if (!$price_group) {
-            return redirect()->back()->with('error', 'عملیات حذف با شکست مواجه شد.');
-        }
-        return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
     }
 }

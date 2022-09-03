@@ -8,7 +8,6 @@ class CategoryRequestStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
      * @return bool
      */
     public function authorize(): bool
@@ -18,14 +17,12 @@ class CategoryRequestStore extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
      * @return array
      */
     public function rules()
     {
         return [
             'title' => 'required|string|min:3|max:190|unique:categories,title',
-//            'slug' => 'required|string|min:3|max:190',
             'parent_id' => 'nullable|exists:categories,id',
         ];
     }
@@ -37,7 +34,6 @@ class CategoryRequestStore extends FormRequest
     {
         return [
             'title' => 'عنوان',
-//            'slug' => 'نامک',
             'parent_id' => 'دسته بندی اصلی',
         ];
     }

@@ -12,7 +12,8 @@
 
                     <div class="mb-3">
                         <label class="form-label">نام نام خوانوادگی<span class="text-danger">*</span></label>
-                        <input type="text" autocomplete="off" name="name" value="{{old('name')}}" class="form-control form-control-lg bg-white bg-opacity-5 "
+                        <input type="text" autocomplete="off" name="name" value="{{old('name')}}"
+                               class="form-control form-control-lg bg-white bg-opacity-5 "
                                 autofocus/>
                         @if ($errors->has('name'))
                             <span class="text-danger text-left">{{ $errors->first('name') }}</span>
@@ -21,7 +22,8 @@
 
                     <div class="mb-3">
                         <label class="form-label">نام کاربری<span class="text-danger">*</span></label>
-                        <input type="text" autocomplete="off" name="username" class="form-control form-control-lg bg-white bg-opacity-5"
+                        <input type="text" autocomplete="off" name="username"
+                               class="form-control form-control-lg bg-white bg-opacity-5"
                                placeholder="نام کاربری" value="{{old('username')}}" />
                         @if ($errors->has('username'))
                             <span class="text-danger text-left">{{ $errors->first('username') }}</span>
@@ -30,7 +32,8 @@
 
                     <div class="mb-3">
                         <label class="form-label">شماره موبایل </label>
-                        <input type="text" autocomplete="off" name="mobile" class="form-control form-control-lg bg-white bg-opacity-5"
+                        <input type="text" autocomplete="off" name="mobile"
+                               class="form-control form-control-lg bg-white bg-opacity-5"
                                placeholder="091212345678" value="{{old('mobile')}}"/>
                         @if ($errors->has('mobile'))
                             <span class="text-danger text-left">{{ $errors->first('mobile') }}</span>

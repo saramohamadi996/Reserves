@@ -22,7 +22,7 @@ class PriceGroupRepository implements PriceGroupRepositoryInterface
         return PriceGroup::query();
     }
 
-    private function getPriceGroupQuery($id)
+    private function getPriceGroupQuery($id): Builder
     {
         return $this->fetchQueryBuilder()->where('price_group_id', $id)
             ->where('is_enabled', '=', 1);

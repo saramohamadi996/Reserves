@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Morilog\Jalali\Jalalian;
 
 class SensRepository implements SensRepositoryInterface
 {
@@ -29,7 +27,7 @@ class SensRepository implements SensRepositoryInterface
      * Get the value from the database.
      * @return void
      */
-    public function getAll()
+    public function getAll(): void
     {
         $this->fetchQueryBuilder()->latest()->get();
     }
@@ -50,7 +48,7 @@ class SensRepository implements SensRepositoryInterface
      * @param $value
      * @return bool
      */
-    public function store($service_id, $value)
+    public function store($service_id, $value):bool
     {
         Service::where('id', $service_id)->first();
         $sens = Sens::query()->create([
@@ -65,7 +63,7 @@ class SensRepository implements SensRepositoryInterface
             $sens->save();
         } catch (QueryException $query_exception) {
             Log::error($query_exception->getMessage());
-            return null;
+//            return null;
         }
         return true;
     }

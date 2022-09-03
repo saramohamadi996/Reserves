@@ -1,10 +1,5 @@
 @extends('Dashboard::master')
 @section('content')
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <div>{{$error}}</div>
-        @endforeach
-    @endif
     <div class="ms-auto mx-lg-auto col-12 col-md-8 col-xl-5 p-3 p-md-5">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,7 +42,8 @@
                                     @foreach($categories as $categoryItem)
                                         <option class="bg-gray-700" value="{{ $categoryItem->id }}"
                                                 @if($categoryItem->id == $category->parent_id)
-                                                    selected @endif>{{ $categoryItem->title }}</option>
+                                                    selected @endif>{{ $categoryItem->title }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

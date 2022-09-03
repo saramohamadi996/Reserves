@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
-
 <head>
     <meta charset="utf-8"/>
     <title>رزرو ورزش سافت | پنل ادمین</title>
@@ -24,7 +23,6 @@
         @yield('content')
     </div>
 </div>
-
 <script src="{{asset('/assets/js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('/assets/js/vendor.min.js')}}" type="c5c0adc4f4089ee7793a577e-text/javascript"></script>
 <script src="{{asset('/assets/js/app.min.js')}}" type="c5c0adc4f4089ee7793a577e-text/javascript"></script>
@@ -35,7 +33,8 @@
 <script src="{{asset('/assets/js/beacon.min.js')}}"></script>
 
 
-<script src="{{asset('/assets/plugins/highlight.js/highlight.min.js')}}" type="5cd566d4c9167be52e0a161f-text/javascript"></script>
+<script src="{{asset('/assets/plugins/highlight.js/highlight.min.js')}}" type="5cd566d4c9167be52e0a161f-text/javascript">
+</script>
 <script src="{{asset('/assets/plugins/datatables.net/js/jquery.dataTables.min.js')}}"
         type="5cd566d4c9167be52e0a161f-text/javascript"></script>
 <script src="{{asset('/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js')}}"
@@ -58,12 +57,10 @@
         type="5cd566d4c9167be52e0a161f-text/javascript"></script>
 <script src="{{asset('/assets/plugins/bootstrap-table/dist/bootstrap-table.min.js')}}"
         type="5cd566d4c9167be52e0a161f-text/javascript"></script>
-<script src="{{asset('assets/js/demo/pos-kitchen-order.demo.js')}}" type="9099366c5a289102fb8f352e-text/javascript"></script>
+<script src="{{asset('assets/js/demo/pos-kitchen-order.demo.js')}}" type="9099366c5a289102fb8f352e-text/javascript">
+</script>
 <script src="{{asset('assets/plugins/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}"
         data-cf-settings="9099366c5a289102fb8f352e-|49" defer=""></script>
-
 @yield('js')
-
 </body>
-
 </html>

@@ -1,31 +1,21 @@
 @extends('Dashboard::master')
 @section('content')
     <div id="content" class="app-content">
-
         <div class="container">
-
             <div class="row justify-content-center">
-
                 <div class="col-xl-12">
-
                     <div class="row">
-
                         <div class="col-xl-12">
-                            <ul class="breadcrumb">
-
-                            </ul>
+                            <ul class="breadcrumb"></ul>
                             <hr class="mb-4"/>
-
                             <div id="wizardLayout1" class="mb-5">
                                 <h4> مرحله سوم تایید اطلاعات</h4>
                                 <p>چینش لایه سوم خدمت شامل تایید اولیه اطلاعات وارد شده می باشد.
                                     لطفا توجه داشته باشید که برای ثبت یک خدمت مراحل را تا گام آخر تکمیل نمایید.</p>
                                 <div class="card">
                                     <div class="card-body">
-
                                         <div class="nav-wizards-container">
                                             <nav class="nav nav-wizards-1 mb-2">
-
                                                 <div class="nav-item col">
                                                     <a href="#" class="nav-link completed">
                                                         <div class="nav-no">1</div>
@@ -80,15 +70,18 @@
                                                                     <div class="col-6">{{$service->slug}}</div>
                                                                 </div>
                                                                 <div class="row mb-2">
-                                                                    <div class="col-3 text-center"><h6>ترتیب نمایش</h6></div>
+                                                                    <div class="col-3 text-center"><h6>ترتیب نمایش</h6>
+                                                                    </div>
                                                                     <div class="col-6">{{$service->priority}}</div>
                                                                 </div>
                                                                 <div class="row mb-2">
-                                                                    <div class="col-3 text-center"><h6>کد خدمت</h6></div>
+                                                                    <div class="col-3 text-center"><h6>کد خدمت</h6>
+                                                                    </div>
                                                                     <div class="col-6">{{$service->code_service}}</div>
                                                                 </div>
                                                                 <div class="row mb-2">
-                                                                    <div class="col-3 text-center"><h6>دسته بندی</h6></div>
+                                                                    <div class="col-3 text-center"><h6>دسته بندی</h6>
+                                                                    </div>
                                                                     <div class="col-6">{{$service->category->title}}</div>
                                                                 </div>
                                                             </div>

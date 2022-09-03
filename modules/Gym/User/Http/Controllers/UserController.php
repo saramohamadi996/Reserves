@@ -9,6 +9,7 @@ use Gym\User\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,11 @@ class UserController extends Controller
         $this->user_repository = $user_repository;
     }
 
-    public function selectSearch(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function selectSearch(Request $request): JsonResponse
     {
         $users = [];
         if($request->has('q')){
@@ -56,6 +61,10 @@ class UserController extends Controller
         return view("User::Admin.index", compact('users'));
     }
 
+    /**
+     * @param $userId
+     * @return View|Factory|Application
+     */
     public function edit($userId): View|Factory|Application
     {
         $user = $this->user_repository->getById($userId);
@@ -78,18 +87,4 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param $user_id
-     * @return RedirectResponse
-     */
-    public function destroy($user_id): RedirectResponse
-    {
-        $user = $this->user_repository->getById($user_id);
-        $result = $this->user_repository->delete($user);
-        if (!$result) {
-            return redirect()->back()->with('error', 'عملیات حذف با شکست مواجه شد.');
-        }
-        return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
-    }
 }

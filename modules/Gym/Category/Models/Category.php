@@ -5,7 +5,8 @@ use Gym\PriceGroup\Models\PriceGroup;
 use Gym\Service\Models\Service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
@@ -14,6 +15,8 @@ use Illuminate\Support\Str;
  * @property string $title
  * @property string $slug
  * @property string $parent_id
+ * @property mixed $parentCategory
+ * @property mixed $is_enabled
  * @package Gym\Category\Models
  */
 
@@ -40,7 +43,7 @@ class Category extends Model
         });
     }
 
-    private function createSlug($title)
+    private function createSlug($title): array|string|null
     {
         if (static::whereSlug($slug = Str::slug($title))->exists()) {
             $max = static::whereName($title)->latest('id')->skip(1)->value('slug');
@@ -54,32 +57,27 @@ class Category extends Model
         return $slug;
     }
 
-    public function getParentAttribute()
+    public function getParentAttribute(): string
     {
         return (is_null($this->parent_id)) ? 'ندارند' : $this->parentCategory->title;
     }
 
-    public function parentCategory()
+    public function parentCategory(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
-    public function subCategories()
+    public function subCategories(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
 
-    public function services()
+    public function services(): HasMany
     {
         return $this->hasMany(Service::class);
     }
 
-    public function percent()
-    {
-        return $this->hasMany(Percent::class);
-    }
-
-    public function priceGroup()
+    public function priceGroup(): HasMany
     {
         return $this->hasMany(PriceGroup::class);
     }

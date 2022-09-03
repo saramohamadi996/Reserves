@@ -39,13 +39,14 @@
                                                     <td>{{$service->title}}</td>
                                                     <td>{{$service->Category->title}}</td>
                                                     <td>
-                                                        <a href="{{ route('services.details', $service->id) }}" class="">افزودن سانس
-                                                            جدید</a>
+                                                        <a href="{{ route('services.details', $service->id) }}"
+                                                           class="">افزودن سانس جدید</a>
                                                     </td>
 
                                                     <td class="nav-item">
                                                         <a class="nav-link active text-green "
-                                                           @if($service->is_enabled == 1)href="{{route('services.toggle',[$service->id])}}"
+                                                           @if($service->is_enabled == 1)
+                                                               href="{{route('services.toggle',[$service->id])}}"
                                                            disabled @endif
                                                            href="{{route('services.toggle',[$service->id])}}">
                                                             @if($service->is_enabled == 1)

@@ -1,19 +1,12 @@
 @extends('Dashboard::master')
 @section('content')
     <div id="content" class="app-content">
-
         <div class="container">
-
             <div class="row justify-content-center">
-
                 <div class="col-xl-12">
-
                     <div class="row">
-
                         <div class="col-xl-12">
-                            <ul class="breadcrumb">
-
-                            </ul>
+                            <ul class="breadcrumb"></ul>
                             <hr class="mb-4"/>
 
                             <div id="wizardLayout1" class="mb-5">

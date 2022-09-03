@@ -2,14 +2,12 @@
 
 namespace Gym\Card\Http\Requests;
 
-use Gym\Service\Rules\ValidUser;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CardRequestStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
      * @return bool
      */
     public function authorize(): bool
@@ -19,7 +17,6 @@ class CardRequestStore extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
      * @return array
      */
     public function rules()

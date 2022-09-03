@@ -42,11 +42,17 @@ class WalletController extends Controller
      */
     public function index(): View|Factory|Application
     {
+//        $wallets = Wallet::with('admin')->get();
+
         $wallets = $this->wallet_repository->getAll();
         return view('User::Wallet.index', compact('wallets'));
     }
 
-    public function create(int $id)
+    /**
+     * @param int $id
+     * @return Application|Factory|View
+     */
+    public function create(int $id): View|Factory|Application
     {
         $user = $this->user_repository->getById($id);
         $cards = Card::all();
@@ -102,7 +108,6 @@ class WalletController extends Controller
         }
         return redirect()->route('wallets.index')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
     }
-
 
     /**
      * enable banner

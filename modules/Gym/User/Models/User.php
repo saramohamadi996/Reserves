@@ -11,6 +11,7 @@ use Gym\Service\Models\Service;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -66,7 +67,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
@@ -75,7 +75,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
     protected $hidden = [
@@ -84,19 +83,24 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast to native types.
-     *
      * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function service()
+    /**
+     * @return HasMany
+     */
+    public function service(): HasMany
     {
         return $this->hasMany(Service::class);
     }
 
-    public function sens()
+    /**
+     * @return HasMany
+     */
+    public function sens(): HasMany
     {
         return $this->hasMany(Sens::class);
     }
@@ -110,36 +114,57 @@ class User extends Authenticatable
         return $this->belongsToMany(Reserve::class, 'user_reserve');
     }
 
-    public function priceGroup()
+    /**
+     * @return HasMany
+     */
+    public function priceGroup(): HasMany
     {
         return $this->hasMany(PriceGroup::class);
     }
 
-    public function orders()
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function active_orders()
+    /**
+     * @return void
+     */
+    public function active_orders(): void
     {
         $this->orders()->whereIn('status',['pending','paid']);
     }
 
-    public function carts()
+    /**
+     * @return HasMany
+     */
+    public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
     }
 
-    public function transactions()
+    /**
+     * @return HasMany
+     */
+    public function transactions(): HasMany
     {
         return $this->hasMany(Wallet::class);
     }
 
-    public function validTransactions()
+    /**
+     * @return HasMany
+     */
+    public function validTransactions(): HasMany
     {
         return $this->transactions()->where('status', 1);
     }
 
+    /**
+     * @return Attribute
+     */
     protected function credit(): Attribute
     {
         return Attribute::get(fn() => $this->validTransactions()
@@ -152,16 +177,26 @@ class User extends Authenticatable
             ->where('type', 'debit')->sum('amount'));
     }
 
-    public function registered_users()
+    /**
+     * @return HasMany
+     */
+    public function registered_users(): HasMany
     {
         return $this->hasMany(User::class,'staff_id');
     }
 
+    /**
+     * @return Attribute
+     */
     protected function balance(): Attribute
     {
         return Attribute::get(fn() => $this->credit - $this->debit);
     }
 
+    /**
+     * @param $amount
+     * @return bool
+     */
     public function allowWithdraw($amount) : bool
     {
         return $this->balance() >= $amount;

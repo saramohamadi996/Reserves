@@ -32,7 +32,8 @@
 
                             <div class="col-12 mt-2">
                                 <label class="form-label"> انتخاب تاریخ واریز </label>
-                                <input type="text" name="date_payment" id="date_payment" autocomplete="off"  value="{{verta()->formatDate()}}"
+                                <input type="text" name="date_payment" id="date_payment" autocomplete="off"
+                                       value="{{verta()->formatDate()}}"
                                        class="form-control @error('date_payment') is-invalid @enderror"/>
                                 <input type="hidden" id="date_payment2" name="date_payment"  value="{{today()}}">
                                 @error("start_at")

@@ -1,14 +1,12 @@
 <?php
 
-Route::group(["namespace" => "Gym\Sens\Http\Controllers", 'middleware' => ['web', 'auth']], function ($router) {
-//    Route::get('/', [SensController::class,'show'])->name('senses.show');
-//    Route::get('/showServices', [SensController::class,'showServices'])->name('senses.showServices');
-//    Route::get('/getModal', [SensController::class,'getModal'])->name('senses.getModal');
+use Illuminate\Support\Facades\Route;
 
-    $router->get('services/{service}/senses/create', 'SensController@create')->name('senses.create');
-    $router->post('services/{service}/senses', 'SensController@store')->name('senses.store');
-    $router->get('services/{service}/senses/{sens}/edit', 'SensController@edit')->name('senses.edit');
-    $router->patch('services/{service}/senses/{sens}/edit', 'SensController@update')->name('senses.update');
-    $router->delete('services/{service}/senses/{sens}', 'SensController@destroy')->name('senses.destroy');
+Route::group(["namespace" => "Gym\Sens\Http\Controllers", 'middleware' => ['web', 'auth']], function ($router) {
+    Route::get('services/{service}/senses/create', 'SensController@create')->name('senses.create');
+    Route::post('services/{service}/senses', 'SensController@store')->name('senses.store');
+    Route::get('services/{service}/senses/{sens}/edit', 'SensController@edit')->name('senses.edit');
+    Route::patch('services/{service}/senses/{sens}/edit', 'SensController@update')->name('senses.update');
+    Route::delete('services/{service}/senses/{sens}', 'SensController@destroy')->name('senses.destroy');
 });
 

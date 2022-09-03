@@ -2,6 +2,9 @@
 
 namespace Gym\User\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -13,7 +16,7 @@ class LoginController extends Controller
      * Where to redirect users after login.
      * @var string
      */
-    protected $redirectTo = '/users';
+    protected string $redirectTo = '/users';
 
     /**
      * Create a new controller instance.
@@ -24,7 +27,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function credentials(Request $request)
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function credentials(Request $request): array
     {
         if(is_numeric($request->get('email'))){
             return ['mobile'=>$request->get('email'),'password'=>$request->get('password')];
@@ -35,7 +42,10 @@ class LoginController extends Controller
         return ['username' => $request->get('email'), 'password'=>$request->get('password')];
     }
 
-    public function showLoginForm()
+    /**
+     * @return Factory|View|Application
+     */
+    public function showLoginForm(): Factory|View|Application
     {
         return view('User::Front.login');
     }

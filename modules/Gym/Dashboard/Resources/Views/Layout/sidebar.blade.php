@@ -92,7 +92,6 @@
                 </div>
             </div>
             <div class="menu-item has-sub">
-                {{--                {{ request()->is('categories/index') ? 'active' : '' }}--}}
                 <a href="{{url('/categories')}}" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-folder2-open"></i></span>
                     <span class="menu-text">دسته بندی ها</span>
@@ -134,19 +133,6 @@
                     </div>
                 </div>
             </div>
-
-{{--            <div class="menu-item">--}}
-{{--                <a href="#" class="menu-link">--}}
-{{--                    <span class="menu-icon"><i class="bi bi-gear"></i></span>--}}
-{{--                    <span class="menu-text">تنظیمات</span>--}}
-{{--                </a>--}}
-{{--            </div>--}}
-{{--            <div class="menu-item">--}}
-{{--                <a href="#" class="menu-link">--}}
-{{--                    <span class="menu-icon"><i class="bi bi-gem"></i></span>--}}
-{{--                    <span class="menu-text">راهنما</span>--}}
-{{--                </a>--}}
-{{--            </div>--}}
         </div>
         <div class="p-3 px-4 mt-auto">
             <a href="#" class="btn d-block btn-outline-theme">

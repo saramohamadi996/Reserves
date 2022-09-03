@@ -2,9 +2,7 @@
 
 namespace Gym\Service\Http\Requests;
 
-use Gym\Service\Rules\ValidUser;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ServiceStoreRequest extends FormRequest
 {

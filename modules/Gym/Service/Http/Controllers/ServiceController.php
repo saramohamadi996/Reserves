@@ -36,25 +36,37 @@ class ServiceController extends Controller
         $this->service_repository = $service_repository;
         $this->category_repository = $category_repository;
     }
-    public function index()
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function index(): View|Factory|Application
     {
         $services = Service::all();
         return view('Service::Service.index', compact('services'));
     }
 
-    public function createStepOne(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function createStepOne(Request $request): View|Factory|Application
     {
         $service = $request->session()->get('service');
         return view('Service::Service.create-step-one', compact('service'));
     }
 
-    public function postCreateStepOne(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function postCreateStepOne(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             "title" => 'required|min:3|max:190',
             "slug" => 'nullable|string|min:3|max:190',
         ]);
-        if (empty($request->session()->get('service'))) {
+        if(empty($request->session()->get('service'))) {
             $service = new Service();
             $service->fill($validatedData);
             $request->session()->put('service', $service);
@@ -66,7 +78,11 @@ class ServiceController extends Controller
         return redirect()->route('services.create.step.two');
     }
 
-    public function createStepTwo(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function createStepTwo(Request $request): View|Factory|Application
     {
         $service = $request->session()->get('service');
         $categories = Category::all()
@@ -75,7 +91,11 @@ class ServiceController extends Controller
             compact('service', 'categories'));
     }
 
-    public function postCreateStepTwo(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function postCreateStepTwo(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             "category_id" => 'required|exists:categories,id',
@@ -88,21 +108,28 @@ class ServiceController extends Controller
         return redirect()->route('services.create.step.three');
     }
 
-    public function createStepThree(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function createStepThree(Request $request): View|Factory|Application
     {
         $service = $request->session()->get('service');
         $sense = Sens::all();
         return view('Service::Service.create-step-three', compact('service', 'sense'));
     }
 
-    public function postCreateStepThree(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function postCreateStepThree(Request $request): RedirectResponse
     {
         $service = $request->session()->get('service');
         $service->save();
         $request->session()->forget('service');
         return redirect()->route('services.details', $service);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -134,7 +161,11 @@ class ServiceController extends Controller
         return redirect()->route('services.index')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
     }
 
-    public function details($id)
+    /**
+     * @param $id
+     * @return Application|Factory|View
+     */
+    public function details($id): View|Factory|Application
     {
         $service = Service::find($id);
         $senses = $service->sens()->paginate(20);
