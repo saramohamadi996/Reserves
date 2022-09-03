@@ -4,7 +4,6 @@ namespace Gym\Category\Repositories;
 
 use Gym\Category\Models\Category;
 use Gym\Category\Repositories\Interfaces\CategoryRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -22,21 +21,6 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::query();
     }
 
-    private function getCategoryQuery($id): Builder
-    {
-        return $this->fetchQueryBuilder()->where('category_id', $id)
-            ->where('is_enabled', '=', 1);
-    }
-
-    /**
-     * paginate categories.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator
-    {
-        return $this->fetchQueryBuilder()->paginate();
-    }
-
     /**
      * Get the value from the database.
      * @param $id
@@ -46,10 +30,20 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getAll($id, string $status = null): Collection
     {
         $query = $this->fetchQueryBuilder();
-        if ($status) $query->where("is_enabled", $status);
+        if ($status) $query->where("status", $status);
         return Category::all()->filter(function ($time) use ($id) {
             return $time->id != $id;
         });
+    }
+
+    /** get category status.
+     * @param $id
+     * @return Collection
+     */
+    public function getCategoryStatus($id): Collection
+    {
+        return $this->getAll($id)->where('category_id', $id)
+            ->where('status', '=', 1);
     }
 
     /**
@@ -89,8 +83,8 @@ class CategoryRepository implements CategoryRepositoryInterface
      */
     public function update(array $value, Category $category): bool
     {
-        if (isset($value['is_enabled'])) {
-            $category->is_enabled = $value['is_enabled'];
+        if (isset($value['status'])) {
+            $category->status = $value['status'];
         }
         if (isset($value['title'])) {
             $category->title = $value['title'];

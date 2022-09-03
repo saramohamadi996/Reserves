@@ -14,9 +14,8 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property string $title
  * @property string $slug
- * @property string $parent_id
- * @property mixed $parentCategory
- * @property mixed $is_enabled
+ * @property int $parent_id
+ * @property bool $status
  * @package Gym\Category\Models
  */
 
@@ -25,14 +24,16 @@ class Category extends Model
     use HasFactory;
 
     /**
+     * The table associated with the model.
      * @var string
      */
     protected $table = 'categories';
 
     /**
-     * @var string[]
+     * The attributes that are mass assignable.
+     * @var array
      */
-    protected $fillable = ['title', 'slug', 'parent_id', 'is_enabled'];
+    protected $fillable = ['title', 'slug', 'parent_id', 'status'];
 
     protected static function boot()
     {
@@ -62,21 +63,37 @@ class Category extends Model
         return (is_null($this->parent_id)) ? 'ندارند' : $this->parentCategory->title;
     }
 
+    /**
+     * Get the parent category that owns the category.
+     * @return BelongsTo
+     */
     public function parentCategory(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    /**
+     * Get all the sub categories for the category.
+     * @return HasMany
+     */
     public function subCategories(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    /**
+     * Get all the services for the category.
+     * @return HasMany
+     */
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);
     }
 
+    /**
+     * Get all the price group for the category.
+     * @return HasMany
+     */
     public function priceGroup(): HasMany
     {
         return $this->hasMany(PriceGroup::class);

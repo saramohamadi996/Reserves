@@ -37,30 +37,30 @@ class PriceGroupController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index($id, string $status = null): View|Factory|Application
     {
-        $id=[];
-        $categories = $this->category_repository->getAll($id);
-        $price_groups = $this->price_group_repository->getAll();
-        return view('PriceGroup::index', compact('price_groups', 'categories'));
+        $price_groups = $this->price_group_repository->getAll($id);
+        return view('PriceGroup::index', compact('price_groups'));
     }
 
     /**
      * create the form for creating a new resource.
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function create(): View|Factory|Application
+    public function create($id, string $status = null): View|Factory|Application
     {
-        $id=[];
-        $categories = $this->category_repository->getAll($id)
-            ->where('is_enabled', '=', 1);
+        $categories = $this->category_repository->getCategoryStatus($id);
         return view('PriceGroup::create', compact('categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new created resource in storage.
      * @param PriceGroupStoreRequest $request
      * @return RedirectResponse
      */
@@ -77,12 +77,13 @@ class PriceGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @param int $price_group_id
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function edit(int $price_group_id): View|Factory|Application
+    public function edit(int $price_group_id,$id, string $status = null): View|Factory|Application
     {
-        $id=[];
-        $categories = $this->category_repository->getAll($id);
+        $categories = $this->category_repository->getCategoryStatus($id);
         $price_group = $this->price_group_repository->getById($price_group_id);
         return view('PriceGroup::edit', compact('price_group', 'categories'));
     }
@@ -96,7 +97,7 @@ class PriceGroupController extends Controller
     public function update(int $id, Request $request): RedirectResponse
     {
         $price_group = $this->price_group_repository->getById($id);
-        $input = $request->only(['title', 'price', 'category_id', 'user_id','is_enabled']);
+        $input = $request->only(['title', 'price', 'category_id', 'user_id','status']);
         $result = $this->price_group_repository->update($input, $price_group);
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
@@ -127,7 +128,7 @@ class PriceGroupController extends Controller
     public function toggle(int $id): RedirectResponse
     {
         $price_group = $this->price_group_repository->getById($id);
-        $input = ['is_enabled' => !$price_group->is_enabled];
+        $input = ['status' => !$price_group->status];
         $result = $this->price_group_repository->update($input, $price_group);
         if (!$result) {
             return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');

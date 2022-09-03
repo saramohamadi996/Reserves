@@ -24,15 +24,26 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * returns all products.
+     * @param $id
      * @param string|null $status
-     * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function getAll(string $status = null, int $per_page = 10): LengthAwarePaginator
+    public function getAll($id, string $status = null): LengthAwarePaginator
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
         return $query->latest()->paginate(10);
+    }
+
+    /**
+     * get card status.
+     * @param $id
+     * @return LengthAwarePaginator
+     */
+    public function getUserStatus($id): LengthAwarePaginator
+    {
+        return $this->getAll($id)->where('user_id', $id)
+            ->where('status', '=', 'active');
     }
 
     /**

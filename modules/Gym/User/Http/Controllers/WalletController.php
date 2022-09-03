@@ -4,6 +4,7 @@ namespace Gym\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Gym\Card\Models\Card;
+use Gym\Card\Repositories\Interfaces\CardRepositoryInterface;
 use Gym\User\Http\Requests\WalletUpdateRequest;
 use Gym\User\Models\User;
 use Gym\User\Repositories\Interfaces\UserRepositoryInterface;
@@ -23,28 +24,32 @@ class WalletController extends Controller
      */
     protected WalletRepositoryInterface $wallet_repository;
     protected UserRepositoryInterface $user_repository;
+    protected CardRepositoryInterface $card_repository;
 
     /**
      * Instantiate a new wallet instance.
      * @param WalletRepositoryInterface $wallet_repository
      * @param UserRepositoryInterface $user_repository
+     * @param CardRepositoryInterface $card_repository
      */
     public function __construct(WalletRepositoryInterface $wallet_repository,
-                                UserRepositoryInterface   $user_repository)
+                                UserRepositoryInterface   $user_repository,
+                                CardRepositoryInterface $card_repository)
     {
         $this->wallet_repository = $wallet_repository;
         $this->user_repository = $user_repository;
+        $this->card_repository = $card_repository;
     }
 
     /**
      * Display a listing of the resource.
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index($id,string $status = null): View|Factory|Application
     {
-//        $wallets = Wallet::with('admin')->get();
-
-        $wallets = $this->wallet_repository->getAll();
+        $wallets = $this->wallet_repository->getAll($id);
         return view('User::Wallet.index', compact('wallets'));
     }
 
@@ -52,10 +57,10 @@ class WalletController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function create(int $id): View|Factory|Application
+    public function create(int $id,$card_id, string $status = null): View|Factory|Application
     {
         $user = $this->user_repository->getById($id);
-        $cards = Card::all();
+        $cards = $this->card_repository->getCardStatus($card_id);
         return view('User::Wallet.create', compact( 'user', 'cards'));
     }
 
@@ -65,7 +70,7 @@ class WalletController extends Controller
      * @param int $user_id
      * @return RedirectResponse
      */
-    public function store(Request $request, $user_id): RedirectResponse
+    public function store(Request $request, int $user_id): RedirectResponse
     {
         $user = $this->user_repository->getById($user_id);
         $input = $request->only(
@@ -81,13 +86,15 @@ class WalletController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @param int $wallet_id
-     * @param User $id
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function edit(int $wallet_id, User $id): View|Factory|Application
+    public function edit(int $wallet_id, $id, string $status = null): View|Factory|Application
     {
-        $cards = Card::all();
-        $user = User::findOrFail($id);
+        $user_id=[];
+        $cards = $this->card_repository->getCardStatus($id);
+        $user = User::findOrFail($user_id);
         $wallet = $this->wallet_repository->getById($wallet_id);
         return view('User::Wallet.edit', compact('wallet','cards', 'user'));
     }

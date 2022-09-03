@@ -10,9 +10,18 @@ interface SensRepositoryInterface
 {
     /**
      * Get the value from the database.
-     * @return void
+     * @param $id
+     * @param string|null $status
+     * @return Collection
      */
-    public function getAll(): void;
+    public function getAll($id,string $status = null): Collection;
+
+    /**
+     * get card status.
+     * @param $id
+     * @return Collection
+     */
+    public function getSensStatus($id): Collection;
 
     /**
      * find by id the record with the given id.

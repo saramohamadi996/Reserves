@@ -4,7 +4,6 @@ namespace Gym\Service\Repositories;
 
 use Gym\Service\Models\Service;
 use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
@@ -22,31 +21,32 @@ class ServiceRepository implements ServiceRepositoryInterface
     }
 
     /**
-     * paginate services.
-     * @return LengthAwarePaginator
+     * Get the value from the database.
+     * @param $id
+     * @param string|null $status
+     * @return Collection
      */
-    public function paginate(): LengthAwarePaginator
+    public function getAll($id,string $status = null): Collection
     {
-        return $this->fetchQueryBuilder()->paginate();
+        $query = $this->fetchQueryBuilder();
+        if ($status) $query->where("status", $status);
+        return $query->latest()->get();
     }
 
     /**
-     * Get the value from the database.
+     * get card status.
+     * @param $id
      * @return Collection
      */
-    public function getAll(): Collection
+    public function getServiceStatus($id): Collection
     {
-        return $this->fetchQueryBuilder()->latest()->get();
+        return $this->getAll($id)->where('service_id', $id)
+            ->where('status', '=', 1);
     }
 
     public function getById($id)
     {
         return $this->fetchQueryBuilder()->findOrFail($id);
-    }
-
-    public function findById($id)
-    {
-        return Service::findOrFail($id);
     }
 
     public function store($value): bool
@@ -80,14 +80,11 @@ class ServiceRepository implements ServiceRepositoryInterface
      */
     public function update(array $value, Service $service): bool
     {
-        if (isset($value['is_enabled'])) {
-            $service->is_enabled = $value['is_enabled'];
+        if (isset($value['status'])) {
+            $service->status = $value['status'];
         }
         if (isset($value['title'])) {
             $service->title = $value['title'];
-        }
-        if (isset($value['slug'])) {
-            $service->slug = $value['slug'];
         }
         if (isset($value['code_service'])) {
             $service->code_service = $value['code_service'];

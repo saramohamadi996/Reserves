@@ -27,7 +27,7 @@
                                                 <th data-sortable="true">دسته بندی</th>
                                                 <th data-sortable="true">وضعیت</th>
                                                 <th data-sortable="true">ویرایش</th>
-{{--                                                <th data-sortable="true">حذف</th>--}}
+                                                <th data-sortable="true">حذف</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -40,11 +40,11 @@
 
                                                     <td class="nav-item">
                                                         <a class="nav-link active text-green "
-                                                           @if($price_group->is_enabled == 1)
+                                                           @if($price_group->status == 1)
                                                                href="{{route('price_groups.toggle',[$price_group->id])}}"
                                                            disabled @endif
                                                            href="{{route('price_groups.toggle',[$price_group->id])}}">
-                                                            @if($price_group->is_enabled == 1)
+                                                            @if($price_group->status == 1)
                                                                 فعال
                                                             @else
                                                                 <span class="text-warning">غیرفعال</span>
@@ -55,16 +55,16 @@
                                                         <a href="{{route('price_groups.update', $price_group->id)}}"
                                                            class="btn btn-outline-theme">ویرایش</a>
                                                     </td>
-{{--                                                    <td>--}}
-{{--                                                        <form method="post"--}}
-{{--                                                              action="{{ route('price_groups.destroy', $price_group->id) }}">--}}
-{{--                                                            @method('delete')--}}
-{{--                                                            @csrf--}}
-{{--                                                            <button type="submit"--}}
-{{--                                                                    class="btn btn-outline-danger m-b-xs">حذف--}}
-{{--                                                            </button>--}}
-{{--                                                        </form>--}}
-{{--                                                    </td>--}}
+                                                    <td>
+                                                        <form method="post"
+                                                              action="{{ route('price_groups.destroy', $price_group->id) }}">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                    class="btn btn-outline-danger m-b-xs">حذف
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

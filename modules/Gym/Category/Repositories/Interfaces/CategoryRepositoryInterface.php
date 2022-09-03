@@ -3,7 +3,6 @@
 namespace Gym\Category\Repositories\Interfaces;
 
 use Gym\Category\Models\Category;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,17 +10,18 @@ use Illuminate\Database\Eloquent\Model;
 interface CategoryRepositoryInterface
 {
     /**
-     * paginate categories.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator;
-
-    /**
-     * Get the value from the database.
+     * Get the value from the categories.
      * @param $id
      * @return Collection
      */
     public function getAll($id): Collection;
+
+    /**
+     * get category status.
+     * @param $id
+     * @return Collection
+     */
+    public function getCategoryStatus($id): Collection;
 
     /**
      * find by id the record with the given id.

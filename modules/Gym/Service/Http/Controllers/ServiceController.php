@@ -3,8 +3,9 @@
 namespace Gym\Service\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Gym\Category\Models\Category;
 use Gym\Category\Repositories\Interfaces\CategoryRepositoryInterface;
+use Gym\Sens\Repositories\Interfaces\SensRepositoryInterface;
+use Gym\Service\Http\Requests\ServiceStoreRequest;
 use Gym\Service\Http\Requests\ServiceUpdateRequest;
 use Gym\Service\Models\Service;
 use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
@@ -24,71 +25,74 @@ class ServiceController extends Controller
      */
     protected ServiceRepositoryInterface $service_repository;
     protected CategoryRepositoryInterface $category_repository;
+    protected SensRepositoryInterface $sens_repository;
 
     /**
      * Instantiate a new service instance.
      * @param ServiceRepositoryInterface $service_repository
      * @param CategoryRepositoryInterface $category_repository
+     * @param SensRepositoryInterface $sens_repository
      */
-    public function __construct(ServiceRepositoryInterface $service_repository,
-                                CategoryRepositoryInterface       $category_repository)
+    public function __construct(ServiceRepositoryInterface  $service_repository,
+                                CategoryRepositoryInterface $category_repository,
+                                SensRepositoryInterface     $sens_repository)
     {
         $this->service_repository = $service_repository;
         $this->category_repository = $category_repository;
+        $this->sens_repository = $sens_repository;
     }
 
     /**
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index($id, string $status = null): View|Factory|Application
     {
-        $services = Service::all();
+        $services = $this->service_repository->getAll($id);
         return view('Service::Service.index', compact('services'));
     }
 
     /**
      * @param Request $request
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function createStepOne(Request $request): View|Factory|Application
+    public function createStepOne(Request $request, $id, string $status = null): View|Factory|Application
     {
+        $categories = $this->category_repository->getCategoryStatus($id);
         $service = $request->session()->get('service');
-        return view('Service::Service.create-step-one', compact('service'));
+        return view('Service::Service.create-step-one', compact('service', 'categories'));
     }
 
     /**
-     * @param Request $request
+     * @param ServiceStoreRequest $request
      * @return RedirectResponse
      */
-    public function postCreateStepOne(Request $request): RedirectResponse
+    public function postCreateStepOne(ServiceStoreRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            "title" => 'required|min:3|max:190',
-            "slug" => 'nullable|string|min:3|max:190',
-        ]);
-        if(empty($request->session()->get('service'))) {
+        $input = $request->only('title', 'category_id');
+
+        if (empty($request->session()->get('service'))) {
             $service = new Service();
-            $service->fill($validatedData);
-            $request->session()->put('service', $service);
         } else {
             $service = $request->session()->get('service');
-            $service->fill($validatedData);
-            $request->session()->put('service', $service);
         }
+        $service->fill($input);
+        $request->session()->put('service', $service);
         return redirect()->route('services.create.step.two');
     }
 
     /**
-     * @param Request $request
+     * @param ServiceStoreRequest $request
      * @return Application|Factory|View
      */
-    public function createStepTwo(Request $request): View|Factory|Application
+    public function createStepTwo(ServiceStoreRequest $request): View|Factory|Application
     {
         $service = $request->session()->get('service');
-        $categories = Category::all()
-            ->where('is_enabled', '=', 1);
         return view('Service::Service.create-step-two',
-            compact('service', 'categories'));
+            compact('service'));
     }
 
     /**
@@ -98,7 +102,6 @@ class ServiceController extends Controller
     public function postCreateStepTwo(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
-            "category_id" => 'required|exists:categories,id',
             "code_service" => 'nullable|min:3|max:190',
             "priority" => 'nullable|numeric|min:0',
         ]);
@@ -110,12 +113,14 @@ class ServiceController extends Controller
 
     /**
      * @param Request $request
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function createStepThree(Request $request): View|Factory|Application
+    public function createStepThree(Request $request,$id, string $status = null): View|Factory|Application
     {
         $service = $request->session()->get('service');
-        $sense = Sens::all();
+        $sense = $this->sens_repository->getAll($id);
         return view('Service::Service.create-step-three', compact('service', 'sense'));
     }
 
@@ -134,11 +139,12 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @param int $service_id
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function edit(int $service_id): View|Factory|Application
+    public function edit(int $service_id, $id, string $status = null): View|Factory|Application
     {
-        $id=[];
         $categories = $this->category_repository->getAll($id);
         $service = $this->service_repository->getById($service_id);
         return view('Service::Service.edit', compact('service', 'categories'));
@@ -153,7 +159,7 @@ class ServiceController extends Controller
     public function update(int $id, Request $request): RedirectResponse
     {
         $service = $this->service_repository->getById($id);
-        $input = $request->only(['is_enabled', 'title', 'slug', 'code_service', 'priority', 'category_id']);
+        $input = $request->only(['status', 'title', 'code_service', 'priority', 'category_id']);
         $result = $this->service_repository->update($input, $service);
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
@@ -167,7 +173,7 @@ class ServiceController extends Controller
      */
     public function details($id): View|Factory|Application
     {
-        $service = Service::find($id);
+        $service = $this->service_repository->getById($id);
         $senses = $service->sens()->paginate(20);
         return view('Service::Service.details', compact('service', 'senses'));
     }
@@ -180,7 +186,7 @@ class ServiceController extends Controller
     public function toggle(int $id): RedirectResponse
     {
         $service = $this->service_repository->getById($id);
-        $input = ['is_enabled' => !$service->is_enabled];
+        $input = ['status' => !$service->status];
         $result = $this->service_repository->update($input, $service);
         if (!$result) {
             return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');

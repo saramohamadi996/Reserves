@@ -3,24 +3,26 @@
 namespace Gym\Service\Repositories\Interfaces;
 
 use Gym\Service\Models\Service;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ServiceRepositoryInterface
 {
     /**
-     * paginate services.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator;
-
-    /**
      * Get the value from the database.
+     * @param $id
+     * @param string|null $status
      * @return Collection
      */
-    public function getAll(): Collection;
+    public function getAll($id,string $status = null): Collection;
 
-    public function getById( $id);
+    /**
+     * @param $id
+     * get service status.
+     * @return Collection
+     */
+    public function getServiceStatus($id): Collection;
+
+    public function getById($id);
 
     /**
      * Store a newly created resource in storage.

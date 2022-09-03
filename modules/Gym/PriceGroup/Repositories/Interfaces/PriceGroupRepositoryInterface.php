@@ -3,7 +3,6 @@
 namespace Gym\PriceGroup\Repositories\Interfaces;
 
 use Gym\PriceGroup\Models\PriceGroup;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,17 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 interface PriceGroupRepositoryInterface
 {
     /**
-     * paginate hours.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator;
-
-    /**
-     * returns all products.
+     * returns all price groups.
+     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll(string $status = null):Collection;
+    public function getAll($id, string $status = null):Collection;
+
+    /**
+     * @param $id
+     * get price group status.
+     * @return Collection
+     */
+    public function getPriceGroupStatus($id): Collection;
 
     /**
      * find by id the record with the given id.

@@ -30,11 +30,13 @@ class CardController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index($id, string $status = null): View|Factory|Application
     {
-        $cards = $this->card_repository->getAll();
+        $cards = $this->card_repository->getAll($id);
         return view('Cards::Cards.index', compact('cards'));
     }
 
@@ -42,9 +44,9 @@ class CardController extends Controller
      * create the form for creating a new resource.
      * @return Application|Factory|View
      */
-    public function create(): View|Factory|Application
+    public function create($id, string $status = null): View|Factory|Application
     {
-        $cards = $this->card_repository->getAll();
+        $cards = $this->card_repository->getAll($id);
         return view('Cards::Cards.create', compact('cards'));
     }
 
@@ -66,12 +68,14 @@ class CardController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @param int $card_id
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function edit(int $card_id): View|Factory|Application
+    public function edit(int $card_id, $id, string $status = null): View|Factory|Application
     {
         $card = $this->card_repository->getById($card_id);
-        $cards = $this->card_repository->getAll();
+        $cards = $this->card_repository->getAll($id);
         return view('Cards::Cards.edit', compact('card', 'cards'));
     }
 
@@ -84,7 +88,7 @@ class CardController extends Controller
     public function update(int $id, CardRequestUpdate $request): RedirectResponse
     {
         $card = $this->card_repository->getById($id);
-        $input = $request->only(['user_id','name_account_holder','bank_name', 'card_number','is_enabled']);
+        $input = $request->only(['user_id','name_account_holder','bank_name', 'card_number','status']);
         $result = $this->card_repository->update($input, $card);
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
@@ -108,14 +112,14 @@ class CardController extends Controller
     }
 
     /**
-     * enable banner
+     * status card
      * @param int $id
      * @return RedirectResponse
      */
     public function toggle(int $id): RedirectResponse
     {
         $card = $this->card_repository->getById($id);
-        $input = ['is_enabled' => !$card->is_enabled];
+        $input = ['status' => !$card->status];
         $result = $this->card_repository->update($input, $card);
         if (!$result) {
             return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');

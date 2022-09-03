@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->string('title')->index();
             $table->string('slug')->nullable();
-            $table->boolean('is_enabled')->default('1');
+            $table->boolean('status')->default('1');
             $table->timestamps();
             $table->foreign( 'parent_id')->references('id')
                 ->on('categories')->onDelete( 'SET NULL');

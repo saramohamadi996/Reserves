@@ -25,11 +25,26 @@ class SensRepository implements SensRepositoryInterface
 
     /**
      * Get the value from the database.
-     * @return void
+     * @param $id
+     * @param string|null $status
+     * @return Collection
      */
-    public function getAll(): void
+    public function getAll($id,string $status = null): Collection
     {
-        $this->fetchQueryBuilder()->latest()->get();
+        $query = $this->fetchQueryBuilder();
+        if ($status) $query->where("status", $status);
+        return $query->latest()->get();
+    }
+
+    /**
+     * get card status.
+     * @param $id
+     * @return Collection
+     */
+    public function getSensStatus($id): Collection
+    {
+        return $this->getAll($id)->where('sens_id', $id)
+            ->where('status', '=', 1);
     }
 
     /**

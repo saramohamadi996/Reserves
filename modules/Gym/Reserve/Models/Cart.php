@@ -9,7 +9,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Cart extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table=['carts'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable =['user_id', 'service_id', 'reserve_id', 'sens_price'];
 
     public function user(): BelongsTo
     {

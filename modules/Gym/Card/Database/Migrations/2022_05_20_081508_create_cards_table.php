@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name_account_holder');
             $table->string('bank_name')->index();
             $table->string('card_number', 16)->nullable();
-            $table->boolean('is_enabled')->default('1');
+            $table->boolean('status')->default('1');
             $table->timestamps();
         });
     }

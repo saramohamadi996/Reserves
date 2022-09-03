@@ -6,7 +6,6 @@ use Gym\PriceGroup\Models\PriceGroup;
 use Gym\Reserve\Models\Reserve;
 use Gym\Service\Models\Service;
 use Gym\User\Models\User;
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,25 +19,29 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Sens extends Model
 {
+    /**
+     * The table associated with the model.
+     * @var string
+     */
     protected $table = 'senses';
 
-//    protected $fillable = [
-//        'user_id', 'service_id', 'volume',
-//        'start', 'end', 'start_at', 'expire_at', 'day', 'is_enabled'
-//    ];
 
-    const SUNDAY = "inactive";
-    const MONDAY = "ban";
-    const TUESDAY = "ban";
-    const WEDNESDAY = "ban";
-    const THURSDAY = "ban";
-    const FRIDAY = "ban";
+    /**
+     * The attributes that are mass assignable.
+     * @var array
+     */
+    protected $fillable =[
+        'user_id', 'price_group_id', 'service_id', 'volume', 'status', 'day', 'start', 'end', 'start_at', 'expire_at'
+    ];
 
-    protected $guarded = [];
-
+    /**
+     * The attributes that should be cast to native types.
+     * @var array
+     */
     protected $casts = ['day' => AsCollection::class];
 
     /**
+     * Get the user that owns the sens.
      * @return BelongsTo
      */
     public function user(): BelongsTo
@@ -47,6 +50,7 @@ class Sens extends Model
     }
 
     /**
+     * Get the service that owns the sens.
      * @return BelongsTo
      */
     public function service(): BelongsTo
@@ -55,6 +59,7 @@ class Sens extends Model
     }
 
     /**
+     * Get the price group that owns the sens.
      * @return BelongsTo
      */
     public function priceGroup(): BelongsTo
@@ -63,6 +68,7 @@ class Sens extends Model
     }
 
     /**
+     * Get all the reserves for the sens.
      * @return HasMany
      */
     public function reserves(): HasMany

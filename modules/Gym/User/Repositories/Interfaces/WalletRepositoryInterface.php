@@ -4,7 +4,6 @@ namespace Gym\User\Repositories\Interfaces;
 
 use Gym\User\Models\User;
 use Gym\User\Models\Wallet;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -12,17 +11,19 @@ use Illuminate\Database\Eloquent\Model;
 interface WalletRepositoryInterface
 {
     /**
-     * paginate percents.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator;
-
-    /**
      * returns all products.
+     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll(string $status = null):Collection;
+    public function getAll($id, string $status = null):Collection;
+
+    /**
+     * @param $id
+     * get wallet status.
+     * @return Collection
+     */
+    public function getWalletStatus($id): Collection;
 
     /**
      * find by id the record with the given id.

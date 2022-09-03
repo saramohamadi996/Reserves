@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('price_group_id')->unsigned();
             $table->unsignedBigInteger('service_id')->unsigned();
             $table->string('volume')->default(1);
-            $table->boolean('is_enabled')->default('1');
+            $table->boolean('status')->default('1');
             $table->json('day');
             $table->time('start');
             $table->time('end');

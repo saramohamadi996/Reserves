@@ -5,7 +5,6 @@ namespace Gym\User\Repositories;
 use Gym\User\Models\User;
 use Gym\User\Models\Wallet;
 use Gym\User\Repositories\Interfaces\WalletRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -24,34 +23,27 @@ class WalletRepository implements WalletRepositoryInterface
     }
 
     /**
+     * Get the value from the database.
      * @param $id
-     * @return Builder
-     */
-    private function getPriceGroupQuery($id): Builder
-    {
-        return $this->fetchQueryBuilder()->where('wallet_id', $id)
-            ->where('status', '=', 1);
-    }
-
-    /**
-     * paginate categories.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator
-    {
-        return $this->fetchQueryBuilder()->paginate();
-    }
-
-    /**
-     * returns all products.
      * @param string|null $status
      * @return Collection
      */
-    public function getAll(string $status = null):Collection
+    public function getAll($id,string $status = null): Collection
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
         return $query->latest()->get();
+    }
+
+    /**
+     * get wallet status.
+     * @param $id
+     * @return Collection
+     */
+    public function getWalletStatus($id): Collection
+    {
+        return $this->getAll($id)->where('wallet_id', $id)
+            ->where('status', '=', 1);
     }
 
     /**

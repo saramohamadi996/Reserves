@@ -37,11 +37,11 @@
                                                     <td>{{$card->card_number}}</td>
                                                     <td class="nav-item">
                                                         <a class="nav-link active text-green"
-                                                           @if($card->is_enabled == 1)
+                                                           @if($card->status == 1)
                                                                href="{{route('cards.toggle',[$card->id])}}"
                                                            disabled @endif
                                                            href="{{route('cards.toggle',[$card->id])}}">
-                                                            @if($card->is_enabled == 1)
+                                                            @if($card->status == 1)
                                                                 فعال
                                                             @else
                                                                 <span class="text-warning">غیرفعال</span>

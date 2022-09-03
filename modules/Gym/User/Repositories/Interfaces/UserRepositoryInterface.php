@@ -11,11 +11,18 @@ interface UserRepositoryInterface
 {
     /**
      * returns all products.
+     * @param $id
      * @param string|null $status
-     * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function getAll(string $status = null, int $per_page = 10): LengthAwarePaginator;
+    public function getAll($id, string $status = null): LengthAwarePaginator;
+
+    /**
+     * @param $id
+     * get user status.
+     * @return LengthAwarePaginator
+     */
+    public function getUserStatus($id): LengthAwarePaginator;
 
     /**
      * find by id the record with the given id.

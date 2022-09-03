@@ -30,35 +30,25 @@ class CategoryController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index($id, string $status = null): View|Factory|Application
     {
-        $id =[];
         $categories = $this->category_repository->getAll($id);
         return view('Categories::index', compact('categories'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $category_id
-     * @return Application|Factory|View
-     */
-    public function edit(int $category_id): View|Factory|Application
-    {
-        $category = $this->category_repository->getById($category_id);
-        $categories = $this->category_repository->getAll($category_id);
-        return view('Categories::edit', compact('category', 'categories'));
-    }
-
-    /**
      * create the form for creating a new resource.
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function create(): View|Factory|Application
+    public function create($id, string $status = null): View|Factory|Application
     {
-        $id=[];
-        $categories = $this->category_repository->getAll($id);
+        $categories = $this->category_repository->getCategoryStatus($id);
         return view('Categories::create', compact('categories'));
     }
 
@@ -78,6 +68,18 @@ class CategoryController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     * @param int $category_id
+     * @return Application|Factory|View
+     */
+    public function edit(int $category_id): View|Factory|Application
+    {
+        $category = $this->category_repository->getById($category_id);
+        $categories = $this->category_repository->getCategoryStatus($category_id);
+        return view('Categories::edit', compact('category', 'categories'));
+    }
+
+    /**
      * Update the specified resource in storage.
      * @param int $id
      * @param CategoryRequestUpdate $request
@@ -86,7 +88,7 @@ class CategoryController extends Controller
     public function update(int $id, CategoryRequestUpdate $request): RedirectResponse
     {
         $category = $this->category_repository->getById($id);
-        $input = $request->only('title', 'slug', 'parent_id', 'is_enabled');
+        $input = $request->only('title', 'slug', 'parent_id', 'status');
         $result = $this->category_repository->update($category, $input);
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
@@ -110,14 +112,14 @@ class CategoryController extends Controller
     }
 
     /**
-     * enable banner
+     *  status category
      * @param int $id
      * @return RedirectResponse
      */
     public function toggle(int $id): RedirectResponse
     {
         $category = $this->category_repository->getById($id);
-        $input = ['is_enabled' => !$category->is_enabled];
+        $input = ['status' => !$category->status];
         $result = $this->category_repository->update($input, $category);
         if (!$result) {
             return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');

@@ -26,7 +26,7 @@
                                                 <th data-sortable="true">دسته بندی والد</th>
                                                 <th data-sortable="true">وضعیت</th>
                                                 <th data-sortable="true">ویرایش</th>
-{{--                                                <th data-sortable="true">حذف</th>--}}
+                                                <th data-sortable="true">حذف</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -37,11 +37,11 @@
                                                     <td>{{$category->parent}}</td>
                                                     <td class="nav-item">
                                                         <a class="nav-link active text-green"
-                                                           @if($category->is_enabled == 1)
+                                                           @if($category->status == 1)
                                                                href="{{route('categories.toggle',[$category->id])}}"
                                                            disabled @endif
                                                            href="{{route('categories.toggle',[$category->id])}}">
-                                                            @if($category->is_enabled == 1)
+                                                            @if($category->status == 1)
                                                                 فعال
                                                             @else
                                                                 <span class="text-warning">غیرفعال</span>
@@ -52,16 +52,16 @@
                                                         <a href="{{route('categories.update', $category->id)}}"
                                                            class="btn btn-outline-theme">ویرایش</a>
                                                     </td>
-{{--                                                    <td>--}}
-{{--                                                        <form method="post"--}}
-{{--                                                              action="{{ route('categories.destroy', $category->id) }}">--}}
-{{--                                                            @method('delete')--}}
-{{--                                                            @csrf--}}
-{{--                                                            <button type="submit"--}}
-{{--                                                                    class="btn btn-outline-danger m-b-xs">حذف--}}
-{{--                                                            </button>--}}
-{{--                                                        </form>--}}
-{{--                                                    </td>--}}
+                                                    <td>
+                                                        <form method="post"
+                                                              action="{{ route('categories.destroy', $category->id) }}">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit"
+                                                                    class="btn btn-outline-danger m-b-xs">حذف
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

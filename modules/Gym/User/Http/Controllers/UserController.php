@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     /**
      * The category repository instance.
      * @var UserRepositoryInterface
@@ -51,11 +50,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      * @param Request $request
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(Request $request): View|Factory|Application
+    public function index(Request $request, $id, string $status = null): View|Factory|Application
     {
-        $users = $this->user_repository->getAll();
+        $users = $this->user_repository->getAll($id);
         if ($request->ajax()) {
             return view('User::Admin.pagiresult',compact('users'));
         }

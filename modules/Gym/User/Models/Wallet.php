@@ -21,11 +21,22 @@ class Wallet extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     * @var string
+     */
     protected $table = 'wallets';
 
-    protected $guarded = ['id'];
+    /**
+     * The attributes that are mass assignable.
+     * @var array
+     */
+    protected $fillable = [
+        'admin_id', 'user_id', 'card_id', 'amount', 'description', 'type', 'status', 'date_payment'
+    ];
 
     /**
+     * Get the user that owns the wallet.
      * @return BelongsTo
      */
     public function user(): BelongsTo
@@ -34,6 +45,7 @@ class Wallet extends Model
     }
 
     /**
+     * Get the card that owns the wallet.
      * @return BelongsTo
      */
     public function cards(): BelongsTo
@@ -41,8 +53,12 @@ class Wallet extends Model
         return $this->belongsTo(Card::class);
     }
 
-    public function admin()
+    /**
+     * Get the admin that owns the wallet.
+     * @return BelongsTo
+     */
+    public function admin(): BelongsTo
     {
-        return $this->belongsTo(User::class,'admin_id');
+        return $this->belongsTo(User::class, 'admin_id');
     }
 }

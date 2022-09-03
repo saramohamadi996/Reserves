@@ -4,7 +4,6 @@ namespace Gym\Card\Repositories;
 
 use Gym\Card\Models\Card;
 use Gym\Card\Repositories\Interfaces\CardRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class CardRepository implements CardRepositoryInterface
 {
     /**
-     * fetch query builder categories.
+     * fetch query builder cards.
      * @return Builder
      */
     private function fetchQueryBuilder(): Builder
@@ -22,31 +21,28 @@ class CardRepository implements CardRepositoryInterface
         return Card::query();
     }
 
-    private function getCardQuery($id): Builder
-    {
-        return $this->fetchQueryBuilder()->where('card_id', $id)
-            ->where('is_enabled', '=', 1);
-    }
-
     /**
-     * paginate categories.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator
-    {
-        return $this->fetchQueryBuilder()->paginate();
-    }
-
-    /**
-     * returns all products.
+     * Get the value from the database.
+     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll(string $status = null):Collection
+    public function getAll($id,string $status = null): Collection
     {
         $query = $this->fetchQueryBuilder();
-        if ($status) $query->where("is_enabled", $status);
+        if ($status) $query->where("status", $status);
         return $query->latest()->get();
+    }
+
+    /**
+     * get card status.
+     * @param $id
+     * @return Collection
+     */
+    public function getCardStatus($id): Collection
+    {
+        return $this->getAll($id)->where('card_id', $id)
+            ->where('status', '=', 1);
     }
 
     /**
@@ -91,8 +87,8 @@ class CardRepository implements CardRepositoryInterface
         if (isset($value['user_id'])) {
             $card->user_id = auth()->id();
         }
-        if (isset($value['is_enabled'])) {
-            $card->is_enabled = $value['is_enabled'];
+        if (isset($value['status'])) {
+            $card->status = $value['status'];
         }
         if (isset($value['name_account_holder'])) {
             $card->name_account_holder = $value['name_account_holder'];

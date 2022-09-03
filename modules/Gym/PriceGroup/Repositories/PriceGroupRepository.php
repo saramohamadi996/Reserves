@@ -4,7 +4,6 @@ namespace Gym\PriceGroup\Repositories;
 
 use Gym\PriceGroup\Models\PriceGroup;
 use Gym\PriceGroup\Repositories\Interfaces\PriceGroupRepositoryInterface;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class PriceGroupRepository implements PriceGroupRepositoryInterface
 {
     /**
-     * fetch query builder categories.
+     * fetch query builder price groups.
      * @return Builder
      */
     private function fetchQueryBuilder(): Builder
@@ -22,31 +21,28 @@ class PriceGroupRepository implements PriceGroupRepositoryInterface
         return PriceGroup::query();
     }
 
-    private function getPriceGroupQuery($id): Builder
-    {
-        return $this->fetchQueryBuilder()->where('price_group_id', $id)
-            ->where('is_enabled', '=', 1);
-    }
-
     /**
-     * paginate categories.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator
-    {
-        return $this->fetchQueryBuilder()->paginate();
-    }
-
-    /**
-     * returns all products.
+     * returns all price groups.
+     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll(string $status = null):Collection
+    public function getAll($id, string $status = null):Collection
     {
         $query = $this->fetchQueryBuilder();
-        if ($status) $query->where("is_enabled", $status);
+        if ($status) $query->where("status", $status);
         return $query->latest()->get();
+    }
+
+    /**
+     * @param $id
+     * get price group status.
+     * @return Collection
+     */
+    public function getPriceGroupStatus($id): Collection
+    {
+        return $this->getAll($id)->where('price_group_id', $id)
+            ->where('status', '=', 1);
     }
 
     /**
@@ -91,8 +87,8 @@ class PriceGroupRepository implements PriceGroupRepositoryInterface
         if (isset($value['user_id'])) {
             $price_group->user_id = auth()->id();
         }
-        if (isset($value['is_enabled'])) {
-            $price_group->is_enabled = $value['is_enabled'];
+        if (isset($value['status'])) {
+            $price_group->status = $value['status'];
         }
         if (isset($value['title'])) {
             $price_group->title = $value['title'];

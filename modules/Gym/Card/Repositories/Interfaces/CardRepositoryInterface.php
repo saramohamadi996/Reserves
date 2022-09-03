@@ -3,7 +3,6 @@
 namespace Gym\Card\Repositories\Interfaces;
 
 use Gym\Card\Models\Card;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,16 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 interface CardRepositoryInterface
 {
     /**
-     * paginate categories.
-     * @return LengthAwarePaginator
-     */
-    public function paginate(): LengthAwarePaginator;
-
-    /**
-     * returns all products.
+     * Get the value from the database.
+     * @param $id
+     * @param string|null $status
      * @return Collection
      */
-    public function getAll():Collection;
+    public function getAll($id,string $status = null): Collection;
+
+    /**
+     * @param $id
+     * get card status.
+     * @return Collection
+     */
+    public function getCardStatus($id): Collection;
 
     /**
      * find by id the record with the given id.
@@ -50,6 +52,4 @@ interface CardRepositoryInterface
      * @return bool
      */
     public function delete($id): bool;
-
-
 }

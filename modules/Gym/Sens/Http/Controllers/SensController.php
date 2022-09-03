@@ -43,11 +43,13 @@ class SensController extends Controller
 
     /**
      * @param $service_id
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function create($service_id): View|Factory|Application
+    public function create($service_id,$id, string $status = null): View|Factory|Application
     {
-        $price_groups = $this->price_group_repository->getAll();
+        $price_groups = $this->price_group_repository->getPriceGroupStatus($id);
         $service = $this->service_repository->getById($service_id);
         return view('Sens::create', compact('service', 'price_groups'));
     }
@@ -57,9 +59,9 @@ class SensController extends Controller
      * @param int $sens_id
      * @return Application|Factory|View
      */
-    public function edit($service_id, int $sens_id): View|Factory|Application
+    public function edit($service_id, int $sens_id,$id, string $status = null): View|Factory|Application
     {
-        $price_groups = $this->price_group_repository->getAll();
+        $price_groups = $this->price_group_repository->getAll($id);
         $service = $this->service_repository->getById($service_id);
         $sens = $this->sens_repository->getById($sens_id);
         return view('Sens::edit', compact('service', 'price_groups','sens'));
@@ -82,9 +84,9 @@ class SensController extends Controller
 
     /**
      * @param Sens $sens
-     * @return bool
+     * @return void
      */
-    private function createReserves(Sens $sens): bool
+    private function createReserves(Sens $sens): void
     {
         $start_at = Carbon::parse($sens->start_at);
         $expire_at = Carbon::parse($sens->expire_at);
@@ -100,6 +102,5 @@ class SensController extends Controller
                 ]);
             }
         }
-        return true;
     }
 }

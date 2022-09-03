@@ -19,6 +19,158 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
+
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = ['users'];
+
+    /**
+     * The attributes that are mass assignable.
+     * @var array
+     */
+    protected $fillable = [
+        'staff_id', 'name', 'username', 'email', 'mobile', 'role', 'status'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * Get all the service for the user.
+     * @return HasMany
+     */
+    public function service(): HasMany
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    /**
+     * Get all the sens for the user.
+     * @return HasMany
+     */
+    public function sens(): HasMany
+    {
+        return $this->hasMany(Sens::class);
+    }
+
+    /**
+     * The reserves that belong to the user.
+     * @return BelongsToMany
+     */
+    public function reserves(): BelongsToMany
+    {
+        return $this->belongsToMany(Reserve::class, 'user_reserve');
+    }
+
+    /**
+     * Get all the price group for the user.
+     * @return HasMany
+     */
+    public function priceGroup(): HasMany
+    {
+        return $this->hasMany(PriceGroup::class);
+    }
+
+    /**
+     * Get all the orders for the user.
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * @return void
+     */
+    public function activeOrders(): void
+    {
+        $this->orders()->whereIn('status', ['pending', 'paid']);
+    }
+
+    /**
+     * Get all the carts for the user.
+     * @return HasMany
+     */
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get all the transactions for the user.
+     * @return HasMany
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Wallet::class);
+    }
+
+    /**
+     * Get all the wallets for the user.
+     * @return HasMany
+     */
+    public function validTransactions(): HasMany
+    {
+        return $this->transactions()->where('status', 1);
+    }
+
+    /**
+     * @return Attribute
+     */
+    protected function credit(): Attribute
+    {
+        return Attribute::get(fn() => $this->validTransactions()
+            ->where('type', 'credit')->sum('amount'));
+    }
+
+    protected function debit(): Attribute
+    {
+        return Attribute::get(fn() => $this->validTransactions()
+            ->where('type', 'debit')->sum('amount'));
+    }
+
+    /**
+     * Get all the registered users for the user.
+     * @return HasMany
+     */
+    public function registeredUsers(): HasMany
+    {
+        return $this->hasMany(User::class, 'staff_id');
+    }
+
+    /**
+     * @return Attribute
+     */
+    protected function balance(): Attribute
+    {
+        return Attribute::get(fn() => $this->credit - $this->debit);
+    }
+
+    /**
+     * @param $amount
+     * @return bool
+     */
+    public function allowWithdraw($amount): bool
+    {
+        return $this->balance() >= $amount;
+    }
 
     const STATUS_ACTIVE = "active";
     const STATUS_INACTIVE = "inactive";
@@ -29,10 +181,10 @@ class User extends Authenticatable
         self::STATUS_BAN
     ];
 
-    const ADMIN ="admin";
-    const STAFF ="staff";
-    const USER ="user";
-    static $roles =[
+    const ADMIN = "admin";
+    const STAFF = "staff";
+    const USER = "user";
+    static $roles = [
         self::ADMIN,
         self::STAFF,
         self::USER
@@ -64,142 +216,4 @@ class User extends Authenticatable
             'username' => 'user',
         ]
     ];
-
-    /**
-     * The attributes that are mass assignable.
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'username', 'staff_id'
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * @return HasMany
-     */
-    public function service(): HasMany
-    {
-        return $this->hasMany(Service::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function sens(): HasMany
-    {
-        return $this->hasMany(Sens::class);
-    }
-
-    /**
-     * The users that belong to the Reserve.
-     * @return BelongsToMany
-     */
-    public function reserves():BelongsToMany
-    {
-        return $this->belongsToMany(Reserve::class, 'user_reserve');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function priceGroup(): HasMany
-    {
-        return $this->hasMany(PriceGroup::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    /**
-     * @return void
-     */
-    public function active_orders(): void
-    {
-        $this->orders()->whereIn('status',['pending','paid']);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function carts(): HasMany
-    {
-        return $this->hasMany(Cart::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function transactions(): HasMany
-    {
-        return $this->hasMany(Wallet::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function validTransactions(): HasMany
-    {
-        return $this->transactions()->where('status', 1);
-    }
-
-    /**
-     * @return Attribute
-     */
-    protected function credit(): Attribute
-    {
-        return Attribute::get(fn() => $this->validTransactions()
-            ->where('type', 'credit')->sum('amount'));
-    }
-
-    protected function debit(): Attribute
-    {
-        return Attribute::get(fn() => $this->validTransactions()
-            ->where('type', 'debit')->sum('amount'));
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function registered_users(): HasMany
-    {
-        return $this->hasMany(User::class,'staff_id');
-    }
-
-    /**
-     * @return Attribute
-     */
-    protected function balance(): Attribute
-    {
-        return Attribute::get(fn() => $this->credit - $this->debit);
-    }
-
-    /**
-     * @param $amount
-     * @return bool
-     */
-    public function allowWithdraw($amount) : bool
-    {
-        return $this->balance() >= $amount;
-    }
-
 }
