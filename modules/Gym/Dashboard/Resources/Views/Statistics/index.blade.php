@@ -5,11 +5,11 @@
             <div class="pos pos-vertical card" id="pos">
                 <div class="pos-container card-body">
                     <div class="pos-header col-12">
-                        <div class="nav col-6">
+                        <div class="nav col-5">
                             <div class="logo col-3 p-0">
                                 <a href="{{url('/dashboard')}}">
                                     <div class="logo-img">
-                                        <i class="bi bi-pie-chart nav-icon" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-pie-chart nav-icon" style="font-size: 1rem;"></i>
                                     </div>
                                     <div class="logo-text">
                                         گزارشات
@@ -19,7 +19,7 @@
                             <div class="logo col-3 p-0 pe-2">
                                 <a href="{{url('/')}}">
                                     <div class="logo-img">
-                                        <i class="bi bi-bag-check" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-bag-check" style="font-size: 1rem;"></i>
                                     </div>
                                     <div class="logo-text">
                                         پیشخوان
@@ -29,7 +29,7 @@
                             <div class="logo col-3 p-0 pe-2">
                                 <a href="{{url('/users')}}">
                                     <div class="logo-img">
-                                        <i class="bi bi-list nav-icon" style="font-size: 1.5rem;"></i>
+                                        <i class="bi bi-list nav-icon" style="font-size: 1rem;"></i>
                                     </div>
                                     <div class="logo-text">
                                         منوها
@@ -37,7 +37,6 @@
                                 </a>
                             </div>
                         </div>
-
                         <div class="col-4 ms-auto pe-4">
                             <div class="input-group input-daterange">
                                 <input type="text" value="{{verta()->formatDate()}}"
