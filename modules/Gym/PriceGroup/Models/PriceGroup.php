@@ -16,26 +16,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PriceGroup extends Model
 {
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'price_groups';
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = 'price_groups';
 
     /**
      * The attributes that are mass assignable.
      * @var array
      */
     protected $fillable = ['title', 'price', 'category_id', 'user_id','status'];
-
-    /**
-     * Get all the wallets for the price group.
-     * @return HasMany
-     */
-    public function service(): HasMany
-    {
-        return $this->hasMany(Service::class);
-    }
 
     /**
      * Get the category that owns the price group.

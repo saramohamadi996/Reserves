@@ -23,11 +23,11 @@ class Category extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'categories';
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = 'categories';
 
     /**
      * The attributes that are mass assignable.
@@ -94,7 +94,7 @@ class Category extends Model
      * Get all the price group for the category.
      * @return HasMany
      */
-    public function priceGroup(): HasMany
+    public function priceGroups(): HasMany
     {
         return $this->hasMany(PriceGroup::class);
     }

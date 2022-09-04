@@ -18,6 +18,14 @@ interface UserRepositoryInterface
     public function getAll(string $status = null): LengthAwarePaginator;
 
     /**
+     * paginate products.
+     * @param array $input
+     * @param int $per_page
+     * @return LengthAwarePaginator
+     */
+    public function paginate(array $input = [], int $per_page = 1): LengthAwarePaginator;
+
+    /**
      * @param $id
      * get user status.
      * @return LengthAwarePaginator

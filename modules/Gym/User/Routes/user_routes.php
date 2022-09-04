@@ -10,7 +10,8 @@ Route::group([
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
     Route::post('users/{user}/edit', 'UserController@update')->name('users.update');
     Route::delete('users/{user}/destroy', 'UserController@destroy')->name('users.destroy');
-    Route::get('users/ajax-autocomplete-search', 'UserController@selectSearch')->name('users.selectSearch');
+//    Route::get('users/ajax-autocomplete-search', 'UserController@selectSearch')->name('users.selectSearch');
+    Route::get('users/search', 'UserController@search')->name('users.search');
 
     Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/user_register', 'Auth\UserRegisterController@showRegistrationForm')->name('user_register');

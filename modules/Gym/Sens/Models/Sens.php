@@ -30,7 +30,6 @@ class Sens extends Model
      */
     protected $table = 'senses';
 
-
     /**
      * The attributes that are mass assignable.
      * @var array

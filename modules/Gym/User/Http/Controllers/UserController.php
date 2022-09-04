@@ -46,6 +46,18 @@ class UserController extends Controller
         }
         return response()->json($users);
     }
+//
+//    public function index(ProductAllRequest $request)
+//    {
+//        $category_id=[];
+//        $categories = $this->category_repository->getAll($category_id);
+//        $input = $request->only(['title', 'priority', 'price', 'code_product', 'seller_id', 'category_id',]);
+//        $products = $this->product_repository->paginate($input);
+//        $sellers = $this->user_repository->getSellers();
+//
+//        $this->authorize('index', $products);
+//        return view('Products::index', compact('products', 'categories','sellers' ));
+//    }
 
     /**
      * Display a listing of the resource.
@@ -54,11 +66,14 @@ class UserController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
+        $input = $request->only('name');
         $users = $this->user_repository->getAll();
+        $user=$this->user_repository->paginate($input);
+
         if ($request->ajax()) {
-            return view('User::Admin.pagiresult',compact('users'));
+            return view('User::Admin.pagiresult',compact('users', $input));
         }
-        return view("User::Admin.index", compact('users'));
+        return view("User::Admin.index", compact('users', 'user'));
     }
 
     /**

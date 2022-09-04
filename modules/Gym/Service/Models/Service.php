@@ -23,11 +23,11 @@ use Illuminate\Support\Str;
  */
 class Service extends Model
 {
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'services';
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = 'services';
 
     /**
      * The attributes that are mass assignable.
@@ -75,7 +75,7 @@ class Service extends Model
      * Get all the paid orders for the service.
      * @return HasMany
      */
-    public function paidOrders(): HasMany
+    public function paid_orders(): HasMany
     {
         return $this->orders()->where('status','paid');
     }

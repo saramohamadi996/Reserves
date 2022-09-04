@@ -20,11 +20,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Card extends Model
 {
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'cards';
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = 'cards';
 
     /**
      * The attributes that are mass assignable.

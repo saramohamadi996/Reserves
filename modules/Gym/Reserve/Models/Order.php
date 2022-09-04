@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table=['orders'];
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table=['orders'];
 
     /**
      * The attributes that are mass assignable.

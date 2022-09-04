@@ -9,17 +9,33 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
 
 class UserRepository implements UserRepositoryInterface
 {
     /**
      * fetch query builder users.
+     * @param array $input
      * @return Builder
      */
-    private function fetchQueryBuilder(): Builder
+    private function fetchQueryBuilder(array $input = []): Builder
     {
-        return User::query();
+        return User::query()
+            ->when(isset($input['name']), function (Builder $query) use ($input) {
+                $query->where('name', 'like', '%' . $input['name'] . '%');
+            });
+    }
+
+    /**
+     * paginate products.
+     * @param array $input
+     * @param int $per_page
+     * @return LengthAwarePaginator
+     */
+    public function paginate(array $input = [], int $per_page = 1): LengthAwarePaginator
+    {
+        return $this->fetchQueryBuilder($input)->paginate($per_page);
     }
 
     /**

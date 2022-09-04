@@ -46,7 +46,7 @@
                             <div class="col-12 mt-2">
                                 <label class="form-label"> مبلغ شارژ </label>
                                 <input type="text" autocomplete="off" name="amount"
-                                       class="form-control number"/>
+                                       class="form-control"/>
                                 @error("amount")
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

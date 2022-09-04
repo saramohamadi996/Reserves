@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reserve extends Model
 {
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'reserves';
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = 'reserves';
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +37,7 @@ class Reserve extends Model
      * The paid users that belong to the reserve.
      * @return BelongsToMany
      */
-    public function paidUsers(): BelongsToMany
+    public function paid_users(): BelongsToMany
     {
         return $this->users()->wherePivotIn('status',['pending','paid']);
     }
@@ -55,7 +55,7 @@ class Reserve extends Model
      * Get the service that owns the reserve.
      * @return BelongsTo
      */
-    public function service(): BelongsTo
+    public function services(): BelongsTo
     {
         return $this->belongsTo(Service::class);
     }

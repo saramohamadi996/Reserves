@@ -28,7 +28,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use HasApiTokens, HasFactory, Notifiable;
 
 //    /**
 //     * The table associated with the model.
@@ -61,10 +60,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all the service for the user.
+     * Get all the services for the user.
      * @return HasMany
      */
-    public function service(): HasMany
+    public function services(): HasMany
     {
         return $this->hasMany(Service::class);
     }
@@ -73,7 +72,7 @@ class User extends Authenticatable
      * Get all the sens for the user.
      * @return HasMany
      */
-    public function sens(): HasMany
+    public function senses(): HasMany
     {
         return $this->hasMany(Sens::class);
     }
@@ -82,16 +81,16 @@ class User extends Authenticatable
      * The reserves that belong to the user.
      * @return BelongsToMany
      */
-    public function reserves(): BelongsToMany
+    public function reserve(): BelongsToMany
     {
         return $this->belongsToMany(Reserve::class, 'user_reserve');
     }
 
     /**
-     * Get all the price group for the user.
+     * Get all the price groups for the user.
      * @return HasMany
      */
-    public function priceGroup(): HasMany
+    public function priceGroups(): HasMany
     {
         return $this->hasMany(PriceGroup::class);
     }
@@ -108,7 +107,7 @@ class User extends Authenticatable
     /**
      * @return void
      */
-    public function activeOrders(): void
+    public function active_orders(): void
     {
         $this->orders()->whereIn('status', ['pending', 'paid']);
     }
@@ -159,7 +158,7 @@ class User extends Authenticatable
      * Get all the registered users for the user.
      * @return HasMany
      */
-    public function registeredUsers(): HasMany
+    public function registered_users(): HasMany
     {
         return $this->hasMany(User::class, 'staff_id');
     }

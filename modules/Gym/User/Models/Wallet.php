@@ -9,23 +9,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int|mixed|string|null $admin_id
- * @property mixed $user_id
- * @property mixed $card_id
- * @property mixed|string $type
- * @property mixed $amount
- * @property mixed $description
+ * @property int $user_id
+ * @property int $card_id
+ * @property bool $type
+ * @property string $amount
+ * @property string $description
  * @property mixed $date_payment
- * @property mixed $status
+ * @property bool $status
  */
 class Wallet extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'wallets';
+//    /**
+//     * The table associated with the model.
+//     * @var string
+//     */
+//    protected $table = 'wallets';
 
     /**
      * The attributes that are mass assignable.

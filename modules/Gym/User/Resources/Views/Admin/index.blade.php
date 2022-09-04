@@ -15,7 +15,16 @@
                               </div>
                               <div class="col-lg-3 ms-lg-auto me-lg-auto">
                                   <div class="nav-item">
-                                      <select class="livesearch form-control" id="user" name="livesearch"></select>
+{{--                                      <select class="livesearch form-control" id="user" name="livesearch"></select>--}}
+                                      <form action="{{route('users.search')}}" method="get" class="">
+                                          @csrf
+                                          <div class="t-header-searchbox font-size-13">
+                                              <input type="text" class="text search-input__box font-size-13" placeholder="جستجوی محصول">
+                                              <div class="t-header-search-content">
+                                                  <input type="text" class="text" name="name" placeholder="نام محصول">
+                                              </div>
+                                          </div>
+                                      </form>
                                   </div>
                               </div>
                               <div class="col-lg-3 ms-lg-auto me-lg-auto">
