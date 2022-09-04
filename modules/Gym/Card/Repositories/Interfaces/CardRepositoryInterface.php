@@ -11,11 +11,10 @@ interface CardRepositoryInterface
 {
     /**
      * Get the value from the database.
-     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id,string $status = null): Collection;
+    public function getAll(string $status = null): Collection;
 
     /**
      * @param $id

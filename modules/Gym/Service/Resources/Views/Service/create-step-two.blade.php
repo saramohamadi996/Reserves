@@ -64,7 +64,30 @@
                                                     <div class="modal-body">
                                                         <div class="mb-3">
                                                             <div class="row row-space-10">
-                                                                <div class="col-6">
+                                                                @if ($errors->any())
+                                                                    <div class="alert alert-danger">
+                                                                        <ul>
+                                                                            @foreach ($errors->all() as $error)
+                                                                                <li>{{ $error }}</li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    </div>
+                                                                @endif
+
+                                                                <div class="mt-3 col-4">
+                                                                    <label class="form-label"> دسته بندی </label>
+                                                                    <select name="category_id" id="categoryId"
+                                                                            class="form-select" required>
+                                                                        <option value="">انتخاب دسته بندی</option>
+                                                                        @foreach($categories as $category)
+                                                                            <option class="bg-gray-600" required
+                                                                                    value="{{ $category->id ?? '' }}">
+                                                                                {{ $category->title }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="mt-3 col-4">
                                                                     <label class="form-label"> ترتیب نمایش </label>
                                                                     <input type="number"
                                                                            placeholder="ترتیب قرار گیری خدمت در لیست نمایش"
@@ -74,7 +97,7 @@
                                                                            id="taskPriority" name="priority">
                                                                 </div>
 
-                                                                <div class="col-6">
+                                                                <div class="mt-3 col-4">
                                                                     <label class="form-label"> کد خدمت </label>
                                                                     <input type="text" placeholder="کد خدمت "
                                                                            value="{{{ $service->code_service ?? '' }}}"

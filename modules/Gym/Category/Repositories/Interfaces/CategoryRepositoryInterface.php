@@ -11,10 +11,10 @@ interface CategoryRepositoryInterface
 {
     /**
      * Get the value from the categories.
-     * @param $id
+     * @param string|null $status
      * @return Collection
      */
-    public function getAll($id): Collection;
+    public function getAll(string $status = null):Collection;
 
     /**
      * get category status.

@@ -16,6 +16,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed $expire_at
  * @property mixed $start
  * @property mixed $end
+ * @property int|mixed|string|null $user_id
+ * @property mixed $volume
+ * @property mixed $service_id
+ * @property mixed $price_group_id
+ * @property mixed $day
  */
 class Sens extends Model
 {

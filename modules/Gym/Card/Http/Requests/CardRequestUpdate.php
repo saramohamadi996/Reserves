@@ -23,7 +23,7 @@ class CardRequestUpdate extends FormRequest
     {
         return [
             'name_account_holder' => 'required|string|min:3|max:100',
-            "bank_name" => 'required|min:3|max:190|string|unique:cards,bank_name' . request()->route('cards'),
+            "bank_name" => 'required|min:3|max:190|string',
             "card_number" => 'required|size:16|string|unique:cards,bank_name' . request()->route('cards'),
         ];
     }

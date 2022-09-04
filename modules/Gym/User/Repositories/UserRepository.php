@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class UserRepository implements UserRepositoryInterface
 {
     /**
-     * fetch query builder categories.
+     * fetch query builder users.
      * @return Builder
      */
     private function fetchQueryBuilder(): Builder
@@ -23,12 +23,11 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * returns all products.
-     * @param $id
+     * returns all users.
      * @param string|null $status
      * @return LengthAwarePaginator
      */
-    public function getAll($id, string $status = null): LengthAwarePaginator
+    public function getAll(string $status = null): LengthAwarePaginator
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
@@ -36,7 +35,7 @@ class UserRepository implements UserRepositoryInterface
     }
 
     /**
-     * get card status.
+     * get user status.
      * @param $id
      * @return LengthAwarePaginator
      */
@@ -58,24 +57,40 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * Update the specified resource in storage.
-     * @param $user_id
-     * @param $value
-     * @return mixed
+     * @param array $value
+     * @param User $user
+     * @return bool
      */
-    public function update($user_id, $value): mixed
+    public function update(array $value, User $user): bool
     {
-        $update = [
-            'name' => $value->name,
-            'username' => $value->username,
-            'email' => $value->email,
-            'mobile' => $value->mobile,
-            'status' => $value->status,
-            'role' => $value->role,
-        ];
-        if (!is_null($value->password)) {
-            $update['password'] = bcrypt($value->password);
+        if (isset($value['status'])) {
+            $user->status = $value['status'];
         }
-        return User::where('id', $user_id)->update($update);
+        if (isset($value['name'])) {
+            $user->name = $value['name'];
+        }
+        if (isset($value['username'])) {
+            $user->username = $value['username'];
+        }
+        if (isset($value['email'])) {
+            $user->email = $value['email'];
+        }
+        if (isset($value['mobile'])) {
+            $user->mobile = $value['mobile'];
+        }
+        if (isset($value['role'])) {
+            $user->role = $value['role'];
+        }
+        if (!is_null($value['password'])) {
+            $user->password = bcrypt($value['password']);
+        }
+        try {
+            $user->save();
+        } catch (QueryException $query_exception) {
+            Log::error($query_exception->getMessage());
+            return false;
+        }
+        return true;
     }
 
     /**

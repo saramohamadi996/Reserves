@@ -50,13 +50,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      * @param Request $request
-     * @param $id
-     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index(Request $request, $id, string $status = null): View|Factory|Application
+    public function index(Request $request): View|Factory|Application
     {
-        $users = $this->user_repository->getAll($id);
+        $users = $this->user_repository->getAll();
         if ($request->ajax()) {
             return view('User::Admin.pagiresult',compact('users'));
         }
@@ -75,14 +73,15 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param int $id
      * @param UpdateUserRequest $request
-     * @param $user_id
      * @return RedirectResponse
      */
-    public function update(UpdateUserRequest $request, $user_id): RedirectResponse
+    public function update(int $id, Request $request): RedirectResponse
     {
-        $this->user_repository->getById($user_id);
-        $result= $this->user_repository->update($user_id, $request);
+        $card = $this->user_repository->getById($id);
+        $input = $request->only(['status', 'name', 'username', 'email', 'mobile', 'role', 'password',]);
+        $result= $this->user_repository->update($input, $card);
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
         }

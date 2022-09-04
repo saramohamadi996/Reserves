@@ -7,6 +7,7 @@ use Gym\Category\Repositories\Interfaces\CategoryRepositoryInterface;
 use Gym\PriceGroup\Http\Requests\PriceGroupStoreRequest;
 use Gym\PriceGroup\Http\Requests\PriceGroupUpdateRequest;
 use Gym\PriceGroup\Repositories\Interfaces\PriceGroupRepositoryInterface;
+use Gym\Service\Models\Service;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,7 +17,7 @@ use Illuminate\Http\Request;
 class PriceGroupController extends Controller
 {
     /**
-     * The price_group repository instance.
+     * The price group repository instance.
      * @var PriceGroupRepositoryInterface
      * @var CategoryRepositoryInterface
      */
@@ -24,7 +25,7 @@ class PriceGroupController extends Controller
     protected CategoryRepositoryInterface $category_repository;
 
     /**
-     * Instantiate a new price_group instance.
+     * Instantiate a new price group instance.
      * @param PriceGroupRepositoryInterface $price_group_repository
      * @param CategoryRepositoryInterface $category_repository
      */
@@ -37,13 +38,11 @@ class PriceGroupController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param $id
-     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index($id, string $status = null): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $price_groups = $this->price_group_repository->getAll($id);
+        $price_groups = $this->price_group_repository->getAll();
         return view('PriceGroup::index', compact('price_groups'));
     }
 
@@ -81,7 +80,7 @@ class PriceGroupController extends Controller
      * @param string|null $status
      * @return Application|Factory|View
      */
-    public function edit(int $price_group_id,$id, string $status = null): View|Factory|Application
+    public function edit(int $price_group_id, $id, string $status = null): View|Factory|Application
     {
         $categories = $this->category_repository->getCategoryStatus($id);
         $price_group = $this->price_group_repository->getById($price_group_id);
@@ -94,7 +93,7 @@ class PriceGroupController extends Controller
      * @param PriceGroupUpdateRequest $request
      * @return RedirectResponse
      */
-    public function update(int $id, Request $request): RedirectResponse
+    public function update(int $id, PriceGroupUpdateRequest $request): RedirectResponse
     {
         $price_group = $this->price_group_repository->getById($id);
         $input = $request->only(['title', 'price', 'category_id', 'user_id','status']);
@@ -121,7 +120,7 @@ class PriceGroupController extends Controller
     }
 
     /**
-     * enable banner
+     * change status price group
      * @param int $id
      * @return RedirectResponse
      */

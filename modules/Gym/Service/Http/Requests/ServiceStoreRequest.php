@@ -14,10 +14,13 @@ class ServiceStoreRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            "title" => 'required|min:3|max:190',
-            "category_id" => 'required|exists:categories,id',
-            "code_service" => 'nullable|min:3|max:190',
-            "priority" => 'nullable|numeric|min:0',
+
+            "admin_id" => ['required', 'exists:users,id'],
+            "user_id" => ['required', 'exists:users,id'],
+            "card_id" => 'required|exists:cards,id',
+            "amount" => 'required|numeric|min:0|max:1000000000',
+            "description" => 'nullable|min:3|max:190',
+            'date_payment'=> 'required|date|date_format:Y/m/d',
         ];
         return $rules;
     }
@@ -25,10 +28,13 @@ class ServiceStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            "title" => "عنوان",
-            "category_id" => "دسته بندی",
-            "code_service" => 'کد خدمت',
-            "priority" => 'ترتیب نمایش',
+            "amount" => "مبلغ",
+            "description" => "توضیحات",
+            "card_id" => "کارت بانکی",
+            "admin_id" => "نام ادمین",
+            "user_id" => "نام کاربر",
+            "date_payment" => "تاریخ",
+
         ];
     }
 }

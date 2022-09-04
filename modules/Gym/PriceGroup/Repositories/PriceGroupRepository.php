@@ -23,11 +23,10 @@ class PriceGroupRepository implements PriceGroupRepositoryInterface
 
     /**
      * returns all price groups.
-     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id, string $status = null):Collection
+    public function getAll(string $status = null):Collection
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
@@ -56,7 +55,7 @@ class PriceGroupRepository implements PriceGroupRepositoryInterface
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new created resource in storage.
      * @param $value
      * @return bool
      */

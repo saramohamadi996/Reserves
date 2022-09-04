@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 
 /**
  * @property string $title
+ * @property string $slug
  * @property string $code_service
  * @property int $priority
  * @property int $category_id
@@ -33,29 +34,6 @@ class Service extends Model
      * @var array
      */
     protected $fillable =['category_id', 'title', 'slug', 'code_service', 'priority', 'status'];
-
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function ($service) {
-            $service->slug = $service->createSlug($service->title);
-            $service->save();
-        });
-    }
-
-    private function createSlug($title): array|string|null
-    {
-        if (static::whereSlug($slug = Str::slug($title))->exists()) {
-            $max = static::whereName($title)->latest('id')->skip(1)->value('slug');
-            if (isset($max[-1]) && is_numeric($max[-1])) {
-                return preg_replace_callback('/(\d+)$/', function ($mathces) {
-                    return $mathces[1] + 1;
-                }, $max);
-            }
-            return "{$slug}-2";
-        }
-        return $slug;
-    }
 
     /**
      * Get the user that owns the service.

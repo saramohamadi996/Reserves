@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 class WalletRepository implements WalletRepositoryInterface
 {
     /**
-     * fetch query builder categories.
+     * fetch query builder wallets.
      * @return Builder
      */
     private function fetchQueryBuilder(): Builder
@@ -23,12 +23,11 @@ class WalletRepository implements WalletRepositoryInterface
     }
 
     /**
-     * Get the value from the database.
-     * @param $id
+     * Get the value from the wallets.
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id,string $status = null): Collection
+    public function getAll(string $status = null): Collection
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);

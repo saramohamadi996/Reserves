@@ -2,6 +2,7 @@
 
 namespace Gym\User\Repositories\Interfaces;
 
+use Gym\User\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,11 +12,10 @@ interface UserRepositoryInterface
 {
     /**
      * returns all products.
-     * @param $id
      * @param string|null $status
      * @return LengthAwarePaginator
      */
-    public function getAll($id, string $status = null): LengthAwarePaginator;
+    public function getAll(string $status = null): LengthAwarePaginator;
 
     /**
      * @param $id
@@ -37,7 +37,7 @@ interface UserRepositoryInterface
      * @param $value
      * @return mixed
      */
-    public function update($user_id, $value): mixed;
+    public function update(array $value, User $user): bool;
 
     /**
      * Remove the specified resource from storage.

@@ -12,11 +12,10 @@ interface WalletRepositoryInterface
 {
     /**
      * returns all products.
-     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id, string $status = null):Collection;
+    public function getAll(string $status = null):Collection;
 
     /**
      * @param $id

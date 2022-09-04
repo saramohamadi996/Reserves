@@ -6,6 +6,7 @@ use Gym\Service\Models\Service;
 use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 
@@ -21,12 +22,11 @@ class ServiceRepository implements ServiceRepositoryInterface
     }
 
     /**
-     * Get the value from the database.
-     * @param $id
+     * returns all price groups.
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id,string $status = null): Collection
+    public function getAll(string $status = null):Collection
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
@@ -34,8 +34,8 @@ class ServiceRepository implements ServiceRepositoryInterface
     }
 
     /**
-     * get card status.
      * @param $id
+     * get price group status.
      * @return Collection
      */
     public function getServiceStatus($id): Collection
@@ -44,7 +44,12 @@ class ServiceRepository implements ServiceRepositoryInterface
             ->where('status', '=', 1);
     }
 
-    public function getById($id)
+    /**
+     * find by id the record with the given id.
+     * @param int $id
+     * @return Builder|Builder[]|Collection|Model|null
+     */
+    public function getById(int $id): Model|Collection|Builder|array|null
     {
         return $this->fetchQueryBuilder()->findOrFail($id);
     }
@@ -85,6 +90,9 @@ class ServiceRepository implements ServiceRepositoryInterface
         }
         if (isset($value['title'])) {
             $service->title = $value['title'];
+        }
+        if (isset($value['slug'])) {
+            $service->slug = $value['slug'];
         }
         if (isset($value['code_service'])) {
             $service->code_service = $value['code_service'];

@@ -3,17 +3,18 @@
 namespace Gym\Service\Repositories\Interfaces;
 
 use Gym\Service\Models\Service;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 interface ServiceRepositoryInterface
 {
     /**
-     * Get the value from the database.
-     * @param $id
+     * returns all price groups.
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id,string $status = null): Collection;
+    public function getAll(string $status = null):Collection;
 
     /**
      * @param $id
@@ -22,7 +23,12 @@ interface ServiceRepositoryInterface
      */
     public function getServiceStatus($id): Collection;
 
-    public function getById($id);
+    /**
+     * find by id the record with the given id.
+     * @param int $id
+     * @return Builder|Builder[]|Collection|Model|null
+     */
+    public function getById(int $id): Model|Collection|Builder|array|null;
 
     /**
      * Store a newly created resource in storage.

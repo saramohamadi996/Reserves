@@ -30,13 +30,11 @@ class CategoryController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param $id
-     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index($id, string $status = null): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $categories = $this->category_repository->getAll($id);
+        $categories = $this->category_repository->getAll();
         return view('Categories::index', compact('categories'));
     }
 
@@ -75,7 +73,7 @@ class CategoryController extends Controller
     public function edit(int $category_id): View|Factory|Application
     {
         $category = $this->category_repository->getById($category_id);
-        $categories = $this->category_repository->getCategoryStatus($category_id);
+        $categories = $this->category_repository->getAll();
         return view('Categories::edit', compact('category', 'categories'));
     }
 
@@ -89,7 +87,7 @@ class CategoryController extends Controller
     {
         $category = $this->category_repository->getById($id);
         $input = $request->only('title', 'slug', 'parent_id', 'status');
-        $result = $this->category_repository->update($category, $input);
+        $result = $this->category_repository->update($input, $category);
         if (!$result) {
             return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
         }
@@ -112,7 +110,7 @@ class CategoryController extends Controller
     }
 
     /**
-     *  status category
+     *  change status category
      * @param int $id
      * @return RedirectResponse
      */

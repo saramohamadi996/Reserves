@@ -25,11 +25,10 @@ class SensRepository implements SensRepositoryInterface
 
     /**
      * Get the value from the database.
-     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id,string $status = null): Collection
+    public function getAll(string $status = null): Collection
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
@@ -65,20 +64,22 @@ class SensRepository implements SensRepositoryInterface
      */
     public function store($service_id, $value):bool
     {
-        Service::where('id', $service_id)->first();
-        $sens = Sens::query()->create([
-                'start_at' => $value['start_at'],
-                'expire_at' => $value['expire_at'],
-                'service_id' => $service_id,
-                'user_id' => auth()->id(),
-                'price_group_id' => $value['price_group_id'],
-            ] + $value->all());
-        $this->createReserves($sens);
+        $sens = new Sens();
+        $sens->user_id = auth()->id();
+        $sens->start = $value['start'];
+        $sens->end = $value['end'];
+        $sens->volume = $value['volume'];
+        $sens->start_at = $value['start_at'];
+        $sens->expire_at = $value['expire_at'];
+        $sens->service_id = $service_id->id;
+        $sens->price_group_id = $value['price_group_id'];
+        $sens->day = $value['day'];
         try {
             $sens->save();
+            $this->createReserves($sens);
         } catch (QueryException $query_exception) {
             Log::error($query_exception->getMessage());
-//            return null;
+            return false;
         }
         return true;
     }
@@ -99,74 +100,44 @@ class SensRepository implements SensRepositoryInterface
         return true;
     }
 
-//    public function store(StoreProductRequest $request)
-//    {
-//        $product = products::create($request->all());
-//        return redirect()->route('admin.products.index');
-//    }
-
-    public function paginate($service_id)
+    /**
+     * Update the specified resource in storage.
+     * @param array $value
+     * @param Sens $sens
+     * @return bool
+     */
+    public function update(array $value, Sens $sens): bool
     {
-        return Sens::where('service_id', $service_id)->paginate();
+        if (isset($value['status'])) {
+            $sens->status = $value['status'];
+        }
+        if (isset($value['price_group_id'])) {
+            $sens->price_group_id = $value['price_group_id'];
+        }
+        try {
+            $sens->save();
+        } catch (QueryException $queryException) {
+            Log::error($queryException->getMessage());
+            return false;
+        }
+        return true;
     }
 
-    public function getFirstSens(int $service_id)
+    /**
+     * Remove the specified resource from storage.
+     * @param $id
+     * @return bool
+     */
+    public function delete($id): bool
     {
-        return Sens::where('service_id', $service_id)
-            ->orderBy('id', 'asc')->first();
+        Sens::where('id', $id)->delete();
+        try {
+            $id->delete();
+        } catch (QueryException $query_exception) {
+            Log::error($query_exception->getMessage());
+            return false;
+        }
+        return true;
     }
-
-    public function getSens(int $service_id, int $lessonId)
-    {
-        return Sens::where('service_id', $service_id)->where('id', $lessonId)->first();
-    }
-
-
-//    /**
-//     * Store a newly created resource in storage.
-//     * @param Service $service_id
-//     * @param $value
-//     * @param Sens $sens
-//     * @return bool
-//     */
-//    public function update(Service $service_id, $value, Sens $sens): bool
-//    {
-//        $sens->volume = $value['volume'];
-//        $sens->start = $value['start'];
-//        $sens->end = $value['end'];
-//        $sens->start_at = $value['start_at'];
-//        $sens->expire_at = $value['expire_at'];
-//        $sens->service_id = $service_id;
-//        $sens->user_id = auth()->id();
-//        try {
-//            $sens->save();
-//        } catch (QueryException $query_exception) {
-//            Log::error($query_exception->getMessage());
-//            return false;
-//        }
-//        return true;
-//    }
-
-
-//    public function update($id, $service_id, $value)
-//    {
-//        return Sens::where('id', $id)->update([
-//            "volume" => $value->volume,
-//            "start" => $value->start,
-//            "end" => $value->end,
-//            "start_at" => $value->start_at,
-//            "expire_at" => $value->expire_at,
-//            "service_id" => $service_id,
-//            "user_id" => auth()->id(),
-//        ]);
-////        try {
-////            $sens->save();
-////        } catch (QueryException $query_exception) {
-////            Log::error($query_exception->getMessage());
-////            return false;
-////        }
-////        return true;
-//    }
-
 
 }

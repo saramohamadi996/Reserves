@@ -23,17 +23,14 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     /**
      * Get the value from the database.
-     * @param $id
      * @param string|null $status
      * @return Collection
      */
-    public function getAll($id, string $status = null): Collection
+    public function getAll(string $status = null):Collection
     {
         $query = $this->fetchQueryBuilder();
         if ($status) $query->where("status", $status);
-        return Category::all()->filter(function ($time) use ($id) {
-            return $time->id != $id;
-        });
+        return $query->latest()->get();
     }
 
     /** get category status.

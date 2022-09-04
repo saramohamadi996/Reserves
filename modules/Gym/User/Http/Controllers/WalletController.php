@@ -43,18 +43,18 @@ class WalletController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param $id
-     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function index($id,string $status = null): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $wallets = $this->wallet_repository->getAll($id);
+        $wallets = $this->wallet_repository->getAll();
         return view('User::Wallet.index', compact('wallets'));
     }
 
     /**
      * @param int $id
+     * @param $card_id
+     * @param string|null $status
      * @return Application|Factory|View
      */
     public function create(int $id,$card_id, string $status = null): View|Factory|Application
@@ -92,9 +92,8 @@ class WalletController extends Controller
      */
     public function edit(int $wallet_id, $id, string $status = null): View|Factory|Application
     {
-        $user_id=[];
         $cards = $this->card_repository->getCardStatus($id);
-        $user = User::findOrFail($user_id);
+        $user = $this->user_repository->getAll();
         $wallet = $this->wallet_repository->getById($wallet_id);
         return view('User::Wallet.edit', compact('wallet','cards', 'user'));
     }

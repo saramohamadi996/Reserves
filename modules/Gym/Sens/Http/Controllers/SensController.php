@@ -5,10 +5,10 @@ namespace Gym\Sens\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Gym\Sens\Repositories\Interfaces\SensRepositoryInterface;
+use Gym\Service\Models\Service;
 use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
 use Gym\PriceGroup\Repositories\Interfaces\PriceGroupRepositoryInterface;
 use Gym\Sens\Models\Sens;
-use Gym\Service\Models\Service;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 class SensController extends Controller
 {
     /**
-     * The price_group repository instance.
+     * The senses ' repository instance.
      * @var PriceGroupRepositoryInterface
      * @var ServiceRepositoryInterface
      */
@@ -27,7 +27,7 @@ class SensController extends Controller
     protected SensRepositoryInterface $sens_repository;
 
     /**
-     * Instantiate a new price_group instance.
+     * Instantiate a new senses ' instance.
      * @param PriceGroupRepositoryInterface $price_group_repository
      * @param ServiceRepositoryInterface $service_repository
      * @param SensRepositoryInterface $sens_repository
@@ -42,6 +42,7 @@ class SensController extends Controller
     }
 
     /**
+     * create the form for creating a new resource.
      * @param $service_id
      * @param $id
      * @param string|null $status
@@ -55,52 +56,88 @@ class SensController extends Controller
     }
 
     /**
+     * Store a new created resource in storage.
+     * @param $service_id
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store($service_id, Request $request): RedirectResponse
+    {
+       $service= $this->service_repository->getById($service_id);
+        $input = $request->only(['user_id', 'price_group_id', 'service_id', 'volume',
+            'status', 'day', 'start', 'end', 'start_at', 'expire_at']);
+        $sens = $this->sens_repository->store($service, $input);
+        if (!$sens) {
+            return redirect()->back()->with('error', 'عملیات ذخیره سازی با شکست مواجه شد.');
+        }
+        return redirect()->route('services.details', $service_id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
      * @param $service_id
      * @param int $sens_id
+     * @param $id
+     * @param string|null $status
      * @return Application|Factory|View
      */
-    public function edit($service_id, int $sens_id,$id, string $status = null): View|Factory|Application
+    public function edit($service_id, int $sens_id, $id, string $status = null): View|Factory|Application
     {
-        $price_groups = $this->price_group_repository->getAll($id);
+        $price_groups = $this->price_group_repository->getPriceGroupStatus($id);
         $service = $this->service_repository->getById($service_id);
         $sens = $this->sens_repository->getById($sens_id);
         return view('Sens::edit', compact('service', 'price_groups','sens'));
     }
 
     /**
+     * Update the specified resource in storage.
      * @param $service_id
-     * @param Request $value
+     * @param int $sens_id
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function store($service_id, Request $value): RedirectResponse
+    public function update($service_id,int $sens_id, Request $request): RedirectResponse
     {
-        $sens = Sens::query()->create([
-                'service_id' => $service_id,
-                'user_id' => auth()->id(),
-            ] + $value->all());
-        $this->createReserves($sens);
-        return redirect()->route('services.details', $service_id);
+        $service = $this->service_repository->getById($service_id);
+        $price_group = $this->price_group_repository->getAll();
+        $sens = Sens::findOrFail($sens_id);
+        $input = $request->only('price_group_id');
+        $result = $this->price_group_repository->update($input, $price_group, $sens,$service);
+        dd($result);
+        if (!$result) {
+            return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
+        }
+        return redirect()->route('services.details')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
     }
 
     /**
-     * @param Sens $sens
-     * @return void
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return RedirectResponse
      */
-    private function createReserves(Sens $sens): void
+    public function destroy(int $id): RedirectResponse
     {
-        $start_at = Carbon::parse($sens->start_at);
-        $expire_at = Carbon::parse($sens->expire_at);
-        $start = Carbon::parse($sens->start);
-        $end = Carbon::parse($sens->end);
-        for ($date = $start_at; $date->lte($expire_at); $date->addDay()) {
-            if (in_array($date->dayOfWeek, $sens->toArray()['day'])) {
-                $start_datetime = $date->copy()->addHours($start->hour)->addMinutes($start->minute);
-                $end_datetime = $date->copy()->addHours($end->hour)->addMinutes($end->minute);
-                $sens->reserves()->create([
-                    'start_time' => $start_datetime,
-                    'end_time' => $end_datetime,
-                ]);
-            }
+        $price_group = $this->sens_repository->getById($id);
+        $price_group = $this->sens_repository->delete($price_group);
+        if (!$price_group) {
+            return redirect()->back()->with('error', 'عملیات حذف با شکست مواجه شد.');
         }
+        return redirect()->back()->with('success', 'عملیات حذف با موفقیت شد.');
+    }
+
+    /**
+     * change status price group
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function toggle(int $id): RedirectResponse
+    {
+        $price_group = $this->sens_repository->getById($id);
+        $input = ['status' => !$price_group->status];
+        $result = $this->sens_repository->update($input, $price_group);
+        if (!$result) {
+            return redirect()->back()->with('error', 'فعالسازی با مشکل مواجه شد');
+        }
+        return redirect()->back()->with('success', 'فعال شد');
     }
 }
