@@ -3,37 +3,58 @@
 namespace Gym\Reserve\Repositories;
 
 use Gym\Reserve\Models\Cart;
-use Gym\Reserve\Models\Reserve;
 use Gym\Reserve\Repositories\Interfaces\CartRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class CartRepository implements CartRepositoryInterface
 {
-    public function cart($value, Reserve $reserve)
+    /**
+     * fetch query builder carts.
+     * @return Builder
+     */
+    private function fetchQueryBuilder(): Builder
     {
-        $price = $reserve->sens->priceGroup->price;
-        $price = (int)Str::remove(',', $price);
-        $cart = Cart::firstOrCreate([
-            'service_id' => $reserve->sens->service_id,
-            'user_id' => $value->user_id,
-            'reserve_id' => $reserve->id,
-            'sens_price' => $price,
-        ]);
-        dd($cart);
+        return Cart::query();
+    }
+
+    /**
+     * returns all carts.
+     * @return Collection
+     */
+    public function getAll():Collection
+    {
+        $query =$this->fetchQueryBuilder();
+        return $query->latest()->get();
+    }
+
+    /**
+     * find by id the record with the given id.
+     * @param int $id
+     * @return Builder|Builder[]|Collection|Model|null
+     */
+    public function getById(int $id): Model|Collection|Builder|array|null
+    {
+        return $this->fetchQueryBuilder()->findOrFail($id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param $id
+     * @return bool
+     */
+    public function delete($id): bool
+    {
+        Cart::where('id', $id)->delete();
         try {
-            $cart->save();
+            $id->delete();
         } catch (QueryException $query_exception) {
             Log::error($query_exception->getMessage());
             return false;
         }
         return true;
-    }
-
-    public function destroy($id)
-    {
-        Cart::destroy($id);
-        return response('ok');
     }
 }

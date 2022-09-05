@@ -47,6 +47,7 @@ class ProductController extends Controller
     }
 
     /**
+     * Search users by name and mobile phone.
      * @param Request $request
      * @param User $users
      * @return JsonResponse
@@ -64,6 +65,7 @@ class ProductController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
      * @param $id
      * @param string|null $status
      * @return Application|Factory|View
@@ -76,6 +78,7 @@ class ProductController extends Controller
     }
 
     /**
+     * Sans filter based on date and category.
      * @param Request $request
      * @return JsonResponse
      */
@@ -106,6 +109,7 @@ class ProductController extends Controller
     }
 
     /**
+     * Display the list of customers of one seens.
      * @param Request $request
      * @return JsonResponse
      */

@@ -2,12 +2,29 @@
 
 namespace Gym\Reserve\Repositories\Interfaces;
 
-use Gym\Reserve\Models\Reserve;
-use Gym\User\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 interface CartRepositoryInterface
 {
-    public function cart($value, Reserve $reserve);
+    /**
+     * returns all carts.
+     * @return Collection
+     */
+    public function getAll():Collection;
 
-    public function destroy($id);
+    /**
+     * find by id the record with the given id.
+     * @param int $id
+     * @return Builder|Builder[]|Collection|Model|null
+     */
+    public function getById(int $id): Model|Collection|Builder|array|null;
+
+    /**
+     * Remove the specified resource from storage.
+     * @param $id
+     * @return bool
+     */
+    public function delete($id): bool;
 }

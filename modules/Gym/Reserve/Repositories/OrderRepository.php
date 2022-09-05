@@ -6,6 +6,7 @@ use Gym\Reserve\Models\Order;
 use Gym\Reserve\Repositories\Interfaces\OrderRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -26,5 +27,15 @@ class OrderRepository implements OrderRepositoryInterface
     {
         $query =$this->fetchQueryBuilder();
         return $query->latest()->get();
+    }
+
+    /**
+     * find by id the record with the given id.
+     * @param int $id
+     * @return Builder|Builder[]|Collection|Model|null
+     */
+    public function getById(int $id): Model|Collection|Builder|array|null
+    {
+        return $this->fetchQueryBuilder()->findOrFail($id);
     }
 }

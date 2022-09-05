@@ -123,4 +123,6 @@ class CardRepository implements CardRepositoryInterface
         }
         return true;
     }
+
+
 }
