@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('reserve_id');
             $table->unsignedInteger('price');
             $table->enum('status', ['pending', 'paid', 'canceled'])->default('pending');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->timestamps();
         });
     }

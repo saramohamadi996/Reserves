@@ -12,8 +12,10 @@ use Gym\Sens\Models\Sens;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SensController extends Controller
 {
@@ -89,25 +91,16 @@ class SensController extends Controller
         return view('Sens::edit', compact('service', 'price_groups','sens'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param $service_id
-     * @param int $sens_id
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function update($service_id,int $sens_id, Request $request): RedirectResponse
+
+    public function update($service_id, int $sens_id, Request $value)
     {
-        $service = $this->service_repository->getById($service_id);
-        $price_group = $this->price_group_repository->getAll();
-        $sens = Sens::findOrFail($sens_id);
-        $input = $request->only('price_group_id');
-        $result = $this->price_group_repository->update($input, $price_group, $sens,$service);
-        dd($result);
-        if (!$result) {
-            return redirect()->back()->with('error', 'عملیات بروزرسانی با شکست مواجه شد.');
+        $sens = Sens::query()->findOrFail($sens_id);
+        $sens->update($value->all()+ ['service_id' => $sens->service_id]);
+        if ($sens->wasChanged(['day','start','end','start_at','expire_at','day'])){
+            $sens->reserves()->delete();
+            $this->sens_repository->createReserves($sens);
         }
-        return redirect()->route('services.details')->with('success', 'عملیات بروزرسانی با موفقیت انجام شد.');
+        return redirect()->route('services.details', $service_id);
     }
 
     /**

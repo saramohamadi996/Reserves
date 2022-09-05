@@ -29,7 +29,7 @@
                         <input type="text" name="start_at" id="start_at"
                                autocomplete="off" value="{{jdate($sens->start_at)->format("Y/m/d")}}"
                                class="form-control @error('start_at') is-invalid @enderror"/>
-                        <input type="hidden" id="started_at2" name="start_at">
+                        <input type="hidden" id="started_at2" name="start_at" value="{{$sens->start_at}}">
                         @error("start_at")
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -58,7 +58,7 @@
                         <input type="text" name="expire_at" id="expire_at"
                                autocomplete="off" value="{{jdate($sens->expire_at)->format("Y/m/d")}}"
                                class="form-control @error('expire_at') is-invalid @enderror"/>
-                        <input type="hidden" id="expired_at2" name="expire_at"/>
+                        <input type="hidden" id="expired_at2" name="expire_at" value="{{$sens->expire_at}}"/>
                         @error("expire_at")
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -97,24 +97,24 @@
                 <div class="mt-3">
                     <div class="col-6" style="margin-right: 9%">
 
-                        <input name="day[]" class="form-check-input me-2 mb-3 select_all" type="checkbox">انتخاب همه
+                        <input class="form-check-input me-2 mb-3 select_all" type="checkbox">انتخاب همه
                         <br>
                         <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(0)) checked @endif type="checkbox" name="day[]"
                                value="0"/>شنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="1"/>یکشنبه
+                        <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(1)) checked @endif  type="checkbox" name="day[]" value="1"/>یکشنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="2"/>دوشنبه
+                        <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(2)) checked @endif  type="checkbox" name="day[]" value="2"/>دوشنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="3"/>سه
+                        <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(3)) checked @endif  type="checkbox" name="day[]" value="3"/>سه
                         شنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="4"/>چهارشنبه
+                        <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(4)) checked @endif  type="checkbox" name="day[]" value="4"/>چهارشنبه
                         <br>
-                        <input class="form-check-input me-2 checkbox gst" type="checkbox" name="day[]" value="5"/>پنج
+                        <input class="form-check-input me-2 checkbox gst" @if($sens->day->contains(5)) checked @endif  type="checkbox" name="day[]" value="5"/>پنج
                         شنبه
                         <br>
-                        <input class="form-check-input me-2 mb-3 checkbox gst border-red" type="checkbox" name="day[]"
+                        <input class="form-check-input me-2 mb-3 checkbox gst border-red"  @if($sens->day->contains(6)) checked @endif  type="checkbox" name="day[]"
                                value="6"/>
                         <span class="text-red">جمعه</span>
                     </div>
@@ -128,4 +128,45 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+        $('.timepicker-ui-input').mdtimepicker({
+            is24Hour: true,
+            timeFormat: 'hh:mm',
+            format: 'hh:mm',
+            readOnly: false,
+        });
+
+        $('.select_all').on('change', function () {
+            $('.checkbox').prop('checked', $(this).prop("checked"));
+        });
+        $('.checkbox').change(function () { //".checkbox" change
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('.select_all').prop('checked', true);
+            } else {
+                $('.select_all').prop('checked', false);
+            }
+        });
+
+        $("#start_at").persianDatepicker({
+            formatDate: "YYYY/0M/0D",
+            onSelect: () => {
+                let date = $("#start_at").attr("data-gdate");
+                console.log(date);
+                $("#started_at2").val(date);
+            }
+        });
+        $("#expire_at").persianDatepicker({
+            formatDate: "YYYY/0M/0D",
+            onSelect: () => {
+                let date = $("#expire_at").attr("data-gdate");
+                console.log(date);
+
+                $("#expired_at2").val(date);
+            }
+        });
+    </script>
+@endsection
+
 

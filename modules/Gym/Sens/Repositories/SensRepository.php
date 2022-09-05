@@ -84,7 +84,7 @@ class SensRepository implements SensRepositoryInterface
         return true;
     }
 
-    private function createReserves(Sens $sens)
+    public function createReserves(Sens $sens)
     {
         $start_at = Carbon::parse($sens->start_at);
         $expire_at = Carbon::parse($sens->expire_at);
@@ -108,6 +108,27 @@ class SensRepository implements SensRepositoryInterface
      */
     public function update(array $value, Sens $sens): bool
     {
+        if (isset($value['start'])) {
+            $sens->start = $value['start'];
+        }
+        if (isset($value['end'])) {
+            $sens->end = $value['end'];
+        }
+        if (isset($value['volume'])) {
+            $sens->volume = $value['volume'];
+        }
+        if (isset($value['start_at'])) {
+            $sens->start_at = $value['start_at'];
+        }
+        if (isset($value['expire_at'])) {
+            $sens->expire_at = $value['expire_at'];
+        }
+        if (isset($value['day'])) {
+            $sens->day = $value['day'];
+        }
+        if (isset($value['service_id'])) {
+            $sens->service_id = $value['service_id'];
+        }
         if (isset($value['status'])) {
             $sens->status = $value['status'];
         }
@@ -116,6 +137,11 @@ class SensRepository implements SensRepositoryInterface
         }
         try {
             $sens->save();
+            if ($sens->wasChanged(['day','start','end','start_at','expire_at','day'])){
+                $sens->reserves()->delete();
+                $this->createReserves($sens);
+
+            }
         } catch (QueryException $queryException) {
             Log::error($queryException->getMessage());
             return false;

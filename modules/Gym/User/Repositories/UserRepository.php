@@ -33,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
      * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function paginate(array $input = [], int $per_page = 1): LengthAwarePaginator
+    public function paginate(array $input = [], int $per_page = 10): LengthAwarePaginator
     {
         return $this->fetchQueryBuilder($input)->paginate($per_page);
     }

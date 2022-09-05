@@ -15,7 +15,7 @@
             <td class="small">{{$order->service->title}}</td>
             <td class="small">{{jdate($order->reserve->start_time)->format("m/d")}}</td>
             <td class="small">{{jdate($order->reserve->sens->start)->format("H:i")}}</td>
-            <td class="small">{{$order->reserve->sens->priceGroup->price}}</td>
+            <td class="small">{{number_format($order->price)}}</td>
             <td class="small">{{__($order->status)}}</td>
             <td class="small">
                 @if($order->status != 'canceled')

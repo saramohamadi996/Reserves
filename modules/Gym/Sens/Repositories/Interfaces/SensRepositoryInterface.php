@@ -38,6 +38,8 @@ interface SensRepositoryInterface
      */
     public function store($product_id, $value): bool;
 
+    public function createReserves(Sens $sens);
+
     /**
      * Update the specified resource in storage.
      * @param array $value

@@ -19,7 +19,8 @@ class Order extends Model
      * The attributes that are mass assignable.
      * @var array
      */
-    protected $fillable =['user_id', 'service_id', 'reserve_id', 'status'];
+//    protected $fillable =['user_id', 'service_id', 'reserve_id', 'status'];
+    protected $guarded = [];
 
     /**
      * Get the user that owns the order.

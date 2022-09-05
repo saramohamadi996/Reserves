@@ -5,6 +5,7 @@ use Gym\Reserve\Models\Cart;
 use Gym\Reserve\Models\Reserve;
 use Gym\User\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -12,11 +13,15 @@ class CartController extends Controller
     {
         $user = User::where('id' , $request->user_id)->first();
         $reserve = Reserve::find($request->reserve_id);
+        $price = $reserve->sens->priceGroup->price;
+
+        $price = (int)Str::remove(',',$price);
+
         $cart = Cart::firstOrCreate([
             'service_id' => $reserve->sens->service_id,
             'user_id' => $request->user_id,
             'reserve_id' => $reserve->id,
-            'sens_price'=> $reserve->sens->priceGroup->price,
+            'sens_price'=> $price,
         ]);
         $carts = Cart::where('user_id' , $user->id)->get();
         return view('Reserve::Cart.cart' , compact('carts' , 'user' ));

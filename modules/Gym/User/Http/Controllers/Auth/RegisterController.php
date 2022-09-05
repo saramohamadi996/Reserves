@@ -49,16 +49,24 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      * @param  array  $data
-     * @return User
+     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function create(array $data): User
+    protected function create(array $data): \Illuminate\Http\RedirectResponse
     {
-        return User::create([
+//        return User::create([
+//            'name' => $data['name'],
+//            'username' => $data['username'],
+//            'mobile' => $data['mobile'],
+//            'password' => Hash::make($data['password']),
+//        ]);
+        $users= User::create([
             'name' => $data['name'],
             'username' => $data['username'],
             'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
         ]);
+        dd($users);
+        return redirect()->route('users.index', compact('users'));
     }
 
     /**

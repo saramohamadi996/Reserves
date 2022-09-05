@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class="col-4 text-white fw-bold text-end">
-                                    {{number_format($order->reserve->sens->priceGroup->price)}}
+                                    {{number_format($order->price)}}
                                 </div>
                                 <div class="col-4">{{jdate($order->created_at)->format("Y/m/d")}}</div>
 
@@ -50,7 +50,7 @@
             <div class="d-flex align-items-center mb-2">
                 <div>کل هزینه</div>
                 <div class="flex-1 text-end h4 mb-0">
-                    {{number_format($orders->sum('reserve.sens.priceGroup.price'))}}
+                    {{number_format($orders->sum('price'))}}
                     ریال
                 </div>
             </div>

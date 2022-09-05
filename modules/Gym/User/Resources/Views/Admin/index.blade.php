@@ -17,7 +17,7 @@
                                         <div class="col-lg-3 ms-lg-auto me-lg-auto">
                                             <div class="nav-item">
                                                 {{--                                      <select class="livesearch form-control" id="user" name="livesearch"></select>--}}
-                                                <form action="{{route('users.search')}}" method="get" class="">
+                                                <form action="" method="get" class="">
                                                     @csrf
                                                     <div class="t-header-searchbox font-size-13">
                                                         <input type="text" class="text" name="name">
@@ -120,8 +120,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                @include("User::Admin.pagiresult")
-
+                                {{$users->render()}}
 
                                 <div class="card-arrow">
                                     <div class="card-arrow-top-left"></div>

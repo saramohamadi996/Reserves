@@ -34,9 +34,7 @@ class Sens extends Model
      * The attributes that are mass assignable.
      * @var array
      */
-    protected $fillable =[
-        'user_id', 'price_group_id', 'service_id', 'volume', 'status', 'day', 'start', 'end', 'start_at', 'expire_at'
-    ];
+    protected $guarded =[];
 
     /**
      * The attributes that should be cast to native types.

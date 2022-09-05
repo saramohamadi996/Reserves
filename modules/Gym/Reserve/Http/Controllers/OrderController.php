@@ -20,10 +20,13 @@ class OrderController extends Controller
         $user = User::findOrFail($request->user);
         $carts = Cart::where('user_id', $user->id)->get();
         foreach ($carts as $cart) {
-            Order::firstOrCreate([
+            Order::query()->updateOrCreate([
                 'service_id' => $cart->service_id,
                 'user_id' => $cart->user_id,
                 'reserve_id' => $cart->reserve_id,
+            ],[
+                'start_time' => $cart->reserve->start_time,
+                'end_time' => $cart->reserve->end_time,
                 'price' => $cart->sens_price,
                 'status' => 'pending'
             ]);
@@ -42,15 +45,15 @@ class OrderController extends Controller
     public function wallet(Request $request)
     {
         $user = User::findOrFail($request->user);
-        $orders =  Order::with('reserve.sens.priceGroup')->where([['user_id', $user->id],['status','pending']])->get();
-        if ($orders->sum('reserve.sens.priceGroup.price') > $user->balance){
+        $orders =  Order::where([['user_id', $user->id],['status','pending']])->get();
+        if ($orders->sum('price') > $user->balance){
             return 'موجودی کافی نیست';
         }else {
             $user->transactions()->create([
                 'card_id' => 0,
                 'admin_id' => auth()->id(),
                 'type' => 'debit',
-                'amount' => $orders->sum('reserve.sens.priceGroup.price'),
+                'amount' => $orders->sum('price'),
                 'date_payment' => now()->toDateString()
             ]);
             $orders->each(function (Order $order) {
@@ -72,7 +75,7 @@ class OrderController extends Controller
     public function cancel(Request $request,$id)
     {
         $order = Order::findOrFail($id);
-        $price = $order->reserve->sens->priceGroup->price;
+        $price = $order->price;
         $user = User::find($request->user);
         $user->transactions()->create([
             'card_id' => 0,

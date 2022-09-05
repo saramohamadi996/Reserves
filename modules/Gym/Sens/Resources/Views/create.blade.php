@@ -168,7 +168,7 @@
                                                     <div class="mt-3">
                                                         <div class="col-6" style="margin-right: 9%">
 
-                                                            <input name="day[]" type="checkbox"
+                                                            <input type="checkbox"
                                                                    class="form-check-input me-2 mb-3 select_all">
                                                             انتخاب همه
                                                             <br>

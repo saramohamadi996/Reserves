@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="time"> رزرو : ({{$reserve->paid_users->count()}} نفر)</div>
                                         <div class="info"> ظرفیت : {{$sens->volume}} نفر</div>
-                                        <div class="info me-1">{{number_format($sens->priceGroup->price)}}
+                                        <div class="info me-1">{{$sens->priceGroup->price}}
                                             ریال
                                         </div>
                                         <div class="booking">
@@ -52,7 +52,7 @@
                                         <input type="hidden" name="service_id" value="{{$service->id}}">
                                         @if($sens->volume <= $reserve->users->count())
                                             <button class="btn btn-outline-default pt-1 p-1" disabled>تکمیل</button>
-                                        @elseif($reserve->users->contains($user) || $reserve->end_time <= now())
+                                        @elseif($reserve->paid_users->contains($user) || $reserve->end_time >= now())
                                             <button class="btn btn-outline-default" disabled>رزرو</button>
                                         @else
                                             <button class="btn btn-outline-success"> رزرو</button>
