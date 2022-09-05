@@ -35,7 +35,11 @@ class Category extends Model
      */
     protected $fillable = ['title', 'slug', 'parent_id', 'status'];
 
-    protected static function boot()
+    /**
+     * create dynamic slug category
+     * @return void
+     */
+    protected static function boot(): void
     {
         parent::boot();
         static::created(function ($category) {
@@ -44,6 +48,11 @@ class Category extends Model
         });
     }
 
+    /**
+     * create dynamic slug category
+     * @param $title
+     * @return array|string|null
+     */
     private function createSlug($title): array|string|null
     {
         if (static::whereSlug($slug = Str::slug($title))->exists()) {
@@ -58,6 +67,10 @@ class Category extends Model
         return $slug;
     }
 
+    /**
+     * get parent attribute category
+     * @return string
+     */
     public function getParentAttribute(): string
     {
         return (is_null($this->parent_id)) ? 'ندارند' : $this->parentCategory->title;

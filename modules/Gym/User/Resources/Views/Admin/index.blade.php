@@ -16,15 +16,14 @@
                                         </div>
                                         <div class="col-lg-3 ms-lg-auto me-lg-auto">
                                             <div class="nav-item">
-                                                {{--                                      <select class="livesearch form-control" id="user" name="livesearch"></select>--}}
                                                 <form action="" method="get" class="">
                                                     @csrf
-                                                    <div class="form-control col-12">
-                                                        <input type="text" class="text" name="name">
-                                                    </div>
+                                                    <input type="text" class="form-control col-12" name="mobile"
+                                                           placeholder="جستجو">
                                                 </form>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-3 ms-lg-auto me-lg-auto">
                                             <a href="{{url('/user_register')}}" class="btn btn-outline-theme">
                                                 <i class="fa fa-plus-circle me-1"></i>ثبت نام کاربر جدید</a>

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class WalletRepository implements WalletRepositoryInterface
 {
@@ -68,9 +69,11 @@ class WalletRepository implements WalletRepositoryInterface
         $wallet->user_id = $user->id;
         $wallet->card_id = $value['card_id'];
         $wallet->type = 'credit';
-        $wallet->amount = $value['amount'];
+
         $wallet->description = $value['description'];
         $wallet->date_payment = $value['date_payment'];
+        $wallet->amount = $value['amount'];
+        (int)Str::remove(',', $wallet->amount);
         $wallet->save();
         try {
             $wallet->save();

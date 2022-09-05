@@ -80,6 +80,7 @@
                                                         <th data-sortable="true">سانس</th>
                                                         <th data-sortable="true">تاریخ</th>
                                                         <th data-sortable="true">ویرایش</th>
+                                                        <th data-sortable="true">وضعیت</th>
                                                         <th data-sortable="true">حذف</th>
                                                     </tr>
                                                     </thead>
@@ -108,6 +109,19 @@
                                                             <td>
                                                                 <a href="{{ route('senses.edit', [$service->id, $sens->id]) }}"
                                                                    class="btn btn-outline-theme">ویرایش</a>
+                                                            </td>
+                                                            <td class="nav-item">
+                                                                <a class="nav-link active text-green "
+                                                                   @if($sens->status == 1)
+                                                                       href="{{route('senses.toggle',$sens->id)}}"
+                                                                   disabled @endif
+                                                                   href="{{route('senses.toggle',$sens->id)}}">
+                                                                    @if($sens->status == 1)
+                                                                        فعال
+                                                                    @else
+                                                                        <span class="text-warning">غیرفعال</span>
+                                                                    @endif
+                                                                </a>
                                                             </td>
                                                             <td>
                                                                 <form method="post"

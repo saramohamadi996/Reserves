@@ -94,7 +94,7 @@ class SensController extends Controller
 
     public function update($service_id, int $sens_id, Request $value)
     {
-        $sens = Sens::query()->findOrFail($sens_id);
+        $sens = $this->sens_repository->getById($sens_id);
         $sens->update($value->all()+ ['service_id' => $sens->service_id]);
         if ($sens->wasChanged(['day','start','end','start_at','expire_at','day'])){
             $sens->reserves()->delete();

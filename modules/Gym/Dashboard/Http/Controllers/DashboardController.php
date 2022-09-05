@@ -8,10 +8,18 @@ use Gym\Card\Models\Card;
 use Gym\Service\Models\Service;
 use Gym\User\Models\User;
 use Gym\User\Models\Wallet;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    /**
+     * Filter by time period.
+     * @param Request $request
+     * @return Application|Factory|View
+     */
     public function index(Request $request)
     {
         $start = Carbon::parse($request->start_date);
@@ -64,7 +72,12 @@ class DashboardController extends Controller
         return view('Dashboard::Statistics.index', compact('cards', 'credits', 'debits', 'staffs', 'services'));
     }
 
-    public function staffRegisteredUsersDetail(Request $request, User $user)
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return string
+     */
+    public function staffRegisteredUsersDetail(Request $request, User $user): string
     {
         $start = Carbon::parse($request->start_date);
         $end = Carbon::parse($request->end_date);
@@ -77,11 +90,16 @@ class DashboardController extends Controller
         return view('Dashboard::Statistics.staffs-details', compact('registered_users'))->render();
     }
 
-    public function cardDetail(Request $request, Card $card)
+    /**
+     * Display details of bank deposits.
+     * @param Request $request
+     * @param Card $card
+     * @return string
+     */
+    public function cardDetail(Request $request, Card $card): string
     {
         $start = Carbon::parse($request->start_date);
         $end = Carbon::parse($request->end_date);
-
         $wallets = $card->wallets()
             ->whereDate('date_payment', ">=", $start)
             ->whereDate('date_payment', "<=", $end)
@@ -92,11 +110,15 @@ class DashboardController extends Controller
         return view('Dashboard::Statistics.card-details', compact('wallets'))->render();
     }
 
-    public function walletDetail(Request $request)
+    /**
+     * Display details of users' wallet transactions.
+     * @param Request $request
+     * @return string
+     */
+    public function walletDetail(Request $request): string
     {
         $start = Carbon::parse($request->start_date);
         $end = Carbon::parse($request->end_date);
-
         $wallets = Wallet::query()
             ->where('type', $request->type)
             ->whereDate('date_payment', ">=", $start)
@@ -107,7 +129,13 @@ class DashboardController extends Controller
         return view('Dashboard::Statistics.card-details', compact('wallets'))->render();
     }
 
-    public function service_detail(Request $request, Service $service)
+    /**
+     * Show details of services.
+     * @param Request $request
+     * @param Service $service
+     * @return string
+     */
+    public function service_detail(Request $request, Service $service): string
     {
         $start = Carbon::parse($request->start_date);
         $end = Carbon::parse($request->end_date);
@@ -119,6 +147,4 @@ class DashboardController extends Controller
         return view('Dashboard::Statistics.services-details',
             compact('orders', 'service'))->render();
     }
-
-
 }

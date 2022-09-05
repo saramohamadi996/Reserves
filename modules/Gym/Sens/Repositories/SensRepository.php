@@ -84,7 +84,12 @@ class SensRepository implements SensRepositoryInterface
         return true;
     }
 
-    public function createReserves(Sens $sens)
+    /**
+     * Store a newly created resource in storage.
+     * @param Sens $sens
+     * @return bool
+     */
+    public function createReserves(Sens $sens):bool
     {
         $start_at = Carbon::parse($sens->start_at);
         $expire_at = Carbon::parse($sens->expire_at);
