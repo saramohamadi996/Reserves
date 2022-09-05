@@ -19,7 +19,7 @@
                                                 {{--                                      <select class="livesearch form-control" id="user" name="livesearch"></select>--}}
                                                 <form action="" method="get" class="">
                                                     @csrf
-                                                    <div class="t-header-searchbox font-size-13">
+                                                    <div class="form-control col-12">
                                                         <input type="text" class="text" name="name">
                                                     </div>
                                                 </form>
@@ -91,7 +91,7 @@
                                                         <div>موجودی</div>
                                                         <div class="text-white text-opacity-50">
                                                             <i class="d-lg-none fas fa-lg fa-fw me-2 fa-caret-left"></i>
-                                                            {{number_format($user->balance)}}
+                                                            {{$user->balance}}
                                                             ریال
                                                         </div>
                                                     </div>

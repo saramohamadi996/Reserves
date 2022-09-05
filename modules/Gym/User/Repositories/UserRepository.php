@@ -22,9 +22,12 @@ class UserRepository implements UserRepositoryInterface
     private function fetchQueryBuilder(array $input = []): Builder
     {
         return User::query()
-            ->when(isset($input['name']), function (Builder $query) use ($input) {
-                $query->where('name', 'like', '%' . $input['name'] . '%');
-            });
+        ->when(isset($input['name']), function (Builder $query) use ($input) {
+        $query->where('name', 'like', '%' . $input['name'] . '%');
+    })
+        ->when(isset($input['mobile']), function (Builder $query) use ($input) {
+            $query->where('mobile', '%' . $input['mobile'] . '%');
+        });
     }
 
     /**

@@ -31,10 +31,11 @@
                                             {{jdate($cart->reserve->sens->end)->format("H:i")}}
                                         </div>
                                     </div>
-                                    <div class="col-4">{{jdate($cart->reserve->start_time)->format("Y/m/d")}}</div>
-                                    <div class="col-3 text-white fw-bold text-end">
+
+                                    <div class="col-4 text-white fw-bold text-end">
                                         {{number_format($cart->sens_price)}}
                                     </div>
+                                    <div class="col-3 text-end">{{jdate($cart->reserve->start_time)->format("m/d")}}</div>
 
                                     <div class="col-1 text-white fw-bold text-end">
                                         <a href="javascript:;" data-id="{{$cart->id}}" class="cart-delete">
@@ -83,16 +84,20 @@
                             </a>
                         </li>
                     </ul>
+                    @if($carts->sum('sens_price') > 0)
                     <form action="{{route('orders.store')}}" id="submit-cart" method="post">
-                        <input type="hidden" name="user" value="{{$user->id}}">
-                        @csrf
-
-                        <button class="btn btn-outline-theme rounded-0 w-150px">
-                            <i class="bi bi-cart-plus fa-lg"></i><br/>
-                            ثبت سفارش
+                            <input type="hidden" name="user" value="{{$user->id}}">
+                            @csrf
+                                <button class="btn btn-outline-theme rounded-0 w-150px">
+                                    <i class="bi bi-cart-plus fa-lg"></i><br/>ثبت سفارش
+                                </button>
+                        </form>
+                    @else
+                        <button class="btn btn-outline-theme rounded-0 w-150px" disabled>
+                            <i class="bi bi-cart-plus fa-lg"></i><br/>ثبت سفارش
                         </button>
+                    @endif
 
-                    </form>
                 </div>
             </div>
         </div>

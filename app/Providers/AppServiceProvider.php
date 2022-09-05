@@ -8,8 +8,10 @@ use Gym\Category\Repositories\CategoryRepository;
 use Gym\Category\Repositories\Interfaces\CategoryRepositoryInterface;
 use Gym\PriceGroup\Repositories\Interfaces\PriceGroupRepositoryInterface;
 use Gym\PriceGroup\Repositories\PriceGroupRepository;
-use Gym\Reserve\Repositories\Interfaces\orderRepositoryInterface;
+use Gym\Reserve\Repositories\Interfaces\OrderRepositoryInterface;
+use Gym\Reserve\Repositories\Interfaces\ProductRepositoryInterface;
 use Gym\Reserve\Repositories\OrderRepository;
+use Gym\Reserve\Repositories\ProductRepository;
 use Gym\Sens\Repositories\Interfaces\SensRepositoryInterface;
 use Gym\Sens\Repositories\SensRepository;
 use Gym\Service\Repositories\Interfaces\ServiceRepositoryInterface;
@@ -37,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WalletRepositoryInterface::class, WalletRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
+        $this->app->bind(CardRepositoryInterface::class, CardRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
     }
 

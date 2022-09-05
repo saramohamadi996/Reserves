@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -37,9 +38,8 @@ class UserController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
-        $input = $request->only('name');
+        $input = $request->all();
         $users=$this->user_repository->paginate($input);
-
         return view("User::Admin.index", compact('users'));
     }
 
