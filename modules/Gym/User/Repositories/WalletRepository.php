@@ -72,8 +72,8 @@ class WalletRepository implements WalletRepositoryInterface
 
         $wallet->description = $value['description'];
         $wallet->date_payment = $value['date_payment'];
-        $wallet->amount = $value['amount'];
-        (int)Str::remove(',', $wallet->amount);
+        $wallet->amount = (int)Str::remove(',', $value['amount']);
+
         $wallet->save();
         try {
             $wallet->save();

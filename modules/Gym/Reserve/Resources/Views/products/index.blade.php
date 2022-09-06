@@ -38,11 +38,11 @@
                             </div>
                         </div>
                         <div class="time col-1" id="time">00:00</div>
-                        <div class="nav col-6">
-                            <div class="nav-item me-1 col-2 p-0">
+                        <div class="nav col-12">
+                            <div class="nav-item me-1 col-3 p-0">
                                 <select class="livesearch form-control" id="user" name="livesearch"></select>
                             </div>
-                            <div class="nav-item me-1 col-2 p-0">
+                            <div class="nav-item me-1 col-3 p-0">
                                 <select class="form-control" id="category">
                                     <option value="">انتخاب گروه</option>
                                     @foreach ($categories  as $category)

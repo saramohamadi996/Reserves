@@ -38,6 +38,7 @@ interface SensRepositoryInterface
      */
     public function store($product_id, $value): bool;
 
+
     /**
      * Store a newly created resource in storage.
      * @param Sens $sens

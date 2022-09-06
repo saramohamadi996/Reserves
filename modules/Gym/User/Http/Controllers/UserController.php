@@ -12,7 +12,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -32,15 +31,49 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function selectSearch(Request $request): JsonResponse
+    {
+        $users = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $users = User::select("id", "name", "mobile")
+                ->where('name', 'LIKE', "%$search%")
+                ->orWhere('mobile','LIKE','%'.(int)$search.'%')
+                ->get();
+        }
+        return response()->json($users);
+    }
+//
+//    public function index(ProductAllRequest $request)
+//    {
+//        $category_id=[];
+//        $categories = $this->category_repository->getAll($category_id);
+//        $input = $request->only(['title', 'priority', 'price', 'code_product', 'seller_id', 'category_id',]);
+//        $products = $this->product_repository->paginate($input);
+//        $sellers = $this->user_repository->getSellers();
+//
+//        $this->authorize('index', $products);
+//        return view('Products::index', compact('products', 'categories','sellers' ));
+//    }
+
+    /**
      * Display a listing of the resource.
      * @param Request $request
      * @return Application|Factory|View
      */
     public function index(Request $request): View|Factory|Application
     {
-        $input = $request->all();
-        $users=$this->user_repository->paginate($input);
-        return view("User::Admin.index", compact('users'));
+        $input = $request->only('name');
+        $users = $this->user_repository->getAll();
+        $user=$this->user_repository->paginate($input);
+
+        if ($request->ajax()) {
+            return view('User::Admin.pagiresult',compact('users', $input));
+        }
+        return view("User::Admin.index", compact('users', 'user'));
     }
 
     /**

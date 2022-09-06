@@ -90,7 +90,7 @@
                                                         <div>موجودی</div>
                                                         <div class="text-white text-opacity-50">
                                                             <i class="d-lg-none fas fa-lg fa-fw me-2 fa-caret-left"></i>
-                                                            {{$user->balance}}
+                                                            {{number_format($user->balance)}}
                                                             ریال
                                                         </div>
                                                     </div>

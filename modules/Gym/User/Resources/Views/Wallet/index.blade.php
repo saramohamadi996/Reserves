@@ -39,7 +39,7 @@
                                                         <td>
                                                             @lang($wallet->type)
                                                         </td>
-                                                        <td>{{$wallet->amount}}
+                                                        <td>{{number_format($wallet->amount)}}
                                                             ریال
                                                         </td>
                                                         <td>

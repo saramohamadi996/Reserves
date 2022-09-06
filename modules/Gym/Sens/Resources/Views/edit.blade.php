@@ -26,7 +26,7 @@
 
                     <div class="col-4 me-auto ms-auto">
                         <label class="form-label"> انتخاب تاریخ شروع </label>
-                        <input type="text" name="start_at" id="start_at"
+                        <input type="text" id="start_at"
                                autocomplete="off" value="{{jdate($sens->start_at)->format("Y/m/d")}}"
                                class="form-control @error('start_at') is-invalid @enderror"/>
                         <input type="hidden" id="started_at2" name="start_at" value="{{$sens->start_at}}">
@@ -55,7 +55,7 @@
 
                     <div class="col-4 me-auto ms-auto">
                         <label class="form-label"> انتخاب تاریخ پایان </label>
-                        <input type="text" name="expire_at" id="expire_at"
+                        <input type="text" id="expire_at"
                                autocomplete="off" value="{{jdate($sens->expire_at)->format("Y/m/d")}}"
                                class="form-control @error('expire_at') is-invalid @enderror"/>
                         <input type="hidden" id="expired_at2" name="expire_at" value="{{$sens->expire_at}}"/>
@@ -128,6 +128,47 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+        $('.timepicker-ui-input').mdtimepicker({
+            is24Hour: true,
+            timeFormat: 'hh:mm',
+            format: 'hh:mm',
+            readOnly: false,
+        });
+
+        $('.select_all').on('change', function () {
+            $('.checkbox').prop('checked', $(this).prop("checked"));
+        });
+        $('.checkbox').change(function () { //".checkbox" change
+            if ($('.checkbox:checked').length == $('.checkbox').length) {
+                $('.select_all').prop('checked', true);
+            } else {
+                $('.select_all').prop('checked', false);
+            }
+        });
+
+        $("#start_at").persianDatepicker({
+            formatDate: "YYYY/0M/0D",
+            onSelect: () => {
+                let date = $("#start_at").attr("data-gdate");
+                console.log(date);
+                $("#started_at2").val(date);
+            }
+        });
+        $("#expire_at").persianDatepicker({
+            formatDate: "YYYY/0M/0D",
+            onSelect: () => {
+                let date = $("#expire_at").attr("data-gdate");
+                console.log(date);
+
+                $("#expired_at2").val(date);
+            }
+        });
+    </script>
+@endsection
+
 
 @section('js')
     <script type="text/javascript">
