@@ -1,0 +1,7 @@
+{
+    "platform": "laravel",
+    "app": "reserve",
+    "laravel": {
+        "phpVersion": "8.0"
+    }
+}
