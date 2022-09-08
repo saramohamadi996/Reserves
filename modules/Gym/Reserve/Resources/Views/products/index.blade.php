@@ -104,7 +104,7 @@
             placeholder: 'انتخاب کاربر',
             language: {
                 noResults: function () {
-                    return $('<a href="/user_register" class="btn btn-outline-success">افزودن کاربر</a>');
+                    return $('<a href="/user_register" class="btn btn-outline-success">افزودن </a>');
                 }
             },
             ajax: {

@@ -66,14 +66,10 @@ class UserController extends Controller
      */
     public function index(Request $request): View|Factory|Application
     {
-        $input = $request->only('name');
-        $users = $this->user_repository->getAll();
-        $user=$this->user_repository->paginate($input);
+        $input = $request->all();
+        $users=$this->user_repository->paginate($input);
 
-        if ($request->ajax()) {
-            return view('User::Admin.pagiresult',compact('users', $input));
-        }
-        return view("User::Admin.index", compact('users', 'user'));
+        return view("User::Admin.index", compact('users'));
     }
 
     /**

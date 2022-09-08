@@ -28,7 +28,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+//        $this->middleware('guest');
     }
 
     /**
@@ -40,32 +40,21 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
-            'mobile' => ['nullable', 'string', 'min:9' , 'max:14', 'unique:users', new ValidMobile()],
+            'mobile' => ['required', 'string', 'min:9' , 'max:14', 'unique:users', new ValidMobile()],
             'password' => ['required', 'string', 'confirmed'],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
-     * @param  array  $data
-     * @return \Illuminate\Http\RedirectResponse
      */
-    protected function create(array $data): \Illuminate\Http\RedirectResponse
+    public function create(array $data)
     {
-//        return User::create([
-//            'name' => $data['name'],
-//            'username' => $data['username'],
-//            'mobile' => $data['mobile'],
-//            'password' => Hash::make($data['password']),
-//        ]);
-        $users= User::create([
+        $users = User::create([
             'name' => $data['name'],
-            'username' => $data['username'],
             'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
         ]);
-        dd($users);
         return redirect()->route('users.index', compact('users'));
     }
 

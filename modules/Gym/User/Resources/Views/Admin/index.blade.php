@@ -17,8 +17,7 @@
                                         <div class="col-lg-3 ms-lg-auto me-lg-auto">
                                             <div class="nav-item">
                                                 <form action="" method="get" class="">
-                                                    @csrf
-                                                    <input type="text" class="form-control col-12" name="mobile"
+                                                    <input type="text" class="form-control col-12" name="q"
                                                            placeholder="جستجو">
                                                 </form>
                                             </div>

@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('staff_id');
             $table->string('name')->nullable()->index();
-            $table->string('username', 50)->unique()->index();
+//            $table->string('username', 50)->unique()->index();
             $table->string('email')->unique()->nullable()->index();
             $table->string('mobile', 14)->unique()->index();
             $table->enum('role',User::$roles)->default('user');

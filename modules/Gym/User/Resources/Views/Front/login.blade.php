@@ -11,12 +11,12 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">نام کاربری یا شماره موبایل<span class="text-danger">*</span></label>
-                        <input id="email" type="text" autocomplete="off"
+                        <input id="mobile" type="text" autocomplete="off"
                                class="form-control form-control-lg bg-white bg-opacity-5
-                         @error('email') is-invalid @enderror" name="email"
-                               placeholder="نام کاربری یا شماره موبایل" value="{{ old('email') }}" required
+                         @error('mobile') is-invalid @enderror" name="mobile"
+                               placeholder=" شماره موبایل" value="{{ old('mobile') }}" required
                                autofocus>
-                        @error('email')
+                        @error('mobile')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

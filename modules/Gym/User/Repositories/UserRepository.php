@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
 
 class UserRepository implements UserRepositoryInterface
@@ -22,11 +21,9 @@ class UserRepository implements UserRepositoryInterface
     private function fetchQueryBuilder(array $input = []): Builder
     {
         return User::query()
-        ->when(isset($input['mobile']), function (Builder $query) use ($input) {
-        $query->where('mobile', 'like', '%' . $input['mobile'] . '%');
-    })
-        ->when(isset($input['name']), function (Builder $query) use ($input) {
-        $query->where('name', 'like', '%' . $input['name'] . '%');
+            ->when(isset($input['q']), function (Builder $query) use ($input) {
+                $query->where('mobile', 'like', '%' . $input['q'] . '%')
+                ->orWhere('name', 'like', '%' . $input['q'] . '%');
     });
     }
 
@@ -36,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
      * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function paginate(array $input = [], int $per_page = 10): LengthAwarePaginator
+    public function paginate(array $input = [], int $per_page = 20): LengthAwarePaginator
     {
         return $this->fetchQueryBuilder($input)->paginate($per_page);
     }

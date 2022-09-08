@@ -20,15 +20,15 @@
                         @endif
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">نام کاربری<span class="text-danger">*</span></label>
-                        <input type="text" autocomplete="off" name="username"
-                               class="form-control form-control-lg bg-white bg-opacity-5"
-                               placeholder="نام کاربری" value="{{old('username')}}" />
-                        @if ($errors->has('username'))
-                            <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-                        @endif
-                    </div>
+{{--                    <div class="mb-3">--}}
+{{--                        <label class="form-label">نام کاربری<span class="text-danger">*</span></label>--}}
+{{--                        <input type="text" autocomplete="off" name="username"--}}
+{{--                               class="form-control form-control-lg bg-white bg-opacity-5"--}}
+{{--                               placeholder="نام کاربری" value="{{old('username')}}" />--}}
+{{--                        @if ($errors->has('username'))--}}
+{{--                            <span class="text-danger text-left">{{ $errors->first('username') }}</span>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
 
                     <div class="mb-3">
                         <label class="form-label">شماره موبایل </label>
@@ -37,6 +37,26 @@
                                placeholder="091212345678" value="{{old('mobile')}}"/>
                         @if ($errors->has('mobile'))
                             <span class="text-danger text-left">{{ $errors->first('mobile') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">پسورد <span class="text-danger">*</span></label>
+                        <input type="password" name="password"
+                               class="form-control form-control-lg bg-white bg-opacity-5"
+                               value="{{ old('password') }}" />
+                        @if ($errors->has('password'))
+                            <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">تایید رمز عبور <span class="text-danger">*</span></label>
+                        <input type="password" name="password_confirmation"
+                               class="form-control form-control-lg bg-white bg-opacity-5"
+                               value="{{ old('password_confirmation') }}" />
+                        @if ($errors->has('password_confirmation'))
+                            <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>
                         @endif
                     </div>
 

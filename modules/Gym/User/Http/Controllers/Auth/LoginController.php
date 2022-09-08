@@ -18,6 +18,11 @@ class LoginController extends Controller
      */
     protected string $redirectTo = '/users';
 
+    public function username()
+    {
+        return 'mobile';
+    }
+
     /**
      * Create a new controller instance.
      * @return void
@@ -27,20 +32,20 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    protected function credentials(Request $request): array
-    {
-        if(is_numeric($request->get('email'))){
-            return ['mobile'=>$request->get('email'),'password'=>$request->get('password')];
-        }
-        elseif (filter_var($request->get('email'))) {
-            return ['email' => $request->get('email'), 'password'=>$request->get('password')];
-        }
-        return ['username' => $request->get('email'), 'password'=>$request->get('password')];
-    }
+//    /**
+//     * @param Request $request
+//     * @return array
+//     */
+//    protected function credentials(Request $request): array
+//    {
+//        if(is_numeric($request->get('email'))){
+//            return ['mobile'=>$request->get('email'),'password'=>$request->get('password')];
+//        }
+//        elseif (filter_var($request->get('email'))) {
+//            return ['email' => $request->get('email'), 'password'=>$request->get('password')];
+//        }
+////        return ['username' => $request->get('email'), 'password'=>$request->get('password')];
+//    }
 
     /**
      * @return Factory|View|Application

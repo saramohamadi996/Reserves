@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(["namespace" => "Gym\Category\Http\Controllers",
-    'middleware' => ['web']
+    'middleware' => ['web','auth']
 ], function () {
     Route::get('categories', 'CategoryController@index')->name('categories.index');
     Route::get('toggle/{category}/toggle', 'CategoryController@toggle')->name('categories.toggle');

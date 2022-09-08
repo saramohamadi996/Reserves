@@ -23,7 +23,7 @@ interface UserRepositoryInterface
      * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function paginate(array $input = [], int $per_page = 10): LengthAwarePaginator;
+    public function paginate(array $input = [], int $per_page = 20): LengthAwarePaginator;
 
     /**
      * @param $id

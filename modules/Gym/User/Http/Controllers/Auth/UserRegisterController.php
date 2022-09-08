@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 
 class UserRegisterController extends Controller
 {
@@ -22,9 +23,9 @@ class UserRegisterController extends Controller
         $users= User::create([
             'staff_id' => auth()->id(),
             'name' => $data['name'],
-            'username' => $data['username'],
+//            'username' => $data['username'],
             'mobile' => $data['mobile'],
-            'password' => 123456,
+            'password' => Hash::make($data['password']),
         ]);
         return redirect()->route('users.index', compact('users'));
     }

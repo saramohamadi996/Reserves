@@ -18,8 +18,9 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
+//            'username' => 'required|string|max:255|unique:users',
             'mobile' => 'required|string|min:9|max:14|unique:users', new ValidMobile(),
+            'password'=>'required|confirmed',
         ];
     }
 

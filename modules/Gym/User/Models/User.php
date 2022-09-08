@@ -36,14 +36,14 @@ class User extends Authenticatable
 //     */
 //    protected $table = ['users'];
 
-    /**
-     * The attributes that are mass assignable.
-     * @var array
-     */
-    protected $fillable = [
-        'staff_id', 'name', 'username', 'email', 'mobile', 'role', 'status'
-    ];
-
+//    /**
+//     * The attributes that are mass assignable.
+//     * @var array
+//     */
+//    protected $fillable = [
+//        'staff_id', 'name', 'username', 'email', 'mobile', 'role', 'status'
+//    ];
+protected  $guarded=[];
     /**
      * The attributes that should be hidden for arrays.
      * @var array
@@ -206,7 +206,7 @@ class User extends Authenticatable
             'mobile' => '09100000000',
             'password' => 'admin',
             'name' => 'Admin',
-            'username' => 'admin',
+//            'username' => 'admin',
         ],
         [
             'staff_id' => 1,
@@ -214,7 +214,7 @@ class User extends Authenticatable
             'mobile' => '09120000000',
             'password' => 'staff',
             'name' => 'Staff',
-            'username' => 'staff',
+//            'username' => 'staff',
         ],
         [
             'staff_id' => 1,
@@ -222,7 +222,7 @@ class User extends Authenticatable
             'mobile' => '091230000000',
             'password' => 'user',
             'name' => 'User',
-            'username' => 'user',
+//            'username' => 'user',
         ]
     ];
 }

@@ -20,15 +20,15 @@
                         @endif
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">نام کاربری<span class="text-danger">*</span></label>
-                        <input type="text" autocomplete="off" name="username"
-                               class="form-control form-control-lg bg-white bg-opacity-5"
-                               placeholder="نام کاربری" value="{{old('username')}}" />
-                        @if ($errors->has('username'))
-                            <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-                        @endif
-                    </div>
+{{--                    <div class="mb-3">--}}
+{{--                        <label class="form-label">نام کاربری<span class="text-danger">*</span></label>--}}
+{{--                        <input type="text" autocomplete="off" name="username"--}}
+{{--                               class="form-control form-control-lg bg-white bg-opacity-5"--}}
+{{--                               placeholder="نام کاربری" value="{{old('username')}}" />--}}
+{{--                        @if ($errors->has('username'))--}}
+{{--                            <span class="text-danger text-left">{{ $errors->first('username') }}</span>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
 
                     <div class="mb-3">
                         <label class="form-label">شماره موبایل </label>
