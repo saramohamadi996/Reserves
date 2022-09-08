@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace' => 'Gym\Dashboard\Http\Controllers', 'middleware' => ['web']], function () {
+Route::group(['namespace' => 'Gym\Dashboard\Http\Controllers', 'middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('index');
     Route::get('staffRegisteredUsersDetail/{user}', 'DashboardController@staffRegisteredUsersDetail')
         ->name('staffRegisteredUsersDetail');

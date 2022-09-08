@@ -42,9 +42,9 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3">ورود</button>
-                    <div class="text-center text-white text-opacity-50">
-                        حساب کاربری ندارید؟ <a href="{{url('/register')}}">ثبت نام</a>.
-                    </div>
+{{--                    <div class="text-center text-white text-opacity-50">--}}
+{{--                        حساب کاربری ندارید؟ <a href="{{url('/register')}}">ثبت نام</a>.--}}
+{{--                    </div>--}}
                 </form>
             </div>
         </div>

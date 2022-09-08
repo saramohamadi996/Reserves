@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(["namespace" => "Gym\Card\Http\Controllers",
-    'middleware' => ['web']
+    'middleware' => ['web', 'auth']
 ], function () {
     Route::get('cards', 'CardController@index')->name('cards.index');
     Route::get('cards/toggle/{card}/toggle', 'CardController@toggle')->name('cards.toggle');
